@@ -30,6 +30,12 @@
 #define ENEMYBULLET_SIZE_CHANGE		(0.06f)		// エフェクトサイズチェンジ
 #define ENEMYBULLET_ALPHA_CHANGE	(0.08f)		// エフェクトαチェンジ
 
+
+// ホーミング
+#define ENEMYBULLET_VEC_POWER		(0.5f)		// 誘導力
+#define ENEMYBULLET_HOMING_LENGTH	(50.0f)
+#define ENEMYBULLET_HOMING_UPDATE	(3)
+
 // テクスチャ内分割数
 #define TEXTURE_PATTERN_DIVIDE_X_ENEMYBULLET	(5)
 #define TEXTURE_PATTERN_DIVIDE_Y_ENEMYBULLET	(15)
@@ -60,14 +66,17 @@ typedef struct
 	int					nTex;
 	int					nAnimeCount;
 	int					nAnimePattern;
+	int					nType;
 
 	float				fMoveSpeed;				// 移動速度
 	float				fHAngle;
 	float				fVAngle;
+	float				fVecPower;
 	
 	bool				bUse;					// 使用フラグ
 	bool				bEnemy;
 	bool				bVertex;
+	bool				bHoming;
 
 	// シャドウ用
 	int					nIdxShadow;
@@ -76,17 +85,21 @@ typedef struct
 	D3DXCOLOR			colShadow;
 }ENEMYBULLET;
 
+enum
+{
+	ENEMYBULLET_NORMAL,
+	ENEMYBULLET_HOMING,
+	ENEMYBULLET_NORMAL_HOMING
+};
+
 
 // システムの最大数
 #define	ENEMYBULLET_SYS_MAX			(500)
-
-#define	ENEMYBULLET_SYS_TIME			(50)
+#define	ENEMYBULLET_SYS_TIME		(50)
 #define	ENEMYBULLET_SYS_SPLIT		(40)
-
-#define	ENEMYBULLET_SYS_WAVE			(1.5f)
-
+#define	ENEMYBULLET_SYS_WAVE		(1.5f)
 #define ENEMYBULLET_SYS_SPEED		(3.0f)
-#define ENEMYBULLET_SYS_COOLDOWN		(500)
+#define ENEMYBULLET_SYS_COOLDOWN	(500)
 
 // ３Ｄポリゴン頂点フォーマット
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -129,6 +142,7 @@ void UpdateEnemybullet(void);
 void DrawEnemybullet(void);
 void SetEnemybullet(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2);
 void SetSysEnemybullet(int nType, int nTex, int nSize, int nColor, int nSplitint, float fSpeed, float fWave, float fAngle, D3DXVECTOR3 vecPos);
+void SetHomingEnemybullet(D3DXVECTOR3 posSet, float vecPower);
 ENEMYBULLET *GetEnemybullet(int no);
 void SetEndFlag(void);
 

@@ -43,6 +43,8 @@
 
 #define BULLETQUA_FALSE_COUNT		(500)		// 消滅カウント
 
+#define BULLETQUA_SIZE_CHANGE		(0.06f)		// エフェクトサイズチェンジ
+#define BULLETQUA_ALPHA_CHANGE		(0.08f)		// エフェクトαチェンジ
 
 // バレットテスト用
 #define BULLETQUA_TAG_VECTOR		(5000)

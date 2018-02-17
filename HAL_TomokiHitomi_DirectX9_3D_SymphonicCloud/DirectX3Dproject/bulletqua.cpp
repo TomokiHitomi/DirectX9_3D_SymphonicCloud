@@ -259,7 +259,12 @@ void UpdateBulletQua(void)
 			SetColorShadow(bulletqua->nIdxShadow, bulletqua->colShadow);
 
 			// エフェクト設置
-			//SetEffect(bulletqua->nTex, bulletqua->vec2Size, bulletqua->colorBulletQua, bulletqua->posBulletQua, bulletqua->vec2Size.x / 60, bulletqua->vec2Size.x / 80);
+			SetEffect(0,
+				bulletqua->vec2Size,
+				bulletqua->colorBulletQua,
+				bulletqua->posBulletQua,
+				BULLETQUA_SIZE_CHANGE,
+				BULLETQUA_ALPHA_CHANGE);
 
 			// 使用カウントで透過→初期化
 			if (bulletqua->nUseCount > BULLETQUA_FALSE_COUNT)

@@ -180,6 +180,7 @@ void UpdateTitlemenu(void)
 			case TITLE_MENU_START:
 				SetFade(FADE_OUT, STAGE_GAME);
 				SetSe(2, E_DS8_FLAG_NONE, true);
+				titlemenusys->bSelect = true;		// Œˆ’èŒã‚Íˆ—‚ðŽ~‚ß‚é
 				break;
 			case TITLE_MENU_TUTORIAL:
 				SetSe(14, E_DS8_FLAG_NONE, true);
@@ -193,9 +194,9 @@ void UpdateTitlemenu(void)
 			case TITLE_MENU_EXIT:
 				SetSe(2, E_DS8_FLAG_NONE, true);
 				SetEndFlag();
+				titlemenusys->bSelect = true;		// Œˆ’èŒã‚Íˆ—‚ðŽ~‚ß‚é
 				break;
 			}
-			titlemenusys->bSelect = true;		// Œˆ’èŒã‚Íˆ—‚ðŽ~‚ß‚é
 		}
 
 		// ESC‚ÅEXIT‚ð‘I‘ð

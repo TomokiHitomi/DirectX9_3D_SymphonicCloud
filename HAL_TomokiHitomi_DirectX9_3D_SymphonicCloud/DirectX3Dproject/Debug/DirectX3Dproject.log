@@ -1,3 +1,30 @@
-﻿  pausemenu.cpp
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\20180213\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\20180213\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)
+﻿  enemybullet.cpp
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.cpp(612): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.cpp(617): warning C4244: '=': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.cpp(657): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
+  コードを生成中...
+  コンパイル中...
+  main.cpp
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\main.cpp(160): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\main.cpp(324): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\main.cpp(325): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+  enemy.cpp
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(101): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(141): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(286): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(518): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(528): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: 'fscanf' の宣言を確認してください
+  checkhit.cpp
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+  コードを生成中...
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)

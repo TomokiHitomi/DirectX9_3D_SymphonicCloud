@@ -1,143 +1,36 @@
-﻿  Light.cpp
-  bullet.cpp
-bullet.cpp(1227): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
-  bulletqua.cpp
-bulletqua.cpp(589): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
-  calculate.cpp
-calculate.cpp(52): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
-calculate.cpp(56): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
-  camera.cpp
-camera.cpp(119): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
-camera.cpp(288): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
-camera.cpp(507): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
-camera.cpp(538): warning C4101: 'enemy': ローカル変数は 1 度も使われていません。
+﻿  bulletqua.cpp
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
+bulletqua.cpp(594): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
   checkhit.cpp
-c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
-  c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
-  cloud.cpp
-  copyright.cpp
-  damageeffect.cpp
-  debugproc.cpp
-debugproc.cpp(76): warning C4838: 'float' から 'LONG' への変換には縮小変換が必要です
-debugproc.cpp(76): warning C4244: '初期化中': 'float' から 'LONG' への変換です。データが失われる可能性があります。
-debugproc.cpp(155): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: 'strcat' の宣言を確認してください
-debugproc.cpp(164): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: 'strcat' の宣言を確認してください
-debugproc.cpp(112): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(122): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(127): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(132): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(137): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(142): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(147): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-debugproc.cpp(151): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' の宣言を確認してください
-  effect.cpp
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
   enemy.cpp
-c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
-  c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
 enemy.cpp(101): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
 enemy.cpp(141): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
 enemy.cpp(286): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-enemy.cpp(506): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+enemy.cpp(532): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-enemy.cpp(516): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+enemy.cpp(542): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1193): note: 'fscanf' の宣言を確認してください
-  enemy_boss.cpp
-enemy_boss.cpp(79): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-enemy_boss.cpp(109): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-enemy_boss.cpp(191): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-enemy_boss.cpp(157): warning C4101: 'pD3DXMat': ローカル変数は 1 度も使われていません。
-  enemy_normal.cpp
-enemy_normal.cpp(82): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-enemy_normal.cpp(112): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-enemy_normal.cpp(200): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-enemy_normal.cpp(166): warning C4101: 'pD3DXMat': ローカル変数は 1 度も使われていません。
-enemy_normal.cpp(247): warning C4244: '引数': 'float' から 'DWORD' への変換です。データが失われる可能性があります。
-  enemybullet.cpp
-c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
-  c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
-enemybullet.cpp(580): warning C4244: '引数': 'int' から 'FLOAT' への変換です。データが失われる可能性があります。
-  fade.cpp
-  field.cpp
-  gage.cpp
-  gageback.cpp
-  gagefream.cpp
-  コンパイル中...
-  gageselect.cpp
-  game.cpp
-  hiteffect.cpp
-  input.cpp
-input.cpp(331): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-input.cpp(717): warning C4244: '=': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-input.cpp(719): warning C4244: '=': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-input.cpp(720): warning C4244: '=': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-  joyconhelp.cpp
-  lockon.cpp
-  magic.cpp
-  magiccircle.cpp
-magiccircle.cpp(80): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-magiccircle.cpp(126): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-magiccircle.cpp(287): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-magiccircle.cpp(214): warning C4101: 'pD3DXMat': ローカル変数は 1 度も使われていません。
-  magiceffect.cpp
   main.cpp
-c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
-  c:\users\hitomi\documents\visual studio 2015\20180213\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
 main.cpp(160): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
 main.cpp(324): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
 main.cpp(325): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
-  meshcloud.cpp
-  minimap.cpp
-minimap.cpp(280): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  model.cpp
-model.cpp(166): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-model.cpp(243): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-model.cpp(396): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-model.cpp(356): warning C4101: 'pD3DXMat': ローカル変数は 1 度も使われていません。
-model.cpp(576): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-  parameter.cpp
-  pause.cpp
-  pausemenu.cpp
-  pointer.cpp
-  rank.cpp
-  ranking.cpp
-  result.cpp
-  コンパイル中...
-  reticle.cpp
-  shadow.cpp
-  skydome.cpp
-  skydomeeffect.cpp
-  stage.cpp
-  time.cpp
-  timefream.cpp
-  timeranking.cpp
-timeranking.cpp(273): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-timeranking.cpp(278): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-timeranking.cpp(303): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-timeranking.cpp(322): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1193): note: 'fscanf' の宣言を確認してください
-timeranking.cpp(356): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-  title.cpp
-  titlemenu.cpp
-  version.cpp
-  wall.cpp
   コード生成しています。
-  139 of 634 functions (21.9%) were compiled, the rest were copied from previous compilation.
+  5 of 637 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\20180213\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Release\DirectX3Dproject.exe
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\20180213\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Release\DirectX3Dproject.pdb (Full PDB)
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Release\DirectX3Dproject.exe
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Release\DirectX3Dproject.pdb (Full PDB)

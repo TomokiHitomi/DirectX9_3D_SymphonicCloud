@@ -30,6 +30,7 @@ void SetChangeCollarReticle(int no);
 // グローバル変数
 //*****************************************************************************
 RETICLE					reticleWk[RETICLE_MAX];
+RETICLE_SYS				reticleSysWk;
 
 // テクスチャへのポリゴン
 LPDIRECT3DTEXTURE9		pD3DTextureReticle[RETICLE_MAX];
@@ -40,6 +41,7 @@ LPDIRECT3DTEXTURE9		pD3DTextureReticle[RETICLE_MAX];
 HRESULT InitReticle(int type)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	RETICLE_SYS	*reticleSys = &reticleSysWk;
 	RETICLE *reticle = &reticleWk[0];
 
 	if (type == 0)
@@ -75,15 +77,20 @@ HRESULT InitReticle(int type)
 		if (i == RETICLE_CENTER)
 		{
 			reticle->size = D3DXVECTOR2(TEXTURE_RETICLE_SIZE_X, TEXTURE_RETICLE_SIZE_Y);
+			reticle->colorMagic = D3DXCOLOR(TEXTURE_RETICLE_R, TEXTURE_RETICLE_G, TEXTURE_RETICLE_B, TEXTURE_RETICLE_A);
 		}
 		else
 		{
 			reticle->size = D3DXVECTOR2(TEXTURE_RETICLE_CENTER_SIZE_X, TEXTURE_RETICLE_CENTER_SIZE_Y);
+			reticle->colorMagic = D3DXCOLOR(TEXTURE_RETICLE_R, TEXTURE_RETICLE_G, TEXTURE_RETICLE_B, 0.0f);
 		}
 
 		// 頂点情報の作成
 		MakeVertexReticle(i);
 	}
+
+	reticleSys->fColorAlpha = 0.0f;
+	reticleSys->bColorAlpha = true;
 
 	return S_OK;
 }
@@ -111,7 +118,10 @@ void UninitReticle(void)
 //=============================================================================
 void UpdateReticle(void)
 {
-	RETICLE *reticle = &reticleWk[0];
+	RETICLE		*reticle	= &reticleWk[0];
+	RETICLE_SYS	*reticleSys	= &reticleSysWk;
+	MAGIC		*magic = GetMagic(0);
+
 	for (int i = 0; i < RETICLE_MAX; i++, reticle++)
 	{
 		if (reticle->bUse)
@@ -127,11 +137,25 @@ void UpdateReticle(void)
 				reticle->rot.z += RETICLE_ROTATION_SPEED;
 				break;
 			}
-
 			reticle->rot.z = PiCalculate360(reticle->rot.z);// PIの誤差修正
+
 			if (GetStage() == STAGE_GAME)
 			{
 				reticle->colorMagic = GetMagicColor();			// マジックのカラーを取得して適用
+
+				if (magic->bActive && reticleSys->bColorAlpha && (i == RETICLE_1 || i == RETICLE_2))
+				{
+					reticleSys->fColorAlpha += TEXTURE_RETICLE_A_UP;
+					if (reticleSys->fColorAlpha > 1.0f)
+					{
+						reticleSys->fColorAlpha = 1.0f;
+						reticleSys->bColorAlpha = false;
+					}
+				}
+				if (reticleSys->bColorAlpha && (i == RETICLE_1 || i == RETICLE_2))
+				{
+					reticle->colorMagic.a = reticleSys->fColorAlpha;
+				}
 			}
 			else
 			{

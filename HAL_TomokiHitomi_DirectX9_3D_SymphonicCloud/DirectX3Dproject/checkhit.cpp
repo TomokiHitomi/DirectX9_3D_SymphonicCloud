@@ -67,6 +67,12 @@ void ChackHit(void)
 				{
 					if (enemybullet->bUse)
 					{
+						// BCの確認（ホーミング解除）
+						if (CheckHitBC(enemybullet->posEnemybullet, model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f), ENEMYBULLET_SIZE_X, ENEMYBULLET_HOMING_LENGTH))
+						{
+							enemybullet->bHoming = false;
+						}
+
 						// BCの確認
 						if (CheckHitBC(enemybullet->posEnemybullet, model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f), ENEMYBULLET_SIZE_X, MODEL_SIZE))
 						{
@@ -128,7 +134,7 @@ void ChackHit(void)
 					{
 						// BCの確認
 						if (CheckHitBC(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_HEIGHT, 0.0f),
-							model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_EYE, 0.0f),
+							model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f),
 							ENEMY_SIZE, MODEL_SIZE))
 						{
 							SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);

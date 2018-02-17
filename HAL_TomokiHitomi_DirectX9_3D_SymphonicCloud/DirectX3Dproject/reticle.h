@@ -28,7 +28,8 @@
 #define TEXTURE_RETICLE_R			(1.0f) // テクスチャカラー赤
 #define TEXTURE_RETICLE_G			(1.0f) // テクスチャカラー緑
 #define TEXTURE_RETICLE_B			(1.0f) // テクスチャカラー青
-#define TEXTURE_RETICLE_A			(1.0f) // テクスチャカラー青
+#define TEXTURE_RETICLE_A			(1.0f) // テクスチャカラーα
+#define TEXTURE_RETICLE_A_UP		(0.05f) // テクスチャカラー青
 
 #define TEXTURE_RETICLE_CHANGE_COLLAR		(0.005f) // テクスチャカラー変更速度
 
@@ -63,6 +64,12 @@ typedef struct
 
 
 }RETICLE;
+
+typedef struct
+{
+	float					fColorAlpha;			// 色α
+	bool					bColorAlpha;			// 色αフラグ
+}RETICLE_SYS;
 
 enum
 {

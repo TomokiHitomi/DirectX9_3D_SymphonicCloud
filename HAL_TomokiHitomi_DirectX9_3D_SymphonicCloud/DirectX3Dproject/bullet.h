@@ -39,8 +39,7 @@
 #define BULLET_TAG_VECTOR					(1500.0f)	// 弾道ベクトル用
 #define BULLET_NORMAL_EFFECT_SIZE_CHANGE	(0.06f)
 #define BULLET_NORMAL_EFFECT_ALPHA_CHANGE	(0.08f)
-//#define BULLET_NORMAL_DAMAGE				(2.0f)
-#define BULLET_NORMAL_DAMAGE				(20.0f)
+#define BULLET_NORMAL_DAMAGE				(2.0f)
 
 /************************* SPECIAL *************************/
 /* ファイアバレット */

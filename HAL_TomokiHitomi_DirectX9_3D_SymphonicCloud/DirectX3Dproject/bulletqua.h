@@ -145,6 +145,7 @@ typedef struct
 	int					nCoolDown;
 	int					nTex;
 	int					nBulletCount;
+	int					nIndex;
 
 	bool				bUse;
 	bool				bProcess;
@@ -171,7 +172,7 @@ void UpdateBulletQua(void);
 void DrawBulletQua(void);
 void SetBulletQua(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2);
 void SetEnemyBulletQua00(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2);
-void SetSysBulletQua(int nType, int nTex, int nSize, int nColor, int nSplitint, float fSpeed, float fWave, float fAngle, D3DXVECTOR3 vecPos);
+void SetSysBulletQua(int nIndex, int nType, int nTex, int nSize, int nColor, int nSplitint, float fSpeed, float fWave, float fAngle, D3DXVECTOR3 vecPos);
 BULLETQUA *GetBulletQua(int no);
 
 #endif

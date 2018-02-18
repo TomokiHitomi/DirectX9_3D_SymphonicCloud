@@ -25,7 +25,7 @@
 #define ENEMY_SIZE		(25.0f)
 
 #define ENEMY_HEIGHT	(30.0f)
-#define ENEMY_CENTER	(25.0f)
+#define ENEMY_CENTER	(28.0f)
 
 // エネミーのバレット発射位置
 #define ENEMY_BULLET_MUZZELE_HEIGHT	(35.0f)				// 高さ
@@ -43,7 +43,7 @@
 
 // エネミーのステータス
 #define ENEMY_STATUS_HP	(50.0f)
-#define ENEMY_STATUS_BOSS_HP	(600.0f)
+#define ENEMY_STATUS_BOSS_HP	(550.0f)
 
 typedef struct
 {

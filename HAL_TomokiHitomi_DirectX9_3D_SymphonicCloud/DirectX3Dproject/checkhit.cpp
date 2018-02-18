@@ -40,156 +40,174 @@ bool CheckHitRayToSphere(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, D3DXVECTOR3 pos
 //=============================================================================
 void ChackHit(void)
 {
-	MODEL *model;
-	ENEMY *enemy;
-	BULLET *bullet;
-	BULLETQUA *bulletqua;
-	ENEMYBULLET *enemybullet;
-	int *pCameraMode = GetCameraMode();
-	CAMERA *camera = GetCamera(*pCameraMode);
+	if (!GetEndFlag())
+	{
+		MODEL *model;
+		ENEMY *enemy;
+		BULLET *bullet;
+		BULLETQUA *bulletqua;
+		ENEMYBULLET *enemybullet;
+		int *pCameraMode = GetCameraMode();
+		CAMERA *camera = GetCamera(*pCameraMode);
 
 #ifdef _DEBUG
-	PrintDebugProc("【 CHECKHIT 】\n");
+		PrintDebugProc("【 CHECKHIT 】\n");
 #endif
-	int breakPoint;
-	breakPoint = 0;
-	// モデルとエネミーの当たり判定(BC)
-	model = GetModel(0);
-	for (int i = 0; i < MODEL_MAX; i++, model++)
-	{
-		// 使用しているモデルがあるかを確認
-		if (model->bUse)
+		int breakPoint;
+		breakPoint = 0;
+		// モデルとエネミーの当たり判定(BC)
+		model = GetModel(0);
+		for (int i = 0; i < MODEL_MAX; i++, model++)
 		{
-			if (model->nInvisibleCount <= 0)
+			// 使用しているモデルがあるかを確認
+			if (model->bUse)
 			{
-				enemybullet = GetEnemybullet(0);
-				for (int j = 0; j < ENEMYBULLET_MAX; j++, enemybullet++)
+				if (model->nInvisibleCount <= 0)
 				{
-					if (enemybullet->bUse)
+					enemybullet = GetEnemybullet(0);
+					for (int j = 0; j < ENEMYBULLET_MAX; j++, enemybullet++)
 					{
-						// BCの確認（ホーミング解除）
-						if (CheckHitBC(enemybullet->posEnemybullet, model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f), ENEMYBULLET_SIZE_X, ENEMYBULLET_HOMING_LENGTH))
+						if (enemybullet->bUse)
 						{
-							enemybullet->bHoming = false;
-						}
-
-						// BCの確認
-						if (CheckHitBC(enemybullet->posEnemybullet, model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f), ENEMYBULLET_SIZE_X, MODEL_SIZE))
-						{
-							SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);
-							model->fStatusHP -= 1.0f;
-							model->nInvisibleCount = MODEL_INVISIBLE_COUNT;
-							SetDamageeffect();
-							if (model->fStatusHP <= 0.0f)
+							// BCの確認（ホーミング解除）
+							if (CheckHitBC(enemybullet->posEnemybullet, model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f), ENEMYBULLET_SIZE_X, ENEMYBULLET_HOMING_LENGTH))
 							{
-								model->bUse = false;
-								ReleaseShadow(model->nIdxShadow);
-								SetClearFlag(false);
-								SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
-								SetFade(FADE_OUT, STAGE_RESULT);
+								enemybullet->bHoming = false;
 							}
-							// シャドウの無効化
-							ReleaseShadow(enemybullet->nIdxShadow);
-							InitStatusEnemybullet(j);
+
+							// BCの確認
+							if (CheckHitBC(enemybullet->posEnemybullet, model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f), ENEMYBULLET_SIZE_X, MODEL_SIZE))
+							{
+								SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);
+								model->fStatusHP -= 1.0f;
+								model->nInvisibleCount = MODEL_INVISIBLE_COUNT;
+								SetDamageeffect();
+								if (model->fStatusHP <= 0.0f)
+								{
+									model->bUse = false;
+									ReleaseShadow(model->nIdxShadow);
+									SetClearFlag(false);
+									SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
+									SetFade(FADE_OUT, STAGE_RESULT);
+								}
+								// シャドウの無効化
+								ReleaseShadow(enemybullet->nIdxShadow);
+								InitStatusEnemybullet(j);
+							}
+						}
+					}
+
+					bulletqua = GetBulletQua(0);
+					for (int j = 0; j < ENEMYBULLET_MAX; j++, bulletqua++)
+					{
+						if (bulletqua->bUse && bulletqua->bDraw)
+						{
+							// BCの確認
+							if (CheckHitBC(bulletqua->posBulletQua, model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_EYE, 0.0f), ENEMYBULLET_SIZE_X, MODEL_SIZE))
+							{
+								SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);
+								model->fStatusHP -= 1.0f;
+								model->nInvisibleCount = MODEL_INVISIBLE_COUNT;
+								SetDamageeffect();
+								if (model->fStatusHP <= 0.0f)
+								{
+									model->bUse = false;
+									ReleaseShadow(model->nIdxShadow);
+									SetClearFlag(false);
+									SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
+									SetFade(FADE_OUT, STAGE_RESULT);
+								}
+								bulletqua->bDraw = false;
+								// シャドウの無効化
+								ReleaseShadow(bulletqua->nIdxShadow);
+								InitStatusBulletQua(j);
+							}
 						}
 					}
 				}
 
-				bulletqua = GetBulletQua(0);
-				for (int j = 0; j < ENEMYBULLET_MAX; j++, bulletqua++)
+				enemy = GetEnemy(0);
+				for (int j = 0; j < ENEMY_MAX; j++, enemy++)
 				{
-					if (bulletqua->bUse && bulletqua->bDraw)
+					// 使用しているエネミーがあるかを確認
+					if (enemy->bUse)
 					{
-						// BCの確認
-						if (CheckHitBC(bulletqua->posBulletQua, model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_EYE, 0.0f), ENEMYBULLET_SIZE_X, MODEL_SIZE))
+						if (model->nInvisibleCount <= 0)
 						{
-							SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);
-							model->fStatusHP -= 1.0f;
-							model->nInvisibleCount = MODEL_INVISIBLE_COUNT;
-							SetDamageeffect();
-							if (model->fStatusHP <= 0.0f)
+							// BCの確認
+							if (CheckHitBC(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_HEIGHT, 0.0f),
+								model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f),
+								ENEMY_SIZE, MODEL_SIZE))
 							{
-								model->bUse = false;
-								ReleaseShadow(model->nIdxShadow);
-								SetClearFlag(false);
-								SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
-								SetFade(FADE_OUT, STAGE_RESULT);
-							}
-							bulletqua->bDraw = false;
-							// シャドウの無効化
-							ReleaseShadow(bulletqua->nIdxShadow);
-							InitStatusBulletQua(j);
-						}
-					}
-				}
-			}
-
-			enemy = GetEnemy(0);
-			for (int j = 0; j < ENEMY_MAX; j++, enemy++)
-			{
-				// 使用しているエネミーがあるかを確認
-				if (enemy->bUse)
-				{
-					if (model->nInvisibleCount <= 0)
-					{
-						// BCの確認
-						if (CheckHitBC(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_HEIGHT, 0.0f),
-							model->posModel + D3DXVECTOR3(0.0f, MODEL_CENTER, 0.0f),
-							ENEMY_SIZE, MODEL_SIZE))
-						{
-							SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);
-							model->fStatusHP -= 1.0f;
-							model->nInvisibleCount = MODEL_INVISIBLE_COUNT;
-							SetDamageeffect();
-							if (model->fStatusHP <= 0.0f)
-							{
-								model->bUse = false;
-								ReleaseShadow(model->nIdxShadow);
-								SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
-								SetClearFlag(false);
-								SetFade(FADE_OUT, STAGE_RESULT);
+								SetVoice(VOICE_ITTAA, E_DS8_FLAG_NONE, CONTINUITY_OFF);
+								model->fStatusHP -= 1.0f;
+								model->nInvisibleCount = MODEL_INVISIBLE_COUNT;
+								SetDamageeffect();
+								if (model->fStatusHP <= 0.0f)
+								{
+									model->bUse = false;
+									ReleaseShadow(model->nIdxShadow);
+									SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
+									SetClearFlag(false);
+									SetFade(FADE_OUT, STAGE_RESULT);
+								}
 							}
 						}
-					}
 
-					if (CheckHitBC(enemy->posEnemy, model->posModel, LOCKON_LENGTH, LOCKON_LENGTH))
-					{
-						D3DXVECTOR3 vecTemp = enemy->posEnemy - camera->posCameraAt;
-						float fLengthTemp = (sinf(VIEW_ANGLE / 2)) * D3DXVec3Length(&vecTemp);
-						fLengthTemp = fLengthTemp * LOCKON_RADIUS;
-						// レイとエネミーの当たり判定
-						if (CheckHitRayToSphere(camera->posCameraAt,
-							(camera->posCameraAt - camera->posCameraEye) / 100,
-							enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f),
-							fLengthTemp))
+						if (CheckHitBC(enemy->posEnemy, model->posModel, LOCKON_LENGTH, LOCKON_LENGTH))
 						{
-							breakPoint++;
-							if (enemy->bLockon)
+							D3DXVECTOR3 vecTemp = enemy->posEnemy - camera->posCameraAt;
+							float fLengthTemp = (sinf(VIEW_ANGLE / 2)) * D3DXVec3Length(&vecTemp);
+							fLengthTemp = fLengthTemp * LOCKON_RADIUS;
+							// レイとエネミーの当たり判定
+							if (CheckHitRayToSphere(camera->posCameraAt,
+								(camera->posCameraAt - camera->posCameraEye) / 100,
+								enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f),
+								fLengthTemp))
 							{
-								if (enemy->nModel == ENEMY_TYPE_BOSS)
-								{
-									SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f));
-								}
-								else
-								{
-									SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_BULLET_MUZZELE_HEIGHT, 0.0f));
-								}
-								ResetReleaseCountLockon(enemy->nIdxLockon);
-							}
-							else
-							{
-								if (CheckMagicModel(0, GetTypeMagic()))
+								breakPoint++;
+								if (enemy->bLockon)
 								{
 									if (enemy->nModel == ENEMY_TYPE_BOSS)
 									{
-										enemy->nIdxLockon = SetLockon(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f));
+										SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f));
 									}
 									else
 									{
-										enemy->nIdxLockon = SetLockon(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_BULLET_MUZZELE_HEIGHT, 0.0f));
+										SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_BULLET_MUZZELE_HEIGHT, 0.0f));
 									}
 									ResetReleaseCountLockon(enemy->nIdxLockon);
-									enemy->bLockon = true;
+								}
+								else
+								{
+									if (CheckMagicModel(0, GetTypeMagic()))
+									{
+										if (enemy->nModel == ENEMY_TYPE_BOSS)
+										{
+											enemy->nIdxLockon = SetLockon(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f));
+										}
+										else
+										{
+											enemy->nIdxLockon = SetLockon(enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_BULLET_MUZZELE_HEIGHT, 0.0f));
+										}
+										ResetReleaseCountLockon(enemy->nIdxLockon);
+										enemy->bLockon = true;
+									}
+								}
+							}
+							else
+							{
+								if (enemy->bLockon)
+								{
+									if (enemy->nModel == ENEMY_TYPE_BOSS)
+									{
+										SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f));
+									}
+									else
+									{
+										SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_BULLET_MUZZELE_HEIGHT, 0.0f));
+									}
+									enemy->bLockon = AddReleaseCountLockon(enemy->nIdxLockon);
 								}
 							}
 						}
@@ -208,80 +226,69 @@ void ChackHit(void)
 								enemy->bLockon = AddReleaseCountLockon(enemy->nIdxLockon);
 							}
 						}
-					}
-					else
-					{
-						if (enemy->bLockon)
-						{
-							if (enemy->nModel == ENEMY_TYPE_BOSS)
-							{
-								SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f));
-							}
-							else
-							{
-								SetPosLockon(enemy->nIdxLockon, enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_BULLET_MUZZELE_HEIGHT, 0.0f));
-							}
-							enemy->bLockon = AddReleaseCountLockon(enemy->nIdxLockon);
-						}
-					}
 
-					bool bSe12Flag = false;
-					bullet = GetBullet(0);
-					for (int k = 0; k < BULLET_MAX; k++, bullet++)
-					{
-						if (bullet->bUse && !bullet->bEnemy)
+						bool bSe12Flag = false;
+						bullet = GetBullet(0);
+						for (int k = 0; k < BULLET_MAX; k++, bullet++)
 						{
-							// BCの確認
-							if (CheckHitBC(
-								enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f),
-								bullet->posBullet, ENEMY_SIZE,
-								BULLET_SIZE_X))
+							if (bullet->bUse && !bullet->bEnemy)
 							{
-								if (bullet->nEffect == 0)
+								// BCの確認
+								if (CheckHitBC(
+									enemy->posEnemy + D3DXVECTOR3(0.0f, ENEMY_CENTER, 0.0f),
+									bullet->posBullet, ENEMY_SIZE,
+									BULLET_SIZE_X))
 								{
-									SetHiteffect(bullet->posBullet, bullet->nType);
-									enemy->fStatusHP -= GetBulletDamage(bullet->nType);
-								}
-								else
-								{
-									SetHiteffect(bullet->posBullet, bullet->nEffect);
-									enemy->fStatusHP -= GetBulletDamage(bullet->nEffect);
-								}
-								if (!bSe12Flag)
-								{
-									SetSe(12, E_DS8_FLAG_NONE, true);
-									bSe12Flag = true;
-								}
-								if (enemy->fStatusHP <= 0.0f)
-								{
-									if (enemy->bLockon)
+									if (bullet->nEffect == 0)
 									{
-										ReleaseLockon(enemy->nIdxLockon);
+										SetHiteffect(bullet->posBullet, bullet->nType);
+										enemy->fStatusHP -= GetBulletDamage(bullet->nType);
 									}
-									ReleaseShadow(enemy->nIdxShadow);
-									if (enemy->nModel == ENEMY_TYPE_BOSS)
+									else
 									{
-										SetFade(FADE_OUT, STAGE_RESULT);
-										SetVoice(VOICE_CLEAR, E_DS8_FLAG_NONE, CONTINUITY_OFF);
-										SetClearFlag(true);
+										SetHiteffect(bullet->posBullet, bullet->nEffect);
+										enemy->fStatusHP -= GetBulletDamage(bullet->nEffect);
 									}
-									ReleaseEnemy(j);
-								}
-								// シャドウの無効化
-								ReleaseShadow(bullet->nIdxShadow);
+									if (!bSe12Flag)
+									{
+										SetSe(12, E_DS8_FLAG_NONE, true);
+										bSe12Flag = true;
+									}
+									if (enemy->fStatusHP <= 0.0f)
+									{
+										enemy->fStatusHP = 0.0f;
+										if (enemy->bLockon)
+										{
+											ReleaseLockon(enemy->nIdxLockon);
+										}
+										ReleaseShadow(enemy->nIdxShadow);
+										if (enemy->nModel == ENEMY_TYPE_BOSS)
+										{
+											SetFade(FADE_OUT, STAGE_RESULT);
+											SetVoice(VOICE_CLEAR, E_DS8_FLAG_NONE, CONTINUITY_OFF);
+											SetClearFlag(true);
+										}
+										else
+										{
+											ReleaseEnemy(j);
+										}
+									}
+									// シャドウの無効化
+									ReleaseShadow(bullet->nIdxShadow);
 
-								if (bullet->nType != BULLET_NORMAL)
-								{
-									BULLET_SYS *bulletSys = GetBulletSys(bullet->nSysNum);
-									bulletSys->nBulletCount--;
+									if (bullet->nType != BULLET_NORMAL)
+									{
+										BULLET_SYS *bulletSys = GetBulletSys(bullet->nSysNum);
+										bulletSys->nBulletCount--;
+									}
+									InitStatusBullet(k);
 								}
-								InitStatusBullet(k);
 							}
 						}
-					}
-					if (breakPoint > 0)
-					{
-						breakPoint = 0;
+						if (breakPoint > 0)
+						{
+							breakPoint = 0;
+						}
 					}
 				}
 			}

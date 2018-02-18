@@ -40,6 +40,7 @@ HRESULT InitStage(void)
 
 	stageSys->nTime = 0;
 	stageSys->bClearFlag = false;
+	stageSys->bEndFlag = false;
 	return S_OK;
 }
 
@@ -92,6 +93,7 @@ void SetClearFlag(bool bClearFlag)
 {
 	STAGE_SYS *stageSys = &stageSysWk;
 	stageSys->bClearFlag = bClearFlag;
+	stageSys->bEndFlag = true;
 }
 
 //=============================================================================
@@ -101,4 +103,13 @@ bool GetClearFlag(void)
 {
 	STAGE_SYS *stageSys = &stageSysWk;
 	return(stageSys->bClearFlag);
+}
+
+//=============================================================================
+// I—¹ƒtƒ‰ƒOŽæ“¾ŠÖ”
+//=============================================================================
+bool GetEndFlag(void)
+{
+	STAGE_SYS *stageSys = &stageSysWk;
+	return(stageSys->bEndFlag);
 }

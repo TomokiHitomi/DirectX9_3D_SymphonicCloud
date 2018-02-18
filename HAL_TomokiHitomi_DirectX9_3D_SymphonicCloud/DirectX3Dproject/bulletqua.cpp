@@ -139,6 +139,7 @@ void InitStatusBulletQuaSys(int nBulletQuaSys)
 	bulletquaSys->nSplitCount = 0;
 	bulletquaSys->nTex = 0;
 	bulletquaSys->nBulletCount = 0;
+	bulletquaSys->nIndex = 0;
 
 	bulletquaSys->bUse = false;
 	bulletquaSys->bProcess = false;
@@ -577,7 +578,7 @@ void SetEnemyBulletQua00(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2)
 //=============================================================================
 // システムバレットを対象に設定
 //=============================================================================
-void SetSysBulletQua(int nType, int nTex, int nSize, int nColor, int nSplit, float fSpeed, float fWave, float fAngle, D3DXVECTOR3 vecPos)
+void SetSysBulletQua(int nIndex, int nType, int nTex, int nSize, int nColor, int nSplit, float fSpeed, float fWave, float fAngle, D3DXVECTOR3 vecPos)
 {
 	BULLETQUA_SYS *bulletquaSys = &bulletquaSysWk[0];
 	int *nTotalCount = GetTotalCount();
@@ -587,6 +588,7 @@ void SetSysBulletQua(int nType, int nTex, int nSize, int nColor, int nSplit, flo
 	{
 		if (!bulletquaSys->bUse)
 		{
+			bulletquaSys->nIndex = nIndex;
 			bulletquaSys->bUse = true;								// 有効化
 			bulletquaSys->bProcess = true;							// プロセス有効化
 			bulletquaSys->vecTagPos = vecPos;						// 対象POSを記憶
@@ -660,7 +662,7 @@ void SetSysBulletQuaFire(int nSys)
 void UpdateSysBulletQua(int nSys)
 {
 	BULLETQUA_SYS *bulletquaSys = &bulletquaSysWk[nSys];
-	ENEMY *enemy = GetEnemy(0);
+	ENEMY *enemy = GetEnemy(bulletquaSys->nIndex);
 
 	switch (bulletquaSys->nType)
 	{
@@ -693,6 +695,8 @@ void UpdateSysBulletQua(int nSys)
 		PiCalculate180(bulletquaSys->fVAngle);
 		break;
 	case BULLET_QUA_ROT_LV:
+		bulletquaSys->vecTagPos = enemy->posEnemy;
+		bulletquaSys->vecTagPos.y += ENEMY_CENTER;
 		bulletquaSys->fLength += (float)bulletquaSys->fMoveSpeed;
 		bulletquaSys->fHAngle += (float)bulletquaSys->fAddAngle;
 		bulletquaSys->fVAngle += (float)bulletquaSys->fAddAngle;
@@ -700,6 +704,8 @@ void UpdateSysBulletQua(int nSys)
 		PiCalculate180(bulletquaSys->fVAngle);
 		break;
 	case BULLET_QUA_ROT_RV:
+		bulletquaSys->vecTagPos = enemy->posEnemy;
+		bulletquaSys->vecTagPos.y += ENEMY_CENTER;
 		bulletquaSys->fLength += (float)bulletquaSys->fMoveSpeed;
 		bulletquaSys->fHAngle -= (float)bulletquaSys->fAddAngle;
 		bulletquaSys->fVAngle -= (float)bulletquaSys->fAddAngle;

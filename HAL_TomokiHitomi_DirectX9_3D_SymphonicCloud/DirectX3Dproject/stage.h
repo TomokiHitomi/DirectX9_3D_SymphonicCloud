@@ -20,6 +20,7 @@ typedef struct
 {
 	int					nTime;
 	bool				bClearFlag;
+	bool				bEndFlag;
 }STAGE_SYS;
 
 
@@ -33,5 +34,6 @@ void SetResultTime(int nTime);
 int GetResultTime(void);
 void SetClearFlag(bool bClearFlag);
 bool GetClearFlag(void);
+bool GetEndFlag(void);
 
 #endif

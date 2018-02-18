@@ -338,8 +338,6 @@ void UpdateEnemy(void)
 				case 0:
 					SetSysEnemybullet(0, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));;
-					SetSysBulletQua(0, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, 0.005f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(5, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
@@ -347,15 +345,9 @@ void UpdateEnemy(void)
 				case 1:
 					SetSysEnemybullet(1, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(1, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, 0.005f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 2:
-					SetSysEnemybullet(2, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(0, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, 0.005f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(5, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
@@ -363,18 +355,12 @@ void UpdateEnemy(void)
 					enemy->nAttackPattern++;
 					break;
 				case 3:
-					SetSysEnemybullet(3, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 4:
 					SetSysEnemybullet(0, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
@@ -383,16 +369,10 @@ void UpdateEnemy(void)
 				case 5:
 					SetSysEnemybullet(1, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 6:
 					SetSysEnemybullet(2, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
-						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
-					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
@@ -406,24 +386,42 @@ void UpdateEnemy(void)
 					enemy->nAttackPattern++;
 					break;
 				case 8:
+					SetSysBulletQua(0, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, 0.005f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 9:
+					SetSysBulletQua(1, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, 0.005f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 10:
+					SetSysEnemybullet(2, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
+					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 11:
+					SetSysEnemybullet(3, 0, 10, COLOR_PALLET_RED, 21, 5.0f, 1.5f, 0.05f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 12:
+					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
+					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 13:
+					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern++;
 					break;
 				case 14:
+					SetSysBulletQua(2, 0, 10, COLOR_PALLET_RED, 20, 5.0f, 0.0f, -0.005f,
+						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					SetSysBulletQua(4, 0, 10, COLOR_PALLET_RED, 20, 0.5f, 0.0f, 0.01f,
 						enemy->posEnemy + D3DXVECTOR3(cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH, ENEMY_BULLET_MUZZELE_HEIGHT, sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH));
 					enemy->nAttackPattern = 0;

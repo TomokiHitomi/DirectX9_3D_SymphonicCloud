@@ -41,7 +41,7 @@ HRESULT InitRanking(int type)
 	RANKING *ranking = &rankingWk[0];
 
 	if (type == 0)
-	{
+	{	
 		// テクスチャの読み込み
 		D3DXCreateTextureFromFile(pDevice,		// デバイスのポインタ
 			TEXTURE_GAME_RANKINGBACK,				// ファイルの名前

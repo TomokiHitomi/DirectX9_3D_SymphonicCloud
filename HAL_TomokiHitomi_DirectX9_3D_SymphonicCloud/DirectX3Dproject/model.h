@@ -48,7 +48,7 @@
 
 /* ステータス */
 #define MODEL_JUMP_POWER				(4.0f)		// ジャンプパワー
-#define MODEL_STATUS_HP					(25.0f)	// HP
+#define MODEL_STATUS_HP					(40.0f)	// HP
 #define MODEL_STATUS_MP					(1000.0f)	// MP
 #define MODEL_STATUS_MP_SUB				(10.0f)		// MPの減算数
 #define MODEL_STATUS_MP_LIMITER			(100.0f)	// MPの連続使用制限

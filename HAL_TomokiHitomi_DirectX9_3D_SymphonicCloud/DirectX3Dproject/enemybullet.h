@@ -12,7 +12,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	TEXTURE_ENEMYBULLET	"data/TEXTURE/bulletanime.png"						// 読み込むテクスチャファイル名
+#define	TEXTURE_ENEMYBULLET	"data/TEXTURE/enemybullet.png"						// 読み込むテクスチャファイル名
 
 #define ENEMYBULLET_MAX				(2000)		// 最大数
 #define	ENEMYBULLET_ALPHA			(20)		// αテスト値
@@ -38,7 +38,7 @@
 
 // テクスチャ内分割数
 #define TEXTURE_PATTERN_DIVIDE_X_ENEMYBULLET	(5)
-#define TEXTURE_PATTERN_DIVIDE_Y_ENEMYBULLET	(15)
+#define TEXTURE_PATTERN_DIVIDE_Y_ENEMYBULLET	(6)
 // テクスチャ分割パターン
 #define TEXTURE_PATTERN_NU_ENEMYBULLET		(TEXTURE_PATTERN_DIVIDE_X_ENEMYBULLET*TEXTURE_PATTERN_DIVIDE_Y_ENEMYBULLET)
 #define TEXTURE_PATTERN_ENEMYBULLET			(TEXTURE_PATTERN_NU_ENEMYBULLET / 5)
@@ -92,6 +92,12 @@ enum
 	ENEMYBULLET_NORMAL_HOMING
 };
 
+enum
+{
+	ENEMYBULLET_TEX_1,
+	ENEMYBULLET_TEX_2
+};
+
 
 // システムの最大数
 #define	ENEMYBULLET_SYS_MAX			(500)
@@ -140,9 +146,9 @@ void InitStatusEnemybullet(int nEnemybullet);
 void UninitEnemybullet(void);
 void UpdateEnemybullet(void);
 void DrawEnemybullet(void);
-void SetEnemybullet(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2);
+void SetEnemybullet(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2, D3DXCOLOR xColor);
 void SetSysEnemybullet(int nType, int nTex, int nSize, int nColor, int nSplitint, float fSpeed, float fWave, float fAngle, D3DXVECTOR3 vecPos);
-void SetHomingEnemybullet(D3DXVECTOR3 posSet, float vecPower);
+void SetHomingEnemybullet(D3DXVECTOR3 posSet, float vecPower, D3DXCOLOR xColor);
 ENEMYBULLET *GetEnemybullet(int no);
 void SetEndFlag(void);
 

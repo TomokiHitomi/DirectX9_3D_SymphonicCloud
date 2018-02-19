@@ -267,10 +267,11 @@ void SetEnemy_normalColor(int nColor)
 		break;
 	}
 	g_pD3DMatMeshEnemy_normal->Diffuse = (D3DCOLORVALUE)colorTemp;
-	g_pD3DMatMeshEnemy_normal->Ambient = (D3DCOLORVALUE)colorTemp;
-	g_pD3DMatMeshEnemy_normal->Specular = (D3DCOLORVALUE)colorTemp;
-	colorTemp *= 0.5f;
-	g_pD3DMatMeshEnemy_normal->Emissive = (D3DCOLORVALUE)colorTemp;
+	g_pD3DMatMeshEnemy_normal->Ambient = (D3DCOLORVALUE)(colorTemp * 0.5f);
+	//g_pD3DMatMeshEnemy_normal->Specular = (D3DCOLORVALUE)colorTemp;
+	//colorTemp = D3DXCOLOR(0.1f, 0.1f, 0.1f, 0.1f);
+	//g_pD3DMatMeshEnemy_normal->Emissive = (D3DCOLORVALUE)colorTemp;
+	//g_pD3DMatMeshEnemy_normal->Power = 1.0f;
 }
 
 //=============================================================================

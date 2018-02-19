@@ -33,7 +33,7 @@
 #define EFFECT_ALPHA_CHANGE	(0.04f)
 
 // �ő吔
-#define EFFECT_MAX			(5000)
+#define EFFECT_MAX			(10000)
 
 // RGBA
 #define EFFECT_DIF_R		(0.8f)

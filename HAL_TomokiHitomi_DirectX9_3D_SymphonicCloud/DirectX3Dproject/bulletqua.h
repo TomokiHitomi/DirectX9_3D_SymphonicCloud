@@ -12,12 +12,12 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	TEXTURE_BULLETQUA	"data/TEXTURE/bulletanime.png"						// 読み込むテクスチャファイル名
+#define	TEXTURE_BULLETQUA	"data/TEXTURE/enemybullet.png"						// 読み込むテクスチャファイル名
 
 
 // テクスチャ内分割数
 #define TEXTURE_PATTERN_DIVIDE_X_BULLETQUA	(5)
-#define TEXTURE_PATTERN_DIVIDE_Y_BULLETQUA	(15)
+#define TEXTURE_PATTERN_DIVIDE_Y_BULLETQUA	(6)
 // テクスチャ分割パターン
 #define TEXTURE_PATTERN_NU_BULLETQUA		(TEXTURE_PATTERN_DIVIDE_X_BULLETQUA*TEXTURE_PATTERN_DIVIDE_Y_BULLETQUA)
 

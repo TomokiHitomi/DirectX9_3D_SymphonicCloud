@@ -91,7 +91,7 @@ void InitStatusEnemybullet(int nEnemybullet)
 	ENEMYBULLET *enemybullet = &enemybulletWk[nEnemybullet];
 
 	enemybullet->vec2Size = D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);
-	enemybullet->colorEnemybullet = SetColorPallet(COLOR_PALLET_RED);
+	enemybullet->colorEnemybullet = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	enemybullet->nUseCount = 0;
 	enemybullet->nSysNum = 0;
 	enemybullet->nTex = 0;
@@ -494,7 +494,7 @@ void SetTexEnemybullet(int nEnemybullet, int nTex)
 //=============================================================================
 // バレットを対象に設置
 //=============================================================================
-void SetEnemybullet(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2)
+void SetEnemybullet(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2, D3DXCOLOR xColor)
 {
 	ENEMYBULLET *enemybullet = &enemybulletWk[0];
 	int *nTotalCount = GetTotalCount();
@@ -504,18 +504,16 @@ void SetEnemybullet(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2)
 	{
 		if (!enemybullet->bUse)
 		{
-			// カラーを設定
-			enemybullet->colorEnemybullet = SetColorPallet(COLOR_PALLET_RED);
-			// サイズを設定
-			enemybullet->vec2Size = D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);
-			// 移動スピードを設定
-			enemybullet->fMoveSpeed = ENEMYBULLET_SPEED_NORMAL;
-
-			// 消滅用カウント
-			enemybullet->nUseCount = 0;
-
+			//enemybullet->colorEnemybullet = SetColorPallet(COLOR_PALLET_RED);
+			enemybullet->colorEnemybullet = xColor;						// カラーを設定 
+			enemybullet->vec2Size =
+				D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);	// サイズを設定
+			enemybullet->fMoveSpeed = ENEMYBULLET_SPEED_NORMAL;			// 移動スピードを設定
+			enemybullet->nUseCount = 0;									// 消滅用カウント
 			enemybullet->bUse = true;
 			enemybullet->vecTag = vecPos1 - vecPos2;
+			enemybullet->nTex = ENEMYBULLET_TEX_1;
+
 			D3DXVec3Normalize(&enemybullet->vecTag, &enemybullet->vecTag);
 			enemybullet->posEnemybullet = vecPos2;
 
@@ -546,13 +544,12 @@ void SetEnemybullet00(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2)
 	{
 		if (!enemybullet->bUse)
 		{
-			// カラー
-			enemybullet->colorEnemybullet = SetColorPallet(3);
-			// サイズ
-			enemybullet->vec2Size = D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);
-			enemybullet->fMoveSpeed = ENEMYBULLET_SPEED_NORMAL;			// 移動スピード
-			enemybullet->nTex = 5;									// テクスチャー
-			enemybullet->nUseCount = 0;					// 消滅用カウント
+			enemybullet->colorEnemybullet = SetColorPallet(3);						// カラー
+			enemybullet->vec2Size = 
+				D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);				// サイズ
+			enemybullet->fMoveSpeed = ENEMYBULLET_SPEED_NORMAL;						// 移動スピード
+			enemybullet->nTex = 0;													// テクスチャー
+			enemybullet->nUseCount = 0;												// 消滅用カウント
 
 
 			enemybullet->bUse = true;
@@ -563,9 +560,9 @@ void SetEnemybullet00(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2)
 			enemybullet->posEnemybullet = vecPos2;
 
 			// Vtx設定
-			SetVtxEnemybullet(i, enemybullet->vec2Size.x, enemybullet->vec2Size.y);		// 頂点座標の変更処理
-			SetDiffuseEnemybullet(i, enemybullet->colorEnemybullet);	// 反射光変更の変更処理
-			SetTexEnemybullet(i, enemybullet->nTex);		// テクスチャ座標の設定
+			SetVtxEnemybullet(i, enemybullet->vec2Size.x, enemybullet->vec2Size.y);	// 頂点座標の変更処理
+			SetDiffuseEnemybullet(i, enemybullet->colorEnemybullet);				// 反射光変更の変更処理
+			SetTexEnemybullet(i, enemybullet->nTex);								// テクスチャ座標の設定
 
 			// 影の生成
 			enemybullet->nIdxShadow = CreateShadow(enemybullet->posEnemybullet, 25.0f, 25.0f);
@@ -579,7 +576,7 @@ void SetEnemybullet00(D3DXVECTOR3 vecPos1, D3DXVECTOR3 vecPos2)
 //=============================================================================
 // ホーミングバレットを対象に設定
 //=============================================================================
-void SetHomingEnemybullet(D3DXVECTOR3 posSet, float vecPower)
+void SetHomingEnemybullet(D3DXVECTOR3 posSet, float vecPower, D3DXCOLOR xColor)
 {
 	ENEMYBULLET *enemybullet = &enemybulletWk[0];
 	int *nTotalCount = GetTotalCount();
@@ -589,20 +586,16 @@ void SetHomingEnemybullet(D3DXVECTOR3 posSet, float vecPower)
 	{
 		if (!enemybullet->bUse)
 		{
-			// カラーを設定
-			enemybullet->colorEnemybullet = SetColorPallet(0);
-			// サイズを設定
-			enemybullet->vec2Size = D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);
-			// 移動スピードを設定
-			enemybullet->fMoveSpeed = ENEMYBULLET_SPEED_NORMAL;
-
-			// 消滅用カウント
-			enemybullet->nUseCount = 0;
-			enemybullet->bUse = true;		// 使用フラグ
+			enemybullet->vec2Size =
+				D3DXVECTOR2(ENEMYBULLET_SIZE_X, ENEMYBULLET_SIZE_Y);		// サイズを設定
+			enemybullet->fMoveSpeed = ENEMYBULLET_SPEED_NORMAL;				// 移動スピードを設定
+			enemybullet->nUseCount = 0;										// 消滅用カウント
+			enemybullet->bUse = true;										// 使用フラグ
 			enemybullet->nType = ENEMYBULLET_HOMING;
-			enemybullet->colorEnemybullet = SetColorPallet(COLOR_PALLET_BLACK);
+			enemybullet->colorEnemybullet = xColor;							// カラーを設定
 			enemybullet->posEnemybullet = posSet;
 			enemybullet->fVecPower = ENEMYBULLET_VEC_POWER;
+			enemybullet->nTex = ENEMYBULLET_TEX_2;
 
 			// ランダムでベクトルを生成
 			for (int i = 0; i < 3; i++)

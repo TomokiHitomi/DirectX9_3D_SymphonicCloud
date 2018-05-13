@@ -25,6 +25,8 @@
 #include "damageeffect.h"
 #include "cloudfield.h"
 #include "game.h"
+#include "cloud.h"
+#include "input.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -39,6 +41,7 @@ bool CheckHitRayToSphere(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, D3DXVECTOR3 pos
 float CheckHitRayToMesh(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, LPD3DXBASEMESH lpMesh);
 
 void CheckHitModelToCloudfield(MODEL *model);
+void CheckHitEnemyToCloudfield(ENEMY *enemy);
 
 //=============================================================================
 // 当たり判定関数
@@ -138,6 +141,7 @@ void ChackHit(void)
 					// 使用しているエネミーがあるかを確認
 					if (enemy->bUse)
 					{
+						CheckHitEnemyToCloudfield(enemy);
 						if (model->nInvisibleCount <= 0)
 						{
 							// BCの確認
@@ -387,28 +391,35 @@ float CheckHitRayToMesh(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, LPD3DXBASEMESH l
 //=============================================================================
 void CheckHitModelToCloudfield(MODEL *model)
 {
-	model->posModel.y -= GAME_GRAVITI;				// 重力をかける
+	//model->posModel.y -= GAME_GRAVITI;				// 重力をかける
 
 	D3DXVECTOR3 vecRay = D3DXVECTOR3(0.0f, CHECKHIT_CLOUDFIELD_RAY, 0.0f);
 	float fDist = CheckHitRayToMesh(model->posModel, vecRay, GetCloudfieldMesh());
 	model->posModel.y += fDist;
 
-	if (fDist == 0.0f)
-	{
-	}
 	//if (model->bJump)
 	//{
-	//	model->fJumpAccel -= GAME_GRAVITI;				// ジャンプアクセルに重力をかける
+	//	model->fJumpAccel -= 0.02f;				// ジャンプアクセルに重力をかける
 	//	model->posModel.y += model->fJumpAccel;			// Y座標0.0f以下にはいかない
 	//}
+	if (fDist > 0.0f)
+	{
+		//if (GetKeyboardPress(DIK_W) || GetKeyboardPress(DIK_A)
+		//	|| GetKeyboardPress(DIK_S) || GetKeyboardPress(DIK_D)
+		//	|| IsButtonPressed(0, BUTTON_UP) || IsButtonPressed(0, BUTTON_DOWN)
+		//	|| IsButtonPressed(0, BUTTON_LEFT) || IsButtonPressed(0, BUTTON_RIGHT)
+		//	|| IsButtonPressed(0, LSTICK_UP) || IsButtonPressed(0, LSTICK_DOWN)
+		//	|| IsButtonPressed(0, LSTICK_LEFT) || IsButtonPressed(0, LSTICK_RIGHT))
+		//{
+		if (model->moveModel.x > 0.5f || model->moveModel.z > 0.5f)
+		{
+			// 移動中は雲を足元に
+			SetCloud(model->posModel);
+		}
+		//}
 
-	if (model->posModel.y < 0.0f)
-	{												// モデルPOSが0.0fを下回ったら
-		model->posModel.y = 0.0f;					// 0.0fを適用
-		model->bJump = false;						// ジャンプフラグを解除
-		model->fJumpAccel = MODEL_FLOAT_LENGTH;
+		model->bJump = false;	// ジャンプフラグを解除
 	}
-
 
 
 #ifdef _DEBUG
@@ -421,4 +432,14 @@ void CheckHitModelToCloudfield(MODEL *model)
 		PrintDebugProc("[ModelToCloudfield]  Hit:false  Dist:%f\n", fDist);
 	}
 #endif
+}
+
+//=============================================================================
+// フィールドとエネミーの当たり判定
+//=============================================================================
+void CheckHitEnemyToCloudfield(ENEMY *enemy)
+{
+	D3DXVECTOR3 vecRay = D3DXVECTOR3(0.0f, CHECKHIT_CLOUDFIELD_RAY, 0.0f);
+	float fDist = CheckHitRayToMesh(enemy->posEnemy - D3DXVECTOR3(0.0f, enemy->fFloat,0.0f), vecRay, GetCloudfieldMesh());
+	enemy->posEnemy.y += fDist;
 }

@@ -8,6 +8,7 @@
 #include "main.h"
 #include "input.h"
 #include "camera.h"
+#include "Light.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -143,6 +144,8 @@ void DrawCloudfield(void)
 	//// ラインティングを無効にする
 	//pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	SetLight(LIGHT2, TRUE);
+
 	/******************** ワールド変換 ********************/
 	// ワールドマトリクスの初期化
 	D3DXMatrixIdentity(&cloudfield->mtxWorld);
@@ -188,6 +191,8 @@ void DrawCloudfield(void)
 
 	//// αテストを無効に
 	//pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+	SetLight(LIGHT2, FALSE);
 }
 
 //=============================================================================

@@ -1116,53 +1116,53 @@ void JumpModel(int nModel)
 {
 	MODEL *model = &modelWk[nModel];
 
-	//// 左シフトキー押下中は無重力+ブースト
-	//if ((GetKeyboardPress(DIK_LSHIFT) || IsButtonPressed(0, BUTTON_R)) && !model->bStatusMPLimiter)
-	//{	// 左シフトを押下中かつMPリミッター無効時
-	//	if (model->fStatusMP > MODEL_STATUS_MP_SUB)
-	//	{
-	//		if ((GetKeyboardTrigger(DIK_LSHIFT) || IsButtonTriggered(0, BUTTON_R)))
-	//		{
-	//			SetSe(SE_NOGRAVITY, E_DS8_FLAG_NONE, CONTINUITY_ON);
-	//		}
-	//		model->fMoveSpeed = MODEL_MOVE_BOOST;				// ブースト移動速度
-	//		model->fJumpAccel = 0.0f;							// ジャンプアクセルを初期化
-	//	}
-	//}
-	//else
-	//{														// 左シフトを押していない
-	//	model->fMoveSpeed = MODEL_MOVE_SPEED;				// 通常移動速度を適用
-	//														// ジャンプ処理
-	//	if (!model->bJump)
-	//	{													// ジャンプフラグがfalseなら
-	//		if (GetKeyboardTrigger(DIK_SPACE) || IsButtonTriggered(0, R_BUTTON_B))
-	//		{												// スペースキーが押されたら
-	//			model->fJumpAccel = MODEL_JUMP_POWER;		// ジャンプパワーを適用
-	//			model->bJump = true;						// ジャンプフラグを設定
-	//			SetSe(10, E_DS8_FLAG_NONE, true);
-	//		}
-	//		//else
-	//		//{
-	//		//	FloatModel(nModel);							// 浮遊処理
-	//		//}
-	//	}
-	//	else
-	//	{
-	//	}
-	//}
-	//if (!model->bJump)
-	//{
-	//	if (GetKeyboardPress(DIK_W) || GetKeyboardPress(DIK_A)
-	//		|| GetKeyboardPress(DIK_S) || GetKeyboardPress(DIK_D)
-	//		|| IsButtonPressed(0, BUTTON_UP) || IsButtonPressed(0, BUTTON_DOWN)
-	//		|| IsButtonPressed(0, BUTTON_LEFT) || IsButtonPressed(0, BUTTON_RIGHT)
-	//		|| IsButtonPressed(0, LSTICK_UP) || IsButtonPressed(0, LSTICK_DOWN)
-	//		|| IsButtonPressed(0, LSTICK_LEFT) || IsButtonPressed(0, LSTICK_RIGHT))
-	//	{
-	//		// 試しに移動中は雲を足元に
-	//		SetCloud(model->posModel);
-	//	}
-	//}
+	// 左シフトキー押下中は無重力+ブースト
+	if ((GetKeyboardPress(DIK_LSHIFT) || IsButtonPressed(0, BUTTON_R)) && !model->bStatusMPLimiter)
+	{	// 左シフトを押下中かつMPリミッター無効時
+		if (model->fStatusMP > MODEL_STATUS_MP_SUB)
+		{
+			if ((GetKeyboardTrigger(DIK_LSHIFT) || IsButtonTriggered(0, BUTTON_R)))
+			{
+				SetSe(SE_NOGRAVITY, E_DS8_FLAG_NONE, CONTINUITY_ON);
+			}
+			model->fMoveSpeed = MODEL_MOVE_BOOST;				// ブースト移動速度
+			model->fJumpAccel = 0.0f;							// ジャンプアクセルを初期化
+		}
+	}
+	else
+	{														// 左シフトを押していない
+		model->posModel.y -= GAME_GRAVITI;					// 重力をかける
+		model->fMoveSpeed = MODEL_MOVE_SPEED;				// 通常移動速度を適用
+		model->fJumpAccel -= MODEL_JUMP_POWER_DOWN;		// ジャンプアクセルに減算
+		if (model->fJumpAccel < 0.0f)
+		{
+			model->fJumpAccel = 0.0f;
+		}
+		if (!model->bJump)
+		{													// ジャンプフラグがfalseなら
+			if (GetKeyboardTrigger(DIK_SPACE) || IsButtonTriggered(0, R_BUTTON_B))
+			{												// スペースキーが押されたら
+				model->fJumpAccel = MODEL_JUMP_POWER;		// ジャンプパワーを適用
+				model->bJump = true;						// ジャンプフラグを設定
+				SetSe(10, E_DS8_FLAG_NONE, true);
+			}
+			else
+			{
+				//FloatModel(nModel);							// 浮遊処理
+			}
+		}
+		else
+		{
+		}
+	}
+
+	// ジャンプをY軸に反映
+	model->posModel.y += model->fJumpAccel;
+
+	if (model->posModel.y < 0.0f)
+	{												// モデルPOSが0.0fを下回ったら
+		model->posModel.y = 0.0f;					// 0.0fを適用
+	}
 }
 
 //=============================================================================

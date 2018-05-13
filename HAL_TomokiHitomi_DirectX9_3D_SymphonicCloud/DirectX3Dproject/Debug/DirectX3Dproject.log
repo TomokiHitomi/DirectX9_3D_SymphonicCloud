@@ -1,7 +1,15 @@
-﻿  checkhit.cpp
-c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
-  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
-c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
-  c:\users\hitomi\documents\project\symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)
+﻿  enemy.cpp
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(102): warning C4244: '引数': 'double' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(142): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(287): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(501): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(511): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note: 'fscanf' の宣言を確認してください
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemy.cpp(577): warning C4244: '引数': 'float' から 'DWORD' への変換です。データが失われる可能性があります。
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)

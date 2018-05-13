@@ -632,7 +632,7 @@ void Draw(void)
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGDENSITY, g_fFogDensity);
 			DrawSkydome();			// スカイドーム
 			DrawSkydomeeffect();	// スカイドームエフェクト
-			DrawMeshcloud();		// 雲海
+			//DrawMeshcloud();		// 雲海
 			DrawCloudfield();		// 雲フィールド
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, FALSE);					// フォグブレンディング有効
 			DrawShadow();			// 影

@@ -286,6 +286,12 @@ void UpdateEnemy(void)
 			// 角度計算
 			enemy->rotEnemy.y = D3DX_PI * 0.5 - PreventionAtan2XZ(enemy->posEnemy, model->posModel);
 
+			// 重力をかける
+			enemy->posEnemy.y -= GAME_GRAVITI;
+			if (enemy->posEnemy.y - enemy->fFloat < 0.0f)
+			{
+				enemy->posEnemy.y = enemy->fFloat;
+			}
 
 			// エネミー移動
 			D3DXVECTOR3 vecMove = model->posModel - enemy->posEnemy;
@@ -322,13 +328,13 @@ void UpdateEnemy(void)
 							cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH,
 							ENEMY_BULLET_MUZZELE_HEIGHT,
 							sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH),
-						SetEnemyBulletColor(GetGameShuffle(g_nWave)-1));
+						SetColorPallet(COLOR_PALLET_BLACK));
 					SetHomingEnemybullet(enemy->posEnemy + D3DXVECTOR3(
 						cosf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH,
 						ENEMY_BULLET_MUZZELE_HEIGHT,
 						sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH),
 						1.0f,
-						SetEnemyBulletColor(GetGameShuffle(g_nWave - 1) + 1));
+						SetColorPallet(COLOR_PALLET_BLACK));
 					break;
 				}
 				enemy->nAttackNorCount = *nTotalCount;
@@ -343,7 +349,7 @@ void UpdateEnemy(void)
 					ENEMY_BULLET_MUZZELE_HEIGHT,
 					sinf(ENEMY_BULLET_MUZZELE_ANGLE - enemy->rotEnemy.y) * ENEMY_BULLET_MUZZELE_LENGTH),
 					1.0f,
-					SetEnemyBulletColor(GetGameShuffle(g_nWave - 1) + 1));
+					SetColorPallet(COLOR_PALLET_BLACK));
 				switch (enemy->nAttackPattern)
 				{
 				case 0:
@@ -482,59 +488,7 @@ void UpdateEnemy(void)
 //=============================================================================
 void DrawEnemy(void)
 {
-	//LPDIRECT3DDEVICE9 pDevice = GetDevice();
-	//D3DXMATRIX mtxScl, mtxRot, mtxTranslate;
-	//D3DXMATERIAL *pD3DXMat;
-	//D3DMATERIAL9 matDef;
 
-	//ENEMY *enemy = &enemyWk[0];
-	//int *pCameraMode = GetCameraMode();
-	//CAMERA *camera = GetCamera(*pCameraMode);
-
-	//for (int i = 0; i < ENEMY_MAX; i++, enemy++)
-	//{
-	//	if (enemy->bUse)
-	//	{
-	//		/******************** ワールド変換 ********************/
-	//		// ワールドマトリクスの初期化
-	//		D3DXMatrixIdentity(&enemy->mtxWorld);
-
-	//		// 【S】スケールを反映(Multiplyは行列計算)
-	//		D3DXMatrixScaling(&mtxScl, enemy->sclEnemy.x, enemy->sclEnemy.y, enemy->sclEnemy.z);
-	//		D3DXMatrixMultiply(&enemy->mtxWorld, &enemy->mtxWorld, &mtxScl);
-
-	//		// 【R】回1転を反映(YawPitchRollはy,x,z)
-	//		D3DXMatrixRotationYawPitchRoll(&mtxRot, enemy->rotEnemy.y, enemy->rotEnemy.x, enemy->rotEnemy.z);
-	//		D3DXMatrixMultiply(&enemy->mtxWorld, &enemy->mtxWorld, &mtxRot);
-
-	//		// 【T】平行移動を反映(オブジェクトを配置している）
-	//		D3DXMatrixTranslation(&mtxTranslate, enemy->posEnemy.x, enemy->posEnemy.y, enemy->posEnemy.z);
-	//		D3DXMatrixMultiply(&enemy->mtxWorld, &enemy->mtxWorld, &mtxTranslate);
-
-	//		// ワールドマトリクスの設定
-	//		pDevice->SetTransform(D3DTS_WORLD, &enemy->mtxWorld);
-
-
-
-	//		/******************** ビューポート変換 ********************/
-	//		// 現在のマテリアルを保存
-	//		pDevice->GetMaterial(&matDef);
-	//		//// マテリアル情報に対するポインタの取得
-	//		//pD3DXMat = (D3DXMATERIAL*)g_pD3DXBuffMatEnemy->GetBufferPointer();
-
-	//		for (int j = 0; j < g_nNumMatEnemy; j++)
-	//		{
-	//			// マテリアルの設定
-	//			pDevice->SetMaterial(&g_pD3DMatMeshEnemy[j]);
-	//			// テクスチャの設定（NULL:テクスチャ無し）
-	//			pDevice->SetTexture(0, g_pD3DTextureEnemy[j]);
-	//			// 描画
-	//			g_pD3DXMeshEnemy->DrawSubset(j);
-	//		}
-	//		// マテリアルを元に戻す
-	//		pDevice->SetMaterial(&matDef);
-	//	}
-	//}
 }
 
 //=============================================================================
@@ -574,6 +528,7 @@ void SetEnemyFile(void)
 		}
 
 		enemy->posEnemy = D3DXVECTOR3((float)data[2], (float)data[3], (float)data[4]);
+		enemy->fFloat = (float)data[3];
 		enemy->nMoveType = data[5];
 		enemy->fMoveSpeed = (float)data[7];
 		enemy->nAttackType = data[7];

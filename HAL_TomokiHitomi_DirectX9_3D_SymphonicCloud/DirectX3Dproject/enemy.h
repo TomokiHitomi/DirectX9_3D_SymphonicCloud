@@ -62,6 +62,7 @@ typedef struct
 	float			fStatusHP;
 	float			fAngle;
 	float			fMoveSpeed;
+	float			fFloat;
 
 	bool			bUse;
 	bool			bShadow;

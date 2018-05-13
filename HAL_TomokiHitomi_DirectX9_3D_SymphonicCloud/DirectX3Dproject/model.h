@@ -1,7 +1,7 @@
 //=============================================================================
 //
 // モデル処理 [model.h]
-// Author : GP11B243 24 人見友基
+// Author : GP12A295 25 人見友基
 //
 //=============================================================================
 #ifndef _MODEL_H_
@@ -15,11 +15,14 @@
 // マクロ定義
 //*****************************************************************************
 #define	MODEL_MODEL		"data/MODEL/Alicia/Alicia_solid.x"							// 読み込むモデル名
+//#define	MODEL_MODEL		"data/MODEL/test.x"							// 読み込むモデル名
+
 //#define	MODEL_CAR		"data/MODEL/Tune/Tune.x"							// 読み込むモデル名
 
 #define MODEL_MAX						(1)
 
-#define MODEL_SCALE						(0.2f)
+//#define MODEL_SCALE						(0.45f)
+#define MODEL_SCALE						(0.20f)
 #define MODEL_SIZE						(1.0f)
 
 #define MODEL_POS_X						(0.0f)

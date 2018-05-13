@@ -1,7 +1,7 @@
 //=============================================================================
 //
 // メイン処理 [main.cpp]
-// Author : GP11B243 24 人見友基
+// Author : GP12A295 25 人見友基
 //
 //=============================================================================
 #include "main.h"
@@ -50,6 +50,7 @@
 #include "meshcloud.h"
 #include "field.h"
 #include "wall.h"
+#include "cloudfield.h"
 
 /* Shadow */
 #include "shadow.h"
@@ -447,6 +448,7 @@ void Uninit(void)
 	//UninitWall();			// 壁
 	UninitMeshcloud();		// 雲海
 	UninitCloud();			// 雲
+	UninitCloudfield();		// 雲フィールド
 	UninitEnemybullet();	// エネミーバレット
 	UninitBullet();			// バレット
 	UninitBulletQua();		// バレットクォータニオン（エネミー）
@@ -529,6 +531,7 @@ void Update(void)
 			UpdateGame();
 			UpdateMeshcloud();		// 雲海
 			UpdateCloud();			// 雲
+			UpdateCloudfield();		// 雲フィールド
 			UpdateEnemy();			// エネミー
 			UpdateEnemy_normal();	// エネミーノーマル
 			UpdateEnemy_boss();		// エネミーボス
@@ -630,6 +633,7 @@ void Draw(void)
 			DrawSkydome();			// スカイドーム
 			DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
+			DrawCloudfield();		// 雲フィールド
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, FALSE);					// フォグブレンディング有効
 			DrawShadow();			// 影
 			DrawEnemy();			// エネミー
@@ -734,6 +738,7 @@ void InitSystem(int nType)
 	InitShadow(nType);			// 影
 	InitGame();					// ゲーム管理
 	InitMeshcloudPos();			// 雲海座標
+	InitCloudfield(nType);		// 雲フィールド
 	InitTimefream(nType);		// タイムフレーム
 	InitTime(nType);			// タイム
 	InitVersion(nType);			// バージョン

@@ -1,7 +1,7 @@
 //=============================================================================
 //
 // 判定処理 [checkhit.cpp]
-// Author : GP11B243 24 人見友基
+// Author : GP12A295 25 人見友基
 //
 // 当たり判定を行うcpp
 //
@@ -23,6 +23,8 @@
 #include "bulletqua.h"
 #include "magic.h"
 #include "damageeffect.h"
+#include "cloudfield.h"
+#include "game.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -34,6 +36,9 @@
 //*****************************************************************************
 bool CheckHitBC(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2, float size1, float size2);
 bool CheckHitRayToSphere(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, D3DXVECTOR3 posTag, float nLength);
+float CheckHitRayToMesh(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, LPD3DXBASEMESH lpMesh);
+
+void CheckHitModelToCloudfield(MODEL *model);
 
 //=============================================================================
 // 当たり判定関数
@@ -62,6 +67,7 @@ void ChackHit(void)
 			// 使用しているモデルがあるかを確認
 			if (model->bUse)
 			{
+				CheckHitModelToCloudfield(model);
 				if (model->nInvisibleCount <= 0)
 				{
 					enemybullet = GetEnemybullet(0);
@@ -294,6 +300,10 @@ void ChackHit(void)
 			}
 		}
 	}
+#ifdef _DEBUG
+	PrintDebugProc("\n");
+#endif
+
 }
 
 //=============================================================================
@@ -347,4 +357,68 @@ bool CheckHitRayToSphere(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, D3DXVECTOR3 pos
 	}
 
 	return true;
+}
+
+//=============================================================================
+// レイとメッシュの当たり判定
+//=============================================================================
+float CheckHitRayToMesh(D3DXVECTOR3 posRay, D3DXVECTOR3 vecRay, LPD3DXBASEMESH lpMesh)
+{
+	BOOL bHit = false;
+	float fDist = 0.0f;
+
+	D3DXIntersect(
+		lpMesh,		// ベースメッシュ
+		&posRay,	// レイの始点
+		&vecRay,	// レイのベクトル
+		&bHit,		// 当たり判定[out]
+		NULL,		// レイに最も近い面のインデックス値[out]
+		NULL,		// ヒット座標U[out]
+		NULL,		// ヒット座標V[out]
+		&fDist,		// レイの始点から交点まので距離[out]
+		NULL,		// ヒットしたすべての面情報[out]
+		NULL);		// ヒット回数[out]
+
+	return fDist;
+}
+
+//=============================================================================
+// フィールドとモデルの当たり判定
+//=============================================================================
+void CheckHitModelToCloudfield(MODEL *model)
+{
+	model->posModel.y -= GAME_GRAVITI;				// 重力をかける
+
+	D3DXVECTOR3 vecRay = D3DXVECTOR3(0.0f, CHECKHIT_CLOUDFIELD_RAY, 0.0f);
+	float fDist = CheckHitRayToMesh(model->posModel, vecRay, GetCloudfieldMesh());
+	model->posModel.y += fDist;
+
+	if (fDist == 0.0f)
+	{
+	}
+	//if (model->bJump)
+	//{
+	//	model->fJumpAccel -= GAME_GRAVITI;				// ジャンプアクセルに重力をかける
+	//	model->posModel.y += model->fJumpAccel;			// Y座標0.0f以下にはいかない
+	//}
+
+	if (model->posModel.y < 0.0f)
+	{												// モデルPOSが0.0fを下回ったら
+		model->posModel.y = 0.0f;					// 0.0fを適用
+		model->bJump = false;						// ジャンプフラグを解除
+		model->fJumpAccel = MODEL_FLOAT_LENGTH;
+	}
+
+
+
+#ifdef _DEBUG
+	if (fDist != 0.0f)
+	{
+		PrintDebugProc("[ModelToCloudfield]  Hit:true  Dist:%f\n", fDist);
+	}
+	else
+	{
+		PrintDebugProc("[ModelToCloudfield]  Hit:false  Dist:%f\n", fDist);
+	}
+#endif
 }

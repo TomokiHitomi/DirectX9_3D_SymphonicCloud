@@ -79,6 +79,9 @@
     <Filter Include="ソース ファイル\Shader">
       <UniqueIdentifier>{942773cd-93a2-44c8-aa6c-f3a86c6d2618}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Animation">
+      <UniqueIdentifier>{750af1cb-1c78-4ec6-b0ce-23eeaf8a39c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -243,6 +246,12 @@
     <ClInclude Include="damageeffect.h">
       <Filter>ソース ファイル\Object\Billboard\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationSkinMesh.h">
+      <Filter>ソース ファイル\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="cloudfield.h">
+      <Filter>ソース ファイル\Object\3D\Field</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -403,6 +412,12 @@
     </ClCompile>
     <ClCompile Include="damageeffect.cpp">
       <Filter>ソース ファイル\Object\Billboard\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationSkinMesh.cpp">
+      <Filter>ソース ファイル\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="cloudfield.cpp">
+      <Filter>ソース ファイル\Object\3D\Field</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

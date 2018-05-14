@@ -94,6 +94,9 @@ void UpdateCamera(void)
 	RETICLE *reticle = GetReticle(0);
 	ENEMY *enemy;
 
+	// カメラ上下反転用
+	int nCameraReverse = 1;
+
 	D3DXVECTOR3 vecVl = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 vecVr = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	float fDotTest = 0.0f;
@@ -101,6 +104,12 @@ void UpdateCamera(void)
 	D3DXVECTOR3 vecRet = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	D3DXVECTOR3 vecBasePos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+	// Y軸カメラサスペンション
+	float fHeight = 0.0f;
+
+	// Joy-con用ジャイロ
+	D3DXVECTOR3 vecGyro = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	// クォータニオン用変数
 	// 回転半径を設定
@@ -184,9 +193,10 @@ void UpdateCamera(void)
 				//camera->fHAngleDiff = PiCalculate360(camera->fHAngle);
 			}
 
+			// カメラ左右回転（Joy-con）
 			if (IsButtonPressed(0, RSTICK_LEFT) || IsButtonPressed(0, RSTICK_RIGHT))
 			{
-				camera->fHAngleDiff -= camera->fRotSpeed  * GetStick(0, PAD_STICK_R_X);
+				camera->fHAngleDiff -= CAMERA_ROT_SPEED * GetStick(0, PAD_STICK_R_X);
 				//camera->fHAngleDiff = PiCalculate360(camera->fHAngle);
 			}
 
@@ -194,16 +204,17 @@ void UpdateCamera(void)
 			switch (g_nCameraMode)
 			{
 			case CAMERA_GAME:	// GAMEカメラモード
+
 				// カメラ上下反転
 				if (GetKeyboardTrigger(DIK_F2))
 				{
 					camera->bCameraReverse = camera->bCameraReverse ? false : true;
 				}
-				// ロットスピードを反転
 				if (camera->bCameraReverse)
 				{
-					camera->fRotSpeed *= -1.0f;
+					nCameraReverse *= -1;
 				}
+
 				// カメラ上下回転（キーボード）
 				if (GetKeyboardPress(DIK_UP) && GetKeyboardPress(DIK_DOWN))
 				{
@@ -211,17 +222,23 @@ void UpdateCamera(void)
 				}
 				else if (GetKeyboardPress(DIK_UP))
 				{
-					camera->fVAngleDiff -= camera->fRotSpeed;
+					camera->fVAngleDiff -= camera->fRotSpeed * nCameraReverse;
 				}
 				else if (GetKeyboardPress(DIK_DOWN))
 				{
-					camera->fVAngleDiff += camera->fRotSpeed;
+					camera->fVAngleDiff += camera->fRotSpeed * nCameraReverse;
 				}
 				// カメラ上下回転（マウス）
 				if ((float)GetMobUseY() && !IsButtonPressed(0, R_BUTTON_X))
 				{
-					camera->fVAngleDiff += ((float)GetMobUseY()) * CAMERA_ROT_MOUSE_Y;
+					camera->fVAngleDiff += ((float)GetMobUseY()) * CAMERA_ROT_MOUSE_Y * nCameraReverse;
 				}
+
+				//// カメラ上下回転（Joy-con）
+				//if (IsButtonPressed(0, RSTICK_UP) || IsButtonPressed(0, RSTICK_DOWN))
+				//{
+				//	camera->fVAngleDiff += CAMERA_ROT_SPEED  * GetStick(0, PAD_STICK_R_Y) * nCameraReverse;
+				//}
 
 				//// 照準モード切替（押下中TPSモード）
 				//if (IsMobUseRightPressed())
@@ -251,13 +268,22 @@ void UpdateCamera(void)
 				}
 
 
-				// Joy-con加速度
+				// Joy-con縦アングルリセット
 				if (IsButtonPressed(0, R_BUTTON_Y))
 				{
 					camera->fVAngleDiff = CAMERA_V_ANGLE_GAME;
 				}
-				camera->fVAngleDiff -= GetRglSlider(PAD_SLIDER_V);
-				camera->fHAngleDiff -= GetRglSlider(PAD_SLIDER_H);
+
+				// Joy-conジャイロ取得
+				vecGyro = GetGyro();
+
+				// Joy-conジャイロを角度に適用
+				camera->fVAngleDiff -= vecGyro.x * nCameraReverse;
+				camera->fHAngleDiff -= vecGyro.y;
+				camera->fHAngleDiff += vecGyro.z;
+
+				//camera->fVAngleDiff -= GetRglSlider(PAD_SLIDER_V);
+				//camera->fHAngleDiff -= GetRglSlider(PAD_SLIDER_H);
 
 				camera->fVAngle += (camera->fVAngleDiff - camera->fVAngle) * CAMERA_ROT_SPEED_AUTO;
 				camera->fHAngle += (camera->fHAngleDiff - camera->fHAngle) * CAMERA_ROT_SPEED_AUTO;
@@ -277,16 +303,25 @@ void UpdateCamera(void)
 				// 追従カメラ処理
 				SetCameraAtMove(g_nCameraMode);
 
+				fHeight = model->posModel.y - camera->posCameraAt.y + MODEL_HEIGHT_EYE;
+				//if (fHeight > 0.0f)
+				//{
+					fHeight = camera->posCameraAt.y + fHeight / CAMERA_HEIGHT_SUSPENSION;
+				//}
+				//else if (fHeight < 0.0f)
+				//{
+				//	fHeight = camera->posCameraAt.y - fHeight / CAMERA_HEIGHT_SUSPENSION;
+				//}
+
 				// カメラ注視点をセット
 				camera->posCameraAt = D3DXVECTOR3(
 					(model->posModel.x
 						+ (camera->vecCameraAtPos.x * cos(camera->fHAngle + D3DX_PI * 1.5f))
 						+ (camera->vecCameraAtPos.z * cos(camera->fHAngle + D3DX_PI * 2.0f))),
-						(model->posModel.y + MODEL_HEIGHT_EYE),
+					fHeight,
 					(model->posModel.z
 						+ (camera->vecCameraAtPos.x * sin(camera->fHAngle + D3DX_PI * 1.5f))
 						+ (camera->vecCameraAtPos.z * sin(camera->fHAngle + D3DX_PI * 2.0f))));
-
 
 				// クォータニオン処理
 				QuaternionCalculate(&vecTa, &vecAxis, camera->fVAngle,

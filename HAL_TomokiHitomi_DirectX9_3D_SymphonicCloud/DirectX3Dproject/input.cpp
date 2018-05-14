@@ -24,7 +24,8 @@ void UninitMobUse();						// マウスの終了処理
 HRESULT UpdateMobUse();					// マウスの更新処理
 
 HRESULT InitializePad(HWND hWnd);			// パッド初期化
-										//BOOL CALLBACK SearchPadCallback(LPDIDEVICEINSTANCE lpddi, LPVOID);	// パッド検査コールバック
+BOOL CreateEffect(HWND hWnd, int nPad);				// パッド振動用
+//BOOL CALLBACK SearchPadCallback(LPDIDEVICEINSTANCE lpddi, LPVOID);	// パッド検査コールバック
 void UpdatePad(void);
 void UninitPad(void);
 
@@ -63,8 +64,13 @@ LONG			padlRx;
 float			padlRy;
 float			padlZ;
 float			padlRz;
-float			g_rglSlider[2];
+D3DXVECTOR3		g_vecGyro;
 DIDEVCAPS		g_diDevCaps;
+
+// 振動用
+LPDIRECTINPUTEFFECT	g_lpDIEffect = NULL;
+DWORD				g_dwNumForceFeedbackAxis;
+BOOL				g_effectExist = FALSE;
 
 int				g_nJoyconSlider;
 
@@ -83,7 +89,6 @@ HRESULT InitInput(HINSTANCE hInst, HWND hWnd)
 		hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION,
 			IID_IDirectInput8, (void**)&g_pDInput, NULL);
 	}
-
 	// キーボードの初期化
 	InitKeyboard(hInst, hWnd);
 
@@ -463,6 +468,10 @@ BOOL CALLBACK EnumAxesCallback(const DIDEVICEOBJECTINSTANCE *pdidoi, VOID *pCont
 
 	if (FAILED(hr)) return DIENUM_STOP;
 
+	//// 振動用
+	//DWORD *pdwNumForceFeedbackAxis = (DWORD*)pContext;
+	//if ((pdidoi->dwFlags & DIDOI_FFACTUATOR) != 0) (*pdwNumForceFeedbackAxis)++;
+
 	return DIENUM_CONTINUE;
 }
 
@@ -474,21 +483,25 @@ HRESULT InitializePad(HWND hWnd)			// パッド初期化
 
 	padCount = 0;
 	// ジョイパッドを探す
+	//g_pDInput->EnumDevices(DI8DEVCLASS_GAMECTRL,
+	//	(LPDIENUMDEVICESCALLBACK)SearchGamePadCallback,
+	//	NULL, DIEDFL_ATTACHEDONLY);
 	g_pDInput->EnumDevices(DI8DEVCLASS_GAMECTRL,
 		(LPDIENUMDEVICESCALLBACK)SearchGamePadCallback,
-		NULL, DIEDFL_ATTACHEDONLY);
+		NULL, DIEDFL_FORCEFEEDBACK | DIEDFL_ATTACHEDONLY);
 	// セットしたコールバック関数が、パッドを発見した数だけ呼ばれる。
 
-	for (i = 0; i<padCount; i++) {
+	for (i = 0; i<padCount; i++)
+	{
 		// ジョイスティック用のデータ・フォーマットを設定
 		result = pGamePad[i]->SetDataFormat(&c_dfDIJoystick2);
 		if (FAILED(result))
 			return false;	// データフォーマットの設定に失敗
 
-						//// モードを設定（フォアグラウンド＆非排他モード）
-						//result = pGamePad[i]->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
-						//if ( FAILED(result) )
-						//	return false; // モードの設定に失敗
+		// モードを設定（フォアグラウンド＆非排他モード）
+		result = pGamePad[i]->SetCooperativeLevel(hWnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND);
+		if ( FAILED(result) )
+			return false; // モードの設定に失敗
 
 		// 軸の値の範囲を設定
 		// X軸、Y軸のそれぞれについて、オブジェクトが報告可能な値の範囲をセットする。
@@ -517,10 +530,19 @@ HRESULT InitializePad(HWND hWnd)			// パッド初期化
 		// RY軸の範囲を設定
 		diprg.diph.dwObj = DIJOFS_RY;
 		pGamePad[i]->SetProperty(DIPROP_RANGE, &diprg.diph);
-		// RZ軸の範囲を設定
+
+		// GYRO用のRANGEを設定
+		diprg.lMin = RANGE_MIN_GYRO;
+		diprg.lMax = RANGE_MAX_GYRO;
+		// RZ軸の範囲を設定（Z回転）
 		diprg.diph.dwObj = DIJOFS_RZ;
 		pGamePad[i]->SetProperty(DIPROP_RANGE, &diprg.diph);
-
+		// SLIDER(0)の範囲を設定
+		diprg.diph.dwObj = DIJOFS_SLIDER(0);
+		pGamePad[i]->SetProperty(DIPROP_RANGE, &diprg.diph);
+		// SLIDER(1)の範囲を設定
+		diprg.diph.dwObj = DIJOFS_SLIDER(1);
+		pGamePad[i]->SetProperty(DIPROP_RANGE, &diprg.diph);
 
 		// 各軸ごとに、無効のゾーン値を設定する。
 		// 無効ゾーンとは、中央からの微少なジョイスティックの動きを無視する範囲のこと。
@@ -546,13 +568,32 @@ HRESULT InitializePad(HWND hWnd)			// パッド初期化
 		// RY軸の無効ゾーンを設定
 		dipdw.diph.dwObj = DIJOFS_RY;
 		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
-		// RZ軸の無効ゾーンを設定
+
+		// GYRO用のRANGEを設定
+		dipdw.dwData = DEADZONE_GYRO;
+		// RZ軸の無効ゾーンを設定（Z回転）
 		dipdw.diph.dwObj = DIJOFS_RZ;
+		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
+		// SLIDER(0)の無効ゾーンを設定
+		dipdw.diph.dwObj = DIJOFS_SLIDER(0);
+		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
+		// SLIDER(1)の無効ゾーンを設定
+		dipdw.diph.dwObj = DIJOFS_SLIDER(1);
 		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
 
 		g_diDevCaps.dwSize = sizeof(DIDEVCAPS);
 		pGamePad[i]->GetCapabilities(&g_diDevCaps);
 		pGamePad[i]->EnumObjects(EnumAxesCallback, (VOID*)hWnd, DIDFT_ABSAXIS);
+
+		//// 振動用
+		//pGamePad[i]->EnumObjects(EnumAxesCallback, (VOID*)g_dwNumForceFeedbackAxis, DIDFT_AXIS);
+
+		//if (g_dwNumForceFeedbackAxis > 2) g_dwNumForceFeedbackAxis = 2;
+		//if (!CreateEffect(hWnd,i)) {
+		//	MessageBox(hWnd, "Can't create effect.", "Error", MB_OK);
+		//	//return FALSE;
+		//}
+
 		pGamePad[i]->Poll();
 		//ジョイスティック入力制御開始
 		pGamePad[i]->Acquire();
@@ -572,6 +613,10 @@ void UninitPad(void)
 		}
 	}
 
+	if (g_lpDIEffect != NULL)
+	{
+		g_lpDIEffect->Release();
+	}
 }
 
 //------------------------------------------ 更新
@@ -712,15 +757,16 @@ void UpdatePad(void)
 
 		if (i == 0)
 		{
-			// 右スティックの傾き量を保管
+			// 右スティックの傾き量を格納
 			padlRx = dijs.lRx;
 			padlRy = dijs.lRy;
 
+			// 左スティックの傾き量を格納
 			padlZ = dijs.lZ;
 			padlRz = dijs.lRz;
 
-			g_rglSlider[0] = (float)dijs.rglSlider[0];
-			g_rglSlider[1] = (float)dijs.rglSlider[1];
+			// ジャイロ情報を格納
+			g_vecGyro = D3DXVECTOR3((float)dijs.rglSlider[0], (float)dijs.rglSlider[1], dijs.lRz);
 		}
 
 #ifdef _DEBUG
@@ -753,6 +799,44 @@ void UpdatePad(void)
 	}
 	//GetButtonlZ(0);
 }
+
+//-----------------------------------------------------------------
+//    Create Effect.
+//-----------------------------------------------------------------
+BOOL CreateEffect(HWND hWnd, int nPad)
+{
+	DWORD           rgdwAxes[2] = { DIJOFS_X , DIJOFS_Y };
+	LONG            rglDirection[2] = { 1 , 1 };
+	DICONSTANTFORCE cf;
+	DIEFFECT        eff;
+	HRESULT         hr;
+
+	ZeroMemory(&eff, sizeof(eff));
+	eff.dwSize = sizeof(DIEFFECT);
+	eff.dwFlags = DIEFF_CARTESIAN | DIEFF_OBJECTOFFSETS;
+	eff.dwDuration = INFINITE;
+	eff.dwSamplePeriod = 0;
+	eff.dwGain = DI_FFNOMINALMAX;
+	eff.dwTriggerButton = DIEB_NOTRIGGER;
+	eff.dwTriggerRepeatInterval = 0;
+	eff.cAxes = g_dwNumForceFeedbackAxis;
+	eff.rgdwAxes = rgdwAxes;
+	eff.rglDirection = rglDirection;
+	eff.lpEnvelope = 0;
+	eff.cbTypeSpecificParams = sizeof(DICONSTANTFORCE);
+	eff.lpvTypeSpecificParams = &cf;
+	eff.dwStartDelay = 0;
+
+	hr = pGamePad[nPad]->CreateEffect(GUID_ConstantForce, &eff,
+		&g_lpDIEffect, NULL);
+	if (FAILED(hr)) {
+		MessageBox(hWnd, "Can't create effect.", "Error", MB_OK);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
 //----------------------------------------------- 検査
 BOOL IsButtonPressed(int padNo, DWORD button)
 {
@@ -789,6 +873,9 @@ float GetButtonlRz(int padNo)
 	return (padlRz);
 }
 
+//=============================================================================
+// スティック情報取得関数
+//=============================================================================
 float GetStick(int padNo, int nStick)
 {
 	float fStick = 0.0f;
@@ -797,14 +884,38 @@ float GetStick(int padNo, int nStick)
 	case PAD_STICK_R_X:
 		fStick = (float)padlRx / RANGE_MAX;
 		break;
+	case PAD_STICK_R_Y:
+		fStick = (float)padlRy / RANGE_MAX;
+		break;
 	}
 	return (fStick);
 }
 
-float GetRglSlider(int nSlider)
+//=============================================================================
+// ジャイロ情報取得関数
+//=============================================================================
+D3DXVECTOR3 GetGyro(void)
 {
 	float fSlider = 0.0f;
-	if (g_rglSlider[nSlider] > PAD_SLIDER_MARGIN || g_rglSlider[nSlider] < -PAD_SLIDER_MARGIN)
-	fSlider = g_rglSlider[nSlider] * PAD_SLIDER_SPEED * g_nJoyconSlider;
-	return (fSlider);
+	D3DXVECTOR3 vecGyro;
+	vecGyro = g_vecGyro * PAD_SLIDER_SPEED * g_nJoyconSlider;
+	return (vecGyro);
+}
+
+//=============================================================================
+// ゲームパッド振動関数
+//=============================================================================
+BOOL SetPadEffect(void)
+{
+	if (!g_effectExist)
+	{
+		g_lpDIEffect->Start(1, 0);
+		g_effectExist = TRUE;
+	}
+	if (g_effectExist)
+	{
+		g_lpDIEffect->Stop();
+		g_effectExist = FALSE;
+	}
+	return g_effectExist;
 }

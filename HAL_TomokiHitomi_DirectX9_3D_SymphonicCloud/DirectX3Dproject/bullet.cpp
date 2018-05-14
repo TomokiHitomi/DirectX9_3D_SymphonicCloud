@@ -279,6 +279,13 @@ void UpdateBullet(void)
 			SetVertexShadow(bullet->nIdxShadow, bullet->fSizeShadow, bullet->fSizeShadow);
 			SetColorShadow(bullet->nIdxShadow, bullet->colShadow);
 
+			// 指定高度以上でエフェクトなし
+			if (bullet->posBullet.y > BULLET_FALSE_HEIGHT
+				|| bullet->posBullet.y < -BULLET_FALSE_HEIGHT)
+			{
+				bullet->bEffect = false;
+			}
+
 			if (bullet->bEffect)
 			{
 				// エフェクト設置
@@ -288,7 +295,6 @@ void UpdateBullet(void)
 					bullet->posBullet,
 					bullet->fEffectSizeChange,
 					bullet->fEffectAlphaChange);
-
 			}
 
 			// 使用カウントで透過→初期化
@@ -358,6 +364,9 @@ void DrawBullet(void)
 	// ラインティングを無効にする
 	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	// テクスチャをセット
+	bulletshader->SetTexture("tex", g_pD3DTextureBullet);
+
 	for (int i = 0; i < BULLET_MAX; i++, bullet++)
 	{
 		if (bullet->bUse)
@@ -418,8 +427,6 @@ void DrawBullet(void)
 			// パスを指定して開始
 			bulletshader->BeginPass(0);
 
-			// テクスチャをセット
-			bulletshader->SetTexture("tex", g_pD3DTextureBullet);
 
 			// ポリゴンの描画
 			pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, (i * 4), NUM_POLYGON);
@@ -1046,7 +1053,8 @@ void UpdateSpecialBulletThunder(int nBullet)
 
 	float fAngleTemp = PiCalculate360(bulletSys->fAngle + bullet->fAngle);		// 回転角度
 	D3DXVECTOR3 vecTaTemp = bulletSys->vecTa * bulletSys->fRotLength;			// 回転半径を設定
-																				// クォータニオン処理
+
+	// クォータニオン処理
 	QuaternionCalculate(&vecTaTemp, &bulletSys->vecAxis, fAngleTemp, &bullet->posBullet);
 	// 回転軸に設置
 	bullet->posBullet += bulletSys->posBulletSys;

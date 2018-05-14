@@ -12,6 +12,12 @@
 #include "enemy.h"
 #include "shadow.h"
 
+// デバッグ用
+#ifdef _DEBUG
+#include "debugproc.h"
+#endif
+
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -134,10 +140,19 @@ void UpdateEffect(void)
 	MODEL *model = GetModel(0);
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
+#ifdef _DEBUG
+	PrintDebugProc("【 EFFECT 】\n");
+	int nEffectCount = 0;
+#endif
+
 	for (int i = 0; i < EFFECT_MAX; i++, effect++)
 	{
 		if (effect->bUse)
 		{
+#ifdef _DEBUG
+			// 使用エフェクト数をカウント
+			nEffectCount++;
+#endif
 			effect->vec2Size.x -= effect->fSizeChange;
 			effect->vec2Size.y -= effect->fSizeChange;
 			effect->colorEffect.a -= effect->fAlphaChange;
@@ -152,6 +167,11 @@ void UpdateEffect(void)
 			}
 		}
 	}
+
+#ifdef _DEBUG
+	PrintDebugProc("EffectMax:%d\n", nEffectCount);
+	PrintDebugProc("\n");
+#endif
 }
 
 //=============================================================================
@@ -182,6 +202,11 @@ void DrawEffect(void)
 
 	// ラインティングを無効にする
 	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+	// テクスチャをセット
+	effectshader->SetTexture("tex", g_pD3DTextureEffect);
+	// シェーダーの開始、numPassには指定してあるテクニックに定義してあるpassの数が変える
+	effectshader->Begin(&numPassEffect, 0);
 
 	for (int i = 0; i < EFFECT_MAX; i++, effect++)
 	{
@@ -234,24 +259,20 @@ void DrawEffect(void)
 			//// テクスチャの設定
 			//pDevice->SetTexture(0, g_pD3DTextureEffect);
 
-			// シェーダーの開始、numPassには指定してあるテクニックに定義してあるpassの数が変える
-			effectshader->Begin(&numPassEffect, 0);
 
 			// パスを指定して開始
 			effectshader->BeginPass(0);
 
-			// テクスチャをセット
-			effectshader->SetTexture("tex", g_pD3DTextureEffect);
 
 			// ポリゴンの描画
 			pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, (i * 4), NUM_POLYGON);
 
 			// シェーダ終了
 			effectshader->EndPass();
-			effectshader->End();
+
 		}
 	}
-
+	effectshader->End();
 
 	//// 通常ブレンドに戻す
 	//pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);		// αソースカラーの指定

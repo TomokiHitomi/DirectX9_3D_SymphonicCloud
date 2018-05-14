@@ -32,11 +32,12 @@
 #define	BULLET_SIZE_Y					(10.0f)		// ※個別にサイズ変更する場合はスケールを使う
 #define BULLET_MAX						(3000)		// 最大数
 #define BULLET_FALSE_COUNT				(300)		// 消滅カウント
+#define BULLET_FALSE_HEIGHT				(1000.0f)	// 消滅高度
 #define	BULLET_ROT_SPEED				(0.05f)		// 回転速度
 
 /************************* NORMAL *************************/
 #define BULLET_SPEED						(20.0f)		// 移動スピード
-#define BULLET_TAG_VECTOR					(1500.0f)	// 弾道ベクトル用
+#define BULLET_TAG_VECTOR					(1000.0f)	// 弾道ベクトル用
 #define BULLET_NORMAL_EFFECT_SIZE_CHANGE	(0.06f)
 #define BULLET_NORMAL_EFFECT_ALPHA_CHANGE	(0.08f)
 #define BULLET_NORMAL_DAMAGE				(2.0f)

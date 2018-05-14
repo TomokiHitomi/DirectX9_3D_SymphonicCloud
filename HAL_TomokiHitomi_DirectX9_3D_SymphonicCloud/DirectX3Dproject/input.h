@@ -26,6 +26,10 @@
 #define RANGE_MAX		1000			// 有効範囲の最大値
 #define RANGE_MIN		-1000			// 有効範囲の最小値
 
+#define DEADZONE_GYRO	(100)			// 各軸の25%を無効ゾーンとする
+#define RANGE_MAX_GYRO	(10000)			// 有効範囲の最大値
+#define RANGE_MIN_GYRO	(-10000)		// 有効範囲の最小値
+
 /* game pad情報 */
 #define BUTTON_UP		0x00000001l	// 方向キー上(.rgdwPOV == 0)
 #define BUTTON_DOWN		0x00000002l	// 方向キー下(.rgdwPOV == 9000)
@@ -69,12 +73,15 @@
 //#define RSTICK_MARGIN	50			// 右スティック用マージン
 #define GAMEPADMAX		4			// 同時に接続するジョイパッドの最大数をセット
 
-#define PAD_SLIDER_MARGIN	(15)
+#define PAD_SLIDER_MARGIN	(10)
 #define PAD_SLIDER_SPEED	(0.0001f)
 #define PAD_SLIDER_DEFAULT	(5)
 #define PAD_SLIDER_MIN		(1)
 #define PAD_SLIDER_MAX		(9)
 
+//*****************************************************************************
+// 列挙型定義
+//*****************************************************************************
 enum
 {
 	PAD_STICK_L_X,
@@ -87,6 +94,13 @@ enum
 {
 	PAD_SLIDER_V,
 	PAD_SLIDER_H
+};
+
+enum
+{
+	PAD_GYRO_X,
+	PAD_GYRO_Y,
+	PAD_GYRO_Z
 };
 
 //*****************************************************************************
@@ -124,6 +138,6 @@ BOOL IsButtonReleased(int padNo, DWORD button);
 float GetButtonlZ(int padNo);
 float GetButtonlRz(int padNo);
 float GetStick(int padNo, int nStick);
-float GetRglSlider(int nSlider);
-
+D3DXVECTOR3 GetGyro(void);
+BOOL SetPadEffect(void);
 #endif

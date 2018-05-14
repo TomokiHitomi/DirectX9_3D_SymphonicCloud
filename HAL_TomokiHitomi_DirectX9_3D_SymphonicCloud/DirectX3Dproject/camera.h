@@ -33,6 +33,7 @@
 #define CAMERA_ROT_MOUSE_X			(0.002f)
 #define CAMERA_ROT_MOUSE_Y			(0.002f)
 
+#define CAMERA_HEIGHT_SUSPENSION	(3)
 
 #define ROOT_2					(1.414213f)
 

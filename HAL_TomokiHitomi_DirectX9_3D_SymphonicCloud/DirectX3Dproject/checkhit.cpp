@@ -395,7 +395,7 @@ void CheckHitModelToCloudfield(MODEL *model)
 
 	D3DXVECTOR3 vecRay = D3DXVECTOR3(0.0f, CHECKHIT_CLOUDFIELD_RAY, 0.0f);
 	float fDist = CheckHitRayToMesh(model->posModel, vecRay, GetCloudfieldMesh());
-	model->posModel.y += fDist;
+	model->posModel.y += fDist /3;
 
 	//if (model->bJump)
 	//{

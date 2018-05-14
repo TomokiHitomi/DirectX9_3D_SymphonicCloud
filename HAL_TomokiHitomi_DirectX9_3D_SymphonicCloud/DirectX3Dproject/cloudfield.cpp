@@ -144,6 +144,9 @@ void DrawCloudfield(void)
 	//// ラインティングを無効にする
 	//pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	//// グーロー・シェーディング
+	//pDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+
 	SetLight(LIGHT2, TRUE);
 
 	/******************** ワールド変換 ********************/
@@ -191,6 +194,9 @@ void DrawCloudfield(void)
 
 	//// αテストを無効に
 	//pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+	//// フラット・シェーディング
+	//pDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_FLAT);
 
 	SetLight(LIGHT2, FALSE);
 }

@@ -112,7 +112,6 @@ void UpdateHiteffect(void)
 	{	// 使用中のオブジェクトのみ処理
 		if (hiteffect->bUse)
 		{
-
 			hiteffect->nAnimeCount++;
 			if (hiteffect->nAnimeCount % TIME_ANIMATION_HITEFFECT == 0)
 			{
@@ -148,12 +147,11 @@ void UpdateHiteffect(void)
 				//	effect_knockdown->bUse = false;
 				//}
 			}
-#ifdef _DEBUG
-			PrintDebugProc("Hiteffect[%d]  AnimePt[%d]  Tex[%d]\n"
-				,i, hiteffect->nAnimePattern, hiteffect->nTex);
-#endif
 		}
 	}
+#ifdef _DEBUG
+	PrintDebugProc("\n");
+#endif
 }
 
 //=============================================================================

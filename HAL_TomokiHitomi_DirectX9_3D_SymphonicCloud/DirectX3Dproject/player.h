@@ -15,7 +15,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	PLAYER_PLAYER		"data/MODEL/Alicia/AliciaMMD_test.blend.x"							// 読み込むモデル名
+#define	PLAYER_PLAYER		"data/MODEL/Alicia/AliciaSolidMMD.x"							// 読み込むモデル名
 //#define	PLAYER_PLAYER		"data/PLAYER/test.x"							// 読み込むモデル名
 
 //#define	PLAYER_CAR		"data/PLAYER/Tune/Tune.x"							// 読み込むモデル名
@@ -23,7 +23,7 @@
 #define PLAYER_MAX						(1)
 
 //#define PLAYER_SCALE						(0.45f)
-#define PLAYER_SCALE						(12.0f)
+#define PLAYER_SCALE						(1.2f)
 #define PLAYER_SIZE						(1.0f)
 
 #define PLAYER_POS_X						(0.0f)
@@ -126,6 +126,7 @@ typedef struct
 
 typedef struct
 {
+	CSkinMesh		m_CSkinMesh;
 	//PLAYER_MAGIC		playerMagic[BULLET_TYPE_MAX];
 	D3DXVECTOR3		posPlayer;			// 地面の位置
 	D3DXVECTOR3		rotPlayer;			// 地面の向き(回転)
@@ -200,7 +201,14 @@ typedef struct
 	PLAYER_MAGICCIRCLE magicCircle[MAGICCIRCLE_MAX];
 }PLAYER;
 
-
+enum PLAYER_ANIME
+{
+	ANIME00,	// 初期姿勢
+	ANIME01,	// 手を振る
+	ANIME02,	// 走る
+	ANIME03,	// ジャンプ
+	ANIME04		// アイドリング
+};
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -212,5 +220,6 @@ void DrawPlayer(void);
 bool CheckMagicPlayer(int nPlayer, int nMagic);
 void SetMagicPlayer(int nPlayer, int nMagic);
 void SetMagicChargePlayer(int nPlayer);
+void SetPlayerAnime(int nPlayer, DWORD dAnime);
 PLAYER *GetPlayer(int no);
 #endif

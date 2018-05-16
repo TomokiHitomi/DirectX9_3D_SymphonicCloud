@@ -3,6 +3,9 @@
 // モデル処理 [SkinMeshX.h]
 // Author : GP12A295 25 人見友基
 //
+// 参考：GESブログ
+// http://ges.blog.shinobi.jp/directx/directx%209%E3%80%80%E3%82%B9%E3%82%AD%E3%83%B3%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0
+//
 //=============================================================================
 #ifndef _SKINMESHX_H_
 #define _SKINMESHX_H_
@@ -19,7 +22,8 @@
 #define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
 
-#define SKIN_ANIME_SPEED 60.0f / 4800.0f
+//#define SKIN_ANIME_SPEED 60.0f / 4800.0f
+#define SKIN_ANIME_SPEED 60.0f / 3500.0f
 
 //*****************************************************************************
 // 構造体定義

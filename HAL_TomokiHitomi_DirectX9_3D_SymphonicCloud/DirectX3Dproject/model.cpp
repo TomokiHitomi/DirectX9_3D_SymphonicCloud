@@ -20,6 +20,7 @@
 #include "magic.h"
 #include "lockon.h"
 #include "sound.h"
+#include "player.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -318,14 +319,6 @@ void UpdateModel(void)
 			{
 			case STAGE_TITLE:
 				FloatModel(i);									// 浮遊処理
-				if (GetKeyboardPress(DIK_LEFT))
-				{
-					model->rotModel.y += 0.3f;
-				}
-				if (GetKeyboardPress(DIK_RIGHT))
-				{
-					model->rotModel.y -= 0.3f;
-				}
 				break;
 			case STAGE_TUTORIAL:
 				break;
@@ -548,7 +541,6 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 {
 	MODEL *model = &modelWk[nModel];
 
-
 	if (CameraMode == CAMERA_GAME)
 	{
 		CAMERA *camera = GetCamera(CAMERA_GAME);
@@ -605,6 +597,7 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 				model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
+			SetPlayerAnime(0, 0);
 		}
 		else if (GetKeyboardPress(DIK_D) || IsButtonPressed(0, BUTTON_RIGHT) || IsButtonPressed(0, LSTICK_RIGHT))
 		{

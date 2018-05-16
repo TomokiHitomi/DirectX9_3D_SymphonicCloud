@@ -3,6 +3,9 @@
 // モデル処理 [SkinMeshX.cpp]
 // Author : GP12A295 25 人見友基
 //
+// 参考：GESブログ
+// http://ges.blog.shinobi.jp/directx/directx%209%E3%80%80%E3%82%B9%E3%82%AD%E3%83%B3%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0
+//
 //=============================================================================
 
 //*****************************************************************************
@@ -68,7 +71,7 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 	DWORD NumMaterials, CONST DWORD *pAdjacency, LPD3DXSKININFO pSkinInfo,
 	LPD3DXMESHCONTAINER *ppMeshContainer)
 {
-	//    HRESULT hr;
+	HRESULT hr;
 	//ローカル生成用
 	MYMESHCONTAINER *pMeshContainer = NULL;
 	//メッシュの面の数を格納
@@ -107,6 +110,34 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 	pMesh->GetDevice(&pDevice);
 	//メッシュの面の数を取得
 	iFacesAmount = pMesh->GetNumFaces();
+
+	//// 法線の確認
+	//if (!(pMesh->GetFVF() & D3DFVF_NORMAL))
+	//{
+	//	// メッシュに法線がないので法線を追加
+	//	pMeshContainer->MeshData.Type = D3DXMESHTYPE_MESH;
+	//	// 柔軟な頂点フォーマット (FVF) コードを使ってメッシュのコピーを作成する
+	//	hr = pMesh->CloneMeshFVF(
+	//		pMesh->GetOptions(),
+	//		pMesh->GetFVF() | D3DFVF_NORMAL,
+	//		pDevice,
+	//		&pMeshContainer->MeshData.pMesh); // ←ここにコピー
+	//	if (FAILED(hr))
+	//	{
+	//		return E_FAIL;
+	//	}
+	//	pMesh = pMeshContainer->MeshData.pMesh;
+	//	// メッシュに含まれる各頂点の法線を計算して、設定する
+	//	D3DXComputeNormals(pMesh, NULL);
+	//}
+	//else
+	//{
+	//	pMeshContainer->MeshData.pMesh = pMesh;
+	//	pMeshContainer->MeshData.Type = D3DXMESHTYPE_MESH;
+	//	// 参照カウンタをインクリメント
+	//	pMesh->AddRef();
+	//}
+
 	//- メッシュのマテリアル設定 -//
 	//メッシュのマテリアル数を格納(最大で1つ)
 	pMeshContainer->NumMaterials = max(1, NumMaterials);
@@ -182,6 +213,8 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 		pMeshContainer->pMaterials[0].MatD3D.Diffuse.b = 0.5f;
 		//スペキュラも0.5に設定(上で設定したマテリアルカラーの0.5の設定をコピー)
 		pMeshContainer->pMaterials[0].MatD3D.Specular = pMeshContainer->pMaterials[0].MatD3D.Diffuse;
+		//pMeshContainer->pMaterials[0].MatD3D.Emissive = pMeshContainer->pMaterials[0].MatD3D.Diffuse;
+		//pMeshContainer->pMaterials[0].MatD3D.Ambient = pMeshContainer->pMaterials[0].MatD3D.Diffuse;
 	}
 	//メッシュ情報を格納(今回は通常メッシュと完全に分けているためすべてスキンメッシュ情報となる)
 	pMeshContainer->pSkinInfo = pSkinInfo;

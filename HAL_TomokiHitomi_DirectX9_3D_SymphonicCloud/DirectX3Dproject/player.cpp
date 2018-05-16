@@ -6,6 +6,7 @@
 //=============================================================================
 #include "player.h"
 #include "model.h"
+#include "Light.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -25,7 +26,6 @@
 //*****************************************************************************
 PLAYER				playerWk[PLAYER_MAX];
 D3DXMATRIX			g_mtxWorldPlayer;
-CSkinMesh			m_CSkinMeshPlayer;
 
 //=============================================================================
 // 初期化処理
@@ -44,8 +44,11 @@ HRESULT InitPlayer(int nType)
 
 	if (nType == 0)
 	{
-		m_CSkinMeshPlayer.Init(pDevice, PLAYER_PLAYER);
+		player->m_CSkinMesh.Init(pDevice, PLAYER_PLAYER);
 	}
+
+	player->m_CSkinMesh.ChangeAnim((DWORD)ANIME01);
+
 	return S_OK;
 }
 
@@ -54,8 +57,9 @@ HRESULT InitPlayer(int nType)
 //=============================================================================
 void UninitPlayer(void)
 {
+	PLAYER *player = GetPlayer(0);
 	//メッシュオブジェクト管理クラス初期化管理
-	m_CSkinMeshPlayer.Release();
+	player->m_CSkinMesh.Release();
 }
 
 //=============================================================================
@@ -69,15 +73,15 @@ void UpdatePlayer(void)
 #endif
 	MODEL *model = GetModel(0);
 
-
 	player->prs.pos = model->posModel;
 	player->prs.rot = model->rotModel;
 
-	m_CSkinMeshPlayer.Update(g_mtxWorldPlayer);
+	player->m_CSkinMesh.Update(g_mtxWorldPlayer);
 
 
 #ifdef _DEBUG
-	PrintDebugProc("PlayerPos[X:%f Y:%f Z:%f]\n", player->posPlayer.x, player->posPlayer.y, player->posPlayer.z);
+	PrintDebugProc("Pos[X:%f Y:%f Z:%f]\n", player->posPlayer.x, player->posPlayer.y, player->posPlayer.z);
+	PrintDebugProc("Anime[%d]\n",player->m_CSkinMesh.GetAnimTrack());
 #endif
 }
 
@@ -89,14 +93,27 @@ void DrawPlayer(void)
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	PLAYER *player = GetPlayer(0);
 
+	//SetLight(LIGHT2, TRUE);
 	// ラインティングを無効にする
 	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	m_CSkinMeshPlayer.Draw(pDevice, player->prs);
+	player->m_CSkinMesh.Draw(pDevice, player->prs);
 
 	// ラインティングを有効にする
 	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	//SetLight(LIGHT2, FALSE);
+}
 
+//=============================================================================
+// アニメーション設定関数
+//=============================================================================
+void SetPlayerAnime(int nPlayer,DWORD dAnime)
+{
+	PLAYER *player = GetPlayer(nPlayer);
+	if (dAnime != player->m_CSkinMesh.GetAnimTrack())
+	{
+		player->m_CSkinMesh.ChangeAnim(dAnime);
+	};
 }
 
 //=============================================================================

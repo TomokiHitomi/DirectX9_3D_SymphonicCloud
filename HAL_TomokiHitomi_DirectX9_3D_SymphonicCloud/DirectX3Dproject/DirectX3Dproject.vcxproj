@@ -148,7 +148,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationSkinMesh.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="bulletqua.h" />
     <ClInclude Include="cloudfield.h" />
@@ -208,7 +207,6 @@
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationSkinMesh.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="bulletqua.cpp" />
     <ClCompile Include="cloudfield.cpp" />

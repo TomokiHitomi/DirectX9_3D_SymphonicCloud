@@ -246,9 +246,6 @@
     <ClInclude Include="damageeffect.h">
       <Filter>ソース ファイル\Object\Billboard\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationSkinMesh.h">
-      <Filter>ソース ファイル\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="cloudfield.h">
       <Filter>ソース ファイル\Object\3D\Field</Filter>
     </ClInclude>
@@ -256,7 +253,7 @@
       <Filter>ソース ファイル\Object\3D\Model</Filter>
     </ClInclude>
     <ClInclude Include="SkinMeshX.h">
-      <Filter>ソース ファイル\System</Filter>
+      <Filter>ソース ファイル\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -419,9 +416,6 @@
     <ClCompile Include="damageeffect.cpp">
       <Filter>ソース ファイル\Object\Billboard\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationSkinMesh.cpp">
-      <Filter>ソース ファイル\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="cloudfield.cpp">
       <Filter>ソース ファイル\Object\3D\Field</Filter>
     </ClCompile>
@@ -429,7 +423,7 @@
       <Filter>ソース ファイル\Object\3D\Model</Filter>
     </ClCompile>
     <ClCompile Include="SkinMeshX.cpp">
-      <Filter>ソース ファイル\System</Filter>
+      <Filter>ソース ファイル\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

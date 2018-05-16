@@ -33,6 +33,7 @@
 #include "enemy_normal.h"	// 通常エネミー
 #include "enemy_boss.h"		// ボスエネミー
 #include "magiccircle.h"
+#include "player.h"
 
 /* Billnpard */
 #include "bullet.h"
@@ -454,6 +455,7 @@ void Uninit(void)
 	UninitBulletQua();		// バレットクォータニオン（エネミー）
 	UninitHiteffect();		// ヒットエフェクト
 	UninitModel();			// モデル
+	UninitPlayer();			// プレイヤー
 	UninitShadow();			// 影
 	UninitEffect();			// エフェクト
 	UninitReticle();		// レティクル
@@ -510,6 +512,7 @@ void Update(void)
 		UpdateMeshcloud();		// 雲海
 		UpdateShadow();			// 影
 		UpdateModel();			// モデル
+		UpdatePlayer();			// プレイヤー
 		UpdateSkydome();		// スカイドーム
 		UpdateSkydomeeffect();	// スカイドームエフェクト
 		UpdateTitle();			// タイトル
@@ -540,6 +543,7 @@ void Update(void)
 			UpdateHiteffect();		// ヒットエフェクト
 			UpdateEffect();			// エフェクト
 			UpdateModel();			// モデル
+			UpdatePlayer();			// プレイヤー
 			UpdateBullet();			// バレット
 			UpdateLockon();			// ロックオン
 			UpdateParameter();
@@ -610,7 +614,8 @@ void Draw(void)
 			DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
 			DrawShadow();			// 影
-			DrawModel();			// モデル
+			//DrawModel();			// モデル
+			DrawPlayer();			// プレイヤー
 			DrawTitle();			// タイトル
 			DrawTitlemenu();		// タイトルメニュー
 			DrawVersion();
@@ -643,7 +648,8 @@ void Draw(void)
 			DrawBulletQua();		// バレットクォータニオン（エネミー）
 			DrawBullet();			// バレット
 			DrawHiteffect();		// ヒットエフェクト
-			DrawModel();			// モデル
+			//DrawModel();			// モデル
+			DrawPlayer();			// プレイヤー
 			DrawEffect();			// エフェクト
 			DrawCloud();			// 雲
 			DrawParameter();		// ビルボードHPバー
@@ -746,6 +752,7 @@ void InitSystem(int nType)
 	InitEnemy(nType);			// エネミー
 	InitEnemy_normal(nType);	// エネミーノーマル
 	InitEnemy_boss(nType);		// エネミーボス
+	InitPlayer(nType);			// プレイヤー
 	InitModel(nType);			// モデル
 	InitTitle(nType);			// タイトル
 	InitTitlemenu(nType);		// タイトルメニュー

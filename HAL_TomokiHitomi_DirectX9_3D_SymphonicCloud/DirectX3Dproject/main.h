@@ -14,6 +14,7 @@
 #include "d3dx9.h"
 #include <stdio.h>
 #include <time.h>
+#include <vector>
 
 #define DIRECTINPUT_VERSION (0x0800)	// Œx‘Îˆ—p
 #include "dinput.h"

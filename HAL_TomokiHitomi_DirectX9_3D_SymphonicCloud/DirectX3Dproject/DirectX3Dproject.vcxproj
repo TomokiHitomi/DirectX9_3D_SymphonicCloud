@@ -182,10 +182,12 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="minimap.h" />
     <ClInclude Include="parameter.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="pointer.h" />
     <ClInclude Include="rank.h" />
     <ClInclude Include="ranking.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SkinMeshX.h" />
     <ClInclude Include="skydomeeffect.h" />
     <ClInclude Include="stage.h" />
     <ClInclude Include="time.h" />
@@ -240,9 +242,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="minimap.cpp" />
     <ClCompile Include="parameter.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="pointer.cpp" />
     <ClCompile Include="rank.cpp" />
     <ClCompile Include="ranking.cpp" />
+    <ClCompile Include="SkinMeshX.cpp" />
     <ClCompile Include="skydomeeffect.cpp" />
     <ClCompile Include="stage.cpp" />
     <ClCompile Include="time.cpp" />

@@ -224,7 +224,7 @@ void DrawMagiccircle(void)
 	pDevice->SetRenderState(D3DRS_ALPHAREF, MAGICCIRCLE_ALPHA);
 	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
-	// 両面表示
+	// 両面描画
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 
@@ -320,7 +320,7 @@ void DrawMagiccircle(void)
 	//pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, dwTemp[1]);
 	//pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, dwTemp[2]);
 
-	// 片面表示
+	// 片面描画
 	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	//// ラインティングを有効にする

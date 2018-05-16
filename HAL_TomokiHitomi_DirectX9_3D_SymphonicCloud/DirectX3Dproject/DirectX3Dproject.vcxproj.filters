@@ -252,6 +252,12 @@
     <ClInclude Include="cloudfield.h">
       <Filter>ソース ファイル\Object\3D\Field</Filter>
     </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ソース ファイル\Object\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinMeshX.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -418,6 +424,12 @@
     </ClCompile>
     <ClCompile Include="cloudfield.cpp">
       <Filter>ソース ファイル\Object\3D\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>ソース ファイル\Object\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinMeshX.cpp">
+      <Filter>ソース ファイル\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

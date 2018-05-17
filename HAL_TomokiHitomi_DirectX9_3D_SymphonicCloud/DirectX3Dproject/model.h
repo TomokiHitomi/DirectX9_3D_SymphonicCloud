@@ -40,7 +40,7 @@
 
 #define MODEL_MOVE_SPEED				(5)
 #define MODEL_MOVE_BOOST				(10)
-#define MODEL_MOVE_INERTIA				(0.03f)
+#define MODEL_MOVE_INERTIA				(0.3f)
 
 #define MODEL_ROT_SPEED					(0.1f)
 #define MODEL_ROT_AUTO_SPEED			(0.2f)
@@ -176,6 +176,7 @@ typedef struct
 	bool			bParameter;
 	bool			bJump;
 	bool			bStatusMPLimiter;
+	bool			bDash;
 
 	bool			bActiveFire;
 	bool			bActiveThunder;

@@ -54,7 +54,7 @@ struct MYMESHCONTAINER : public D3DXMESHCONTAINER
 	LPD3DXBUFFER pBoneBuffer; //ボーン・テーブル
 	D3DXMATRIX** ppBoneMatrix; //全てのボーンのワールド行列の先頭ポインター
 	D3DXMATRIX* pBoneOffsetMatrices; //フレームとしてのボーンのワールド行列のポインター
-	LPD3DXMESH pOriMesh; //オリジナルメッシュ用
+	LPD3DXMESH pOriMesh; //オリジナルメッシュ用aaaaaaa
 	DWORD NumPaletteEntries; //パレットサイズ
 							 // Work用
 	std::vector<D3DXMATRIX> m_WorkBoneMatArray;
@@ -121,6 +121,8 @@ public:
 	FLOAT GetAnimSpeed() { return m_AnimSpeed; }
 	//アニメーション速度を設定
 	VOID SetAnimSpeed(FLOAT _AnimSpeed) { m_AnimSpeed = _AnimSpeed; }
+	//アニメーション速度を設定
+	VOID SetAnimTime(DWORD _AnimeTime) { m_AnimeTime = _AnimeTime; }
 private:
 	//対象のボーンを検索
 	MYFRAME* SearchBoneFrame(LPSTR _BoneName, D3DXFRAME* _pFrame);

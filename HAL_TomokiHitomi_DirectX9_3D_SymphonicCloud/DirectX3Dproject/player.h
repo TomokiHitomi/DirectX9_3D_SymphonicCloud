@@ -106,6 +106,10 @@
 #define PLAYER_TILT_MARGIN_BOOST_SIDE	(0.2f)		// 側面移動限界傾斜
 
 
+#define SKIN_ANIME_SPEED_PLAYER_NORMAL	(60.0f / 3500.0f)
+#define SKIN_ANIME_SPEED_PLAYER_DASH	(60.0f / 2000.0f)
+#define SKIN_ANIME_SPEED_PLAYER_ATTACK	(60.0f / 2500.0f)
+
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
@@ -181,6 +185,7 @@ typedef struct
 	bool			bJump;
 	bool			bStatusMPLimiter;
 
+
 	bool			bActiveFire;
 	bool			bActiveThunder;
 	bool			bActiveIce;
@@ -203,11 +208,17 @@ typedef struct
 
 enum PLAYER_ANIME
 {
-	ANIME00,	// 初期姿勢
-	ANIME01,	// 手を振る
-	ANIME02,	// 走る
-	ANIME03,	// ジャンプ
-	ANIME04		// アイドリング
+	ANIME00,	// 手を振る
+	ANIME01,	// ランニング
+	ANIME02,	// ジャンプ
+	ANIME03,	// アイドリング
+	ANIME04,	// フォワードラン
+	ANIME05,	// レフトラン
+	ANIME06,	// ライトラン
+	ANIME07,	// バックラン
+	ANIME08,	// アタック
+	ANIME09,	// デス
+	ANIME_MAX
 };
 
 //*****************************************************************************

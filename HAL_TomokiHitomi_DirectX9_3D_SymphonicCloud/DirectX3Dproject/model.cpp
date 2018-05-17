@@ -551,10 +551,12 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 			{
 				SetSe(9, E_DS8_FLAG_NONE, false);
 				model->bStatusMPLimiter = true;					// MPリミッター有効
+				model->bDash = false;
 			}
 			else if(model->fStatusMP > MODEL_STATUS_MP_LIMITER)	// MPがリミッター値を越えたら
 			{
 				model->bStatusMPLimiter = false;				// MPリミッター無効
+				model->bDash = true;
 			}
 			model->fStatusMP -= MODEL_STATUS_MP_SUB;			// MPを減算
 			if (model->fStatusMP < 0.0f)
@@ -569,6 +571,7 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 			{
 				model->fStatusMP = MODEL_STATUS_MP;
 			}				// MP最大値を維持
+			model->bDash = false;
 		}
 
 		// カメラの角度を取得
@@ -597,7 +600,7 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 				model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
-			SetPlayerAnime(0, 0);
+			SetPlayerAnime(0, ANIME05);
 		}
 		else if (GetKeyboardPress(DIK_D) || IsButtonPressed(0, BUTTON_RIGHT) || IsButtonPressed(0, LSTICK_RIGHT))
 		{
@@ -616,6 +619,7 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 				model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
+			SetPlayerAnime(0, ANIME06);
 		}
 		else if (GetKeyboardPress(DIK_W) || IsButtonPressed(0, BUTTON_UP) || IsButtonPressed(0, LSTICK_UP))
 		{// 前移動
@@ -626,12 +630,18 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 			{
 				model->moveModel.x = cosf(model->fHAngle) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle) * model->fMoveSpeed;
+				SetPlayerAnime(0, ANIME04);
 			}
 		}
 		else if (GetKeyboardPress(DIK_S) || IsButtonPressed(0, BUTTON_DOWN) || IsButtonPressed(0, LSTICK_DOWN))
 		{// 後移動
 			model->moveModel.x = cosf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
 			model->moveModel.z = sinf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
+			SetPlayerAnime(0, ANIME07);
+		}
+		else
+		{
+			SetPlayerAnime(0, ANIME03);
 		}
 
 		// カメラとモデルの角度を同期
@@ -889,6 +899,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 	}
 	else if (GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R))
 	{
+		SetPlayerAnime(0, ANIME08);
 
 		// マジックバレット発射
 		switch (GetTypeMagic() + 1)

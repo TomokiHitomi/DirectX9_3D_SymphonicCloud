@@ -1,2 +1,52 @@
-﻿  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)
+﻿  Light.cpp
+  コードを生成中...
+  コンパイル中...
+  player.cpp
+  main.cpp
+c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(47): warning C4005: 'BULLETQUA_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\bulletqua.h(31): note: 'BULLETQUA_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(31): warning C4005: 'ENEMYBULLET_ALPHA_CHANGE': マクロが再定義されました。
+  c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\enemybullet.h(19): note: 'ENEMYBULLET_ALPHA_CHANGE' の以前の定義を確認してください
+c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\main.cpp(162): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\main.cpp(326): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\hitomi\documents\project\directx9_3d_symphoniccloud\hal_tomokihitomi_directx9_3d_symphoniccloud\directx3dproject\main.cpp(327): warning C4244: '=': 'float' から 'UINT' への変換です。データが失われる可能性があります。
+  cloudfield.cpp
+  コードを生成中...
+  スキップ中... (関連する変更は検出されませんでした)
+  wall.cpp
+  version.cpp
+  titlemenu.cpp
+  title.cpp
+  timeranking.cpp
+  timefream.cpp
+  time.cpp
+  stage.cpp
+  sound.cpp
+  skydomeeffect.cpp
+  skydome.cpp
+  shadow.cpp
+  reticle.cpp
+  result.cpp
+  ranking.cpp
+  rank.cpp
+  pointer.cpp
+  pausemenu.cpp
+  pause.cpp
+  magiceffect.cpp
+  joyconhelp.cpp
+  input.cpp
+  hiteffect.cpp
+  game.cpp
+  gageselect.cpp
+  gagefream.cpp
+  gageback.cpp
+  field.cpp
+  fade.cpp
+  enemy_normal.cpp
+  enemy_boss.cpp
+  debugproc.cpp
+  damageeffect.cpp
+  copyright.cpp
+  calculate.cpp
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)

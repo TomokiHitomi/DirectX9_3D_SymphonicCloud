@@ -47,8 +47,9 @@ HRESULT InitPlayer(int nType)
 		player->m_CSkinMesh.Init(pDevice, PLAYER_PLAYER);
 	}
 
-	player->m_CSkinMesh.ChangeAnim((DWORD)ANIME01);
+	//player->m_CSkinMesh.ChangeAnim((DWORD)ANIME01);
 
+	SetPlayerAnime(0, ANIME00);
 	return S_OK;
 }
 
@@ -81,7 +82,7 @@ void UpdatePlayer(void)
 
 #ifdef _DEBUG
 	PrintDebugProc("Pos[X:%f Y:%f Z:%f]\n", player->posPlayer.x, player->posPlayer.y, player->posPlayer.z);
-	PrintDebugProc("Anime[%d]\n",player->m_CSkinMesh.GetAnimTrack());
+	PrintDebugProc("Anime[%d]\n", ANIME_MAX - player->m_CSkinMesh.GetAnimTrack() - 1);
 #endif
 }
 
@@ -94,13 +95,13 @@ void DrawPlayer(void)
 	PLAYER *player = GetPlayer(0);
 
 	//SetLight(LIGHT2, TRUE);
-	// ラインティングを無効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//// ラインティングを無効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	player->m_CSkinMesh.Draw(pDevice, player->prs);
 
-	// ラインティングを有効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	//// ラインティングを有効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	//SetLight(LIGHT2, FALSE);
 }
 
@@ -110,9 +111,42 @@ void DrawPlayer(void)
 void SetPlayerAnime(int nPlayer,DWORD dAnime)
 {
 	PLAYER *player = GetPlayer(nPlayer);
+	MODEL *model = GetModel(0);
+	DWORD dwTemp = dAnime;
+
+	if (model->bDash)
+	{
+		player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_DASH);
+	}
+	else
+	{
+		player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_NORMAL);
+	}
+
+	dAnime = ANIME_MAX - dAnime - 1;
 	if (dAnime != player->m_CSkinMesh.GetAnimTrack())
 	{
 		player->m_CSkinMesh.ChangeAnim(dAnime);
+
+		if (dwTemp == ANIME08)
+		{
+			player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ATTACK);
+			if (player->m_CSkinMesh.GetAnimTime() < 30)
+			{
+				player->m_CSkinMesh.SetAnimTime(30);
+			}
+		}
+		else
+		{
+			if (model->bDash)
+			{
+				player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_DASH);
+			}
+			else
+			{
+				player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_NORMAL);
+			}
+		}
 	};
 }
 

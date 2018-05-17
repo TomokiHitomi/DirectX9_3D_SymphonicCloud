@@ -15,7 +15,7 @@
 #define NUM_COPYRIGHT		(2)	// ポリゴン数
 
 #define TEXTURE_GAME_COPYRIGHT	("data/TEXTURE/copyright.png")	// COPYRIGHT用画像
-#define TEXTURE_COPYRIGHT_SIZE_X	(300 * SCREEN_SCALE/2) // テクスチャサイズ
+#define TEXTURE_COPYRIGHT_SIZE_X	(600 * SCREEN_SCALE/2) // テクスチャサイズ
 #define TEXTURE_COPYRIGHT_SIZE_Y	(30 * SCREEN_SCALE/2) // 同上
 
 #define COPYRIGHT_POS_X				(SCREEN_CENTER_X)	// 初期座標X

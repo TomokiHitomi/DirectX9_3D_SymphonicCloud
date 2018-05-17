@@ -106,9 +106,15 @@
 #define PLAYER_TILT_MARGIN_BOOST_SIDE	(0.2f)		// 側面移動限界傾斜
 
 
-#define SKIN_ANIME_SPEED_PLAYER_NORMAL	(60.0f / 2000.0f)
-#define SKIN_ANIME_SPEED_PLAYER_DASH	(60.0f / 1200.0f)
-#define SKIN_ANIME_SPEED_PLAYER_ATTACK	(60.0f / 2500.0f)
+#define SKIN_ANIME_SPEED_PLAYER_NORMAL	(60.0f / 1200.0f)
+#define SKIN_ANIME_SPEED_PLAYER_DASH	(60.0f / 900.0f)
+#define SKIN_ANIME_SPEED_PLAYER_JUMP	(60.0f / 3600.0f)
+#define SKIN_ANIME_SPEED_PLAYER_ATTACK	(60.0f / 2000.0f)
+#define SKIN_ANIME_SPEED_PLAYER_ANIME	(60.0f / 4800.0f)
+
+#define PLAYER_JUMP_TIME_START			(30)
+#define PLAYER_JUMP_TIME_END			(27)
+#define PLAYER_RECOIL_TIME				(25)
 
 //*****************************************************************************
 // 構造体定義
@@ -131,67 +137,13 @@ typedef struct
 typedef struct
 {
 	CSkinMesh		m_CSkinMesh;
-	//PLAYER_MAGIC		playerMagic[BULLET_TYPE_MAX];
-	D3DXVECTOR3		posPlayer;			// 地面の位置
-	D3DXVECTOR3		rotPlayer;			// 地面の向き(回転)
-	D3DXVECTOR3		sclPlayer;			// 地面の大きさ(スケール)
-	D3DXVECTOR3		movePlayer;
-
 	PRS				prs;
 
-	D3DXMATRIX		mtxView;			// ビューマトリックス
-	D3DXMATRIX		mtxProjection;		// プロジェクションマトリックス
-	D3DXMATRIX		mtxWorld;			// ワールドマトリックス
+	int				nJumpCount;
+	int				nJumpFlag;
 
-	int				nTag;
-	int				nTagNum;
-	int				nTagReleaseCount;
-
-	int				nCharge;
-	int				nChargeCount;
-
-	int				nAttackNormalCount;
-	int				nAttackFireCount;
-	int				nAttackThunderCount;
-	int				nAttackIceCount;
-	int				nAttackWindCount;
-	int				nAttackWaterCount;
-	int				nAttackEarthCount;
-
-	int				nInvisibleCount;
-
-	float			fStatusHP;
-	float			fStatusMP;
-	float			fStatusNormal;
-	float			fStatusFire;
-	float			fStatusThunder;
-	float			fStatusIce;
-	float			fStatusWind;
-	float			fStatusWater;
-	float			fStatusEarth;
-
-
-	float			fHAngle;
-	float			fHAngleDest;
-	float			fHAngleDiff;
-	float			fMoveSpeed;
-	float			fFloatAngle;
-	float			fFloatPos;
-	float			fJumpAccel;
-
-	bool			bUse;
-	bool			bLockOn;
-	bool			bParameter;
-	bool			bJump;
-	bool			bStatusMPLimiter;
-
-
-	bool			bActiveFire;
-	bool			bActiveThunder;
-	bool			bActiveIce;
-	bool			bActiveWind;
-	bool			bActiveWater;
-	bool			bActiveEarth;
+	int				nRecoilCount;
+	bool			bRecoilFlag;
 
 	// シャドウ用
 	int				nIdxShadow;
@@ -237,6 +189,14 @@ enum PLAYER_ANIME
 	PLAYER_ANIME_MAX
 };
 
+enum PLAYER_JUMP
+{
+	PLAYER_JUMP_START,
+	PLAYER_JUMP_LOOP,
+	PLAYER_JUMP_END,
+	PLAYER_JUMP_LAST
+};
+
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
@@ -244,9 +204,6 @@ HRESULT InitPlayer(int nType);
 void UninitPlayer(void);
 void UpdatePlayer(void);
 void DrawPlayer(void);
-bool CheckMagicPlayer(int nPlayer, int nMagic);
-void SetMagicPlayer(int nPlayer, int nMagic);
-void SetMagicChargePlayer(int nPlayer);
 void SetPlayerAnime(int nPlayer, DWORD dAnime);
 PLAYER *GetPlayer(int no);
 #endif

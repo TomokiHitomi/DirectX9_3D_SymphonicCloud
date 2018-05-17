@@ -1,4 +1,4 @@
-﻿  SkinMeshX.cpp
+﻿  player.cpp
   コードを生成中...
   スキップ中... (関連する変更は検出されませんでした)
   wall.cpp
@@ -34,7 +34,6 @@
   enemy_boss.cpp
   debugproc.cpp
   damageeffect.cpp
-  copyright.cpp
   calculate.cpp
   DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
   DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)

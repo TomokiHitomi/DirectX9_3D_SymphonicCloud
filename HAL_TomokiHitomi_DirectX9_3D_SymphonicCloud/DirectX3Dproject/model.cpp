@@ -1166,6 +1166,7 @@ void JumpModel(int nModel)
 	if (model->posModel.y < 0.0f)
 	{												// モデルPOSが0.0fを下回ったら
 		model->posModel.y = 0.0f;					// 0.0fを適用
+		model->bJump = false;						// ジャンプフラグを解除
 	}
 }
 

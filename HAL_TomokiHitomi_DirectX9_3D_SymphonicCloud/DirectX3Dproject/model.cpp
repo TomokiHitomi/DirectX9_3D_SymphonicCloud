@@ -147,43 +147,43 @@ HRESULT InitModel(int nType)
 		g_pD3DXBuffMatModel = NULL;
 		g_nNumMatModel = 0;
 
-		// モデルデータ読み込み
-		if (FAILED(D3DXLoadMeshFromX(MODEL_MODEL,			// モデルデータ
-			D3DXMESH_SYSTEMMEM,			// 使用するメモリのオプション
-			pDevice,					// デバイス
-			NULL,						// 未使用
-			&g_pD3DXBuffMatModel,		// マテリアルデータ
-			NULL,						// 未使用
-			&g_nNumMatModel,			// D3DXMATERIAL構造体の数
-			&g_pD3DXMeshModel)))		// メッシュデータへのポインタ
-		{
-			return E_FAIL;
-		}
+		//// モデルデータ読み込み
+		//if (FAILED(D3DXLoadMeshFromX(MODEL_MODEL,			// モデルデータ
+		//	D3DXMESH_SYSTEMMEM,			// 使用するメモリのオプション
+		//	pDevice,					// デバイス
+		//	NULL,						// 未使用
+		//	&g_pD3DXBuffMatModel,		// マテリアルデータ
+		//	NULL,						// 未使用
+		//	&g_nNumMatModel,			// D3DXMATERIAL構造体の数
+		//	&g_pD3DXMeshModel)))		// メッシュデータへのポインタ
+		//{
+		//	return E_FAIL;
+		//}
 
-		// マテリアル情報を取り出す
-		D3DXMATERIAL*	d3Mat = (D3DXMATERIAL*)g_pD3DXBuffMatModel->GetBufferPointer();
-		g_pD3DMatMeshModel = new D3DMATERIAL9[g_nNumMatModel];		// メッシュ情報を確保
-		g_pD3DTextureModel = new LPDIRECT3DTEXTURE9[g_nNumMatModel];// テクスチャを確保
-		for (int i = 0; i < g_nNumMatModel; i++)
-		{
-			g_pD3DMatMeshModel[i] = d3Mat[i].MatD3D;			// マテリアル情報セット
-			g_pD3DMatMeshModel[i].Ambient = g_pD3DMatMeshModel[i].Diffuse;// 環境光初期化
-			g_pD3DTextureModel[i] = NULL;	// テクスチャ初期化
+		//// マテリアル情報を取り出す
+		//D3DXMATERIAL*	d3Mat = (D3DXMATERIAL*)g_pD3DXBuffMatModel->GetBufferPointer();
+		//g_pD3DMatMeshModel = new D3DMATERIAL9[g_nNumMatModel];		// メッシュ情報を確保
+		//g_pD3DTextureModel = new LPDIRECT3DTEXTURE9[g_nNumMatModel];// テクスチャを確保
+		//for (int i = 0; i < g_nNumMatModel; i++)
+		//{
+		//	g_pD3DMatMeshModel[i] = d3Mat[i].MatD3D;			// マテリアル情報セット
+		//	g_pD3DMatMeshModel[i].Ambient = g_pD3DMatMeshModel[i].Diffuse;// 環境光初期化
+		//	g_pD3DTextureModel[i] = NULL;	// テクスチャ初期化
 
-			// 使用しているテクスチャがあれば読み込む
-			if (d3Mat[i].pTextureFilename != NULL &&
-				lstrlen(d3Mat[i].pTextureFilename) > 0)
-			{
-				// テクスチャ読み込み
-				if (FAILED(D3DXCreateTextureFromFile(
-					pDevice,
-					d3Mat[i].pTextureFilename,
-					&g_pD3DTextureModel[i])))
-				{
-					return E_FAIL;
-				}
-			}
-		}
+		//	// 使用しているテクスチャがあれば読み込む
+		//	if (d3Mat[i].pTextureFilename != NULL &&
+		//		lstrlen(d3Mat[i].pTextureFilename) > 0)
+		//	{
+		//		// テクスチャ読み込み
+		//		if (FAILED(D3DXCreateTextureFromFile(
+		//			pDevice,
+		//			d3Mat[i].pTextureFilename,
+		//			&g_pD3DTextureModel[i])))
+		//		{
+		//			return E_FAIL;
+		//		}
+		//	}
+		//}
 	}
 	return S_OK;
 }
@@ -600,7 +600,7 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 				model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
-			SetPlayerAnime(0, ANIME05);
+			//SetPlayerAnime(0, ANIME05);
 		}
 		else if (GetKeyboardPress(DIK_D) || IsButtonPressed(0, BUTTON_RIGHT) || IsButtonPressed(0, LSTICK_RIGHT))
 		{
@@ -619,7 +619,7 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 				model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
-			SetPlayerAnime(0, ANIME06);
+			//SetPlayerAnime(0, ANIME06);
 		}
 		else if (GetKeyboardPress(DIK_W) || IsButtonPressed(0, BUTTON_UP) || IsButtonPressed(0, LSTICK_UP))
 		{// 前移動
@@ -630,18 +630,18 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 			{
 				model->moveModel.x = cosf(model->fHAngle) * model->fMoveSpeed;
 				model->moveModel.z = sinf(model->fHAngle) * model->fMoveSpeed;
-				SetPlayerAnime(0, ANIME04);
+				//SetPlayerAnime(0, ANIME04);
 			}
 		}
 		else if (GetKeyboardPress(DIK_S) || IsButtonPressed(0, BUTTON_DOWN) || IsButtonPressed(0, LSTICK_DOWN))
 		{// 後移動
 			model->moveModel.x = cosf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
 			model->moveModel.z = sinf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
-			SetPlayerAnime(0, ANIME07);
+			//SetPlayerAnime(0, ANIME07);
 		}
 		else
 		{
-			SetPlayerAnime(0, ANIME03);
+			//SetPlayerAnime(0, ANIME03);
 		}
 
 		// カメラとモデルの角度を同期
@@ -899,7 +899,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 	}
 	else if (GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R))
 	{
-		SetPlayerAnime(0, ANIME08);
+		//SetPlayerAnime(0, ANIME08);
 
 		// マジックバレット発射
 		switch (GetTypeMagic() + 1)

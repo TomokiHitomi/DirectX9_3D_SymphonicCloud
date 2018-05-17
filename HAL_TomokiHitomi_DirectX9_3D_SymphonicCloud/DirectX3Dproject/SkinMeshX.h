@@ -23,7 +23,7 @@
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
 
 //#define SKIN_ANIME_SPEED 60.0f / 4800.0f
-#define SKIN_ANIME_SPEED 60.0f / 3500.0f
+#define SKIN_ANIME_SPEED 60.0f / 1500.0f
 
 //*****************************************************************************
 // 構造体定義
@@ -121,7 +121,7 @@ public:
 	FLOAT GetAnimSpeed() { return m_AnimSpeed; }
 	//アニメーション速度を設定
 	VOID SetAnimSpeed(FLOAT _AnimSpeed) { m_AnimSpeed = _AnimSpeed; }
-	//アニメーション速度を設定
+	//アニメーションタイムを設定
 	VOID SetAnimTime(DWORD _AnimeTime) { m_AnimeTime = _AnimeTime; }
 private:
 	//対象のボーンを検索
@@ -145,7 +145,7 @@ private:
 	//ヒエラルキークラス変数
 	MY_HIERARCHY m_cHierarchy;
 	//アニメーションデータ格納用変数(ここは可変に変更したほうがいい)
-	LPD3DXANIMATIONSET m_pAnimSet[20];
+	LPD3DXANIMATIONSET m_pAnimSet[25];
 	//現在のアニメーションが開始されてからの時間(1/60秒)
 	DWORD m_AnimeTime;
 	//アニメーションスピード

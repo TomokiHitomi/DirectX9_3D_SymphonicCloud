@@ -15,15 +15,15 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	PLAYER_PLAYER		"data/MODEL/Alicia/AliciaSolidMMD.x"							// 読み込むモデル名
-//#define	PLAYER_PLAYER		"data/PLAYER/test.x"							// 読み込むモデル名
+//#define	PLAYER_MODEL		"data/MODEL/Alicia/AliciaSolidMMD.x"							// 読み込むモデル名
+#define	PLAYER_MODEL		"hackadollMMD.x"							// 読み込むモデル名
 
 //#define	PLAYER_CAR		"data/PLAYER/Tune/Tune.x"							// 読み込むモデル名
 
 #define PLAYER_MAX						(1)
 
 //#define PLAYER_SCALE						(0.45f)
-#define PLAYER_SCALE						(1.2f)
+#define PLAYER_SCALE						(0.27f)
 #define PLAYER_SIZE						(1.0f)
 
 #define PLAYER_POS_X						(0.0f)
@@ -106,8 +106,8 @@
 #define PLAYER_TILT_MARGIN_BOOST_SIDE	(0.2f)		// 側面移動限界傾斜
 
 
-#define SKIN_ANIME_SPEED_PLAYER_NORMAL	(60.0f / 3500.0f)
-#define SKIN_ANIME_SPEED_PLAYER_DASH	(60.0f / 2000.0f)
+#define SKIN_ANIME_SPEED_PLAYER_NORMAL	(60.0f / 2000.0f)
+#define SKIN_ANIME_SPEED_PLAYER_DASH	(60.0f / 1200.0f)
 #define SKIN_ANIME_SPEED_PLAYER_ATTACK	(60.0f / 2500.0f)
 
 //*****************************************************************************
@@ -206,19 +206,35 @@ typedef struct
 	PLAYER_MAGICCIRCLE magicCircle[MAGICCIRCLE_MAX];
 }PLAYER;
 
+// 追記は逆順（新しいものから格納される）
 enum PLAYER_ANIME
 {
-	ANIME00,	// 手を振る
-	ANIME01,	// ランニング
-	ANIME02,	// ジャンプ
-	ANIME03,	// アイドリング
-	ANIME04,	// フォワードラン
-	ANIME05,	// レフトラン
-	ANIME06,	// ライトラン
-	ANIME07,	// バックラン
-	ANIME08,	// アタック
-	ANIME09,	// デス
-	ANIME_MAX
+	PLAYER_ANIME_DANCE_SPIN,
+	PLAYER_ANIME_DANCE_YMCA,
+
+	PLAYER_ANIME_DEATH,
+	PLAYER_ANIME_HEADSHOT,
+	PLAYER_ANIME_IDLE_EX,
+	PLAYER_ANIME_RECOIL,
+	PLAYER_ANIME_OVERDRAW,
+
+	PLAYER_ANIME_JUMP_END,
+	PLAYER_ANIME_JUMP_LOOP,
+	PLAYER_ANIME_JUMP_START,
+	PLAYER_ANIME_AIM_RIGHT,
+	PLAYER_ANIME_AIM_LEFT,
+
+	PLAYER_ANIME_AIM_BACK,
+	PLAYER_ANIME_AIM_FORWARD,
+	PLAYER_ANIME_AIM_IDLE,
+	PLAYER_ANIME_RIGHT,
+	PLAYER_ANIME_LEFT,
+
+	PLAYER_ANIME_BACK,
+	PLAYER_ANIME_FORWARD,
+	PLAYER_ANIME_IDLE,
+	PLAYER_ANIME_HAND,
+	PLAYER_ANIME_MAX
 };
 
 //*****************************************************************************

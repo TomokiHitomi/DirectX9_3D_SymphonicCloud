@@ -185,16 +185,16 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 			//テクスチャのファイル名がNULLでなければ(テクスチャデータがあれば)
 			if (pMeshContainer->pMaterials[iMaterial].pTextureFilename != NULL)
 			{
-				////マテリアルカラーを0.5に設定
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.r = 1.0f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.g = 1.0f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.b = 1.0f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.a = 1.0f;
+				//////マテリアルカラーを0.5に設定
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.r = 1.0f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.g = 1.0f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.b = 1.0f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.a = 1.0f;
 
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.r = 0.5f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.g = 0.5f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.b = 0.5f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.a = 0.5f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.r = 0.5f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.g = 0.5f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.b = 0.5f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.a = 0.5f;
 
 
 				////スペキュラも0.5に設定(上で設定したマテリアルカラーの0.5の設定をコピー)
@@ -717,26 +717,26 @@ VOID CSkinMesh::Update(D3DXMATRIX _World) {
 	//押しっぱなしによる連続切り替え防止
 	static bool PushFlg = false; //ここでは仮でフラグを使用するが、本来はメンバ変数などにする
 								 //アニメーション変更チェック
-	if ((GetAsyncKeyState(VK_LEFT) & 0x8000) || (GetAsyncKeyState(VK_RIGHT) & 0x8000)) {
-		if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
-			if (PushFlg == false) {
-				int Num = GetAnimTrack() - 1;
-				if (Num < 0)Num = 0;
-				ChangeAnim(Num);
-			}
-		}
-		if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
-			if (PushFlg == false) {
-				int Num = GetAnimTrack() + 1;
-				if ((DWORD)Num > m_pAnimController->GetNumAnimationSets())Num = m_pAnimController->GetNumAnimationSets();
-				ChangeAnim(Num);
-			}
-		}
-		PushFlg = true;
-	}
-	else {
-		PushFlg = false;
-	}
+	//if ((GetAsyncKeyState(VK_LEFT) & 0x8000) || (GetAsyncKeyState(VK_RIGHT) & 0x8000)) {
+	//	if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+	//		if (PushFlg == false) {
+	//			int Num = GetAnimTrack() - 1;
+	//			if (Num < 0)Num = 0;
+	//			ChangeAnim(Num);
+	//		}
+	//	}
+	//	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+	//		if (PushFlg == false) {
+	//			int Num = GetAnimTrack() + 1;
+	//			if ((DWORD)Num > m_pAnimController->GetNumAnimationSets())Num = m_pAnimController->GetNumAnimationSets();
+	//			ChangeAnim(Num);
+	//		}
+	//	}
+	//	PushFlg = true;
+	//}
+	//else {
+	//	PushFlg = false;
+	//}
 	//マトリックス行列反映
 	m_World = _World;
 	//アニメーション時間を更新
@@ -766,7 +766,6 @@ VOID CSkinMesh::Draw(LPDIRECT3DDEVICE9 lpD3DDevice, PRS prs) {
 //=============================================================================
 //オブジェクトのアニメーション変更( 変更するアニメーション番号 )
 VOID CSkinMesh::ChangeAnim(DWORD _NewAnimNum) {
-
 	//新規アニメーションに変更
 	m_CurrentTrack = _NewAnimNum;
 	//アニメーションタイムを初期化

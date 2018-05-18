@@ -1,17 +1,13 @@
-﻿  player.cpp
+﻿  pause.cpp
   コードを生成中...
   スキップ中... (関連する変更は検出されませんでした)
-  wall.cpp
   version.cpp
   titlemenu.cpp
   title.cpp
   timeranking.cpp
   timefream.cpp
   time.cpp
-  stage.cpp
   sound.cpp
-  skydomeeffect.cpp
-  skydome.cpp
   shadow.cpp
   reticle.cpp
   result.cpp
@@ -19,21 +15,16 @@
   rank.cpp
   pointer.cpp
   pausemenu.cpp
-  pause.cpp
   magiceffect.cpp
   joyconhelp.cpp
   input.cpp
-  hiteffect.cpp
-  game.cpp
   gageselect.cpp
   gagefream.cpp
   gageback.cpp
-  field.cpp
   fade.cpp
-  enemy_normal.cpp
   enemy_boss.cpp
   debugproc.cpp
   damageeffect.cpp
   calculate.cpp
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
-  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\DirectX9_3D_SymphonicCloud\HAL_TomokiHitomi_DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)

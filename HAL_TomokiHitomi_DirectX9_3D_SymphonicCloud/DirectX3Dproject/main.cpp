@@ -509,6 +509,7 @@ void Update(void)
 	switch (g_eStage)
 	{
 	case STAGE_TITLE:					// タイトル
+		SetPlayerAnime(0, PLAYER_ANIME_HAND);
 		UpdateMeshcloud();		// 雲海
 		UpdateShadow();			// 影
 		UpdateModel();			// モデル
@@ -568,9 +569,11 @@ void Update(void)
 		UpdatePausemenu();	// ポーズメニュー
 		break;
 	case STAGE_RESULT:					// リザルト
+		SetPlayerAnime(0, PLAYER_ANIME_DANCE_YMCA);
 		UpdateMeshcloud();		// 雲海
 		UpdateShadow();			// 影
 		UpdateModel();			// モデル
+		UpdatePlayer();			// プレイヤー
 		UpdateSkydome();		// スカイドーム
 		UpdateSkydomeeffect();	// スカイドームエフェクト
 		UpdateRank();			// ランク
@@ -585,7 +588,10 @@ void Update(void)
 
 	UpdateCamera();		// カメラ
 	UpdateSound();
-	UpdateFade();
+	if (GetFade() != FADE_NONE)
+	{
+		UpdateFade();
+	}
 
 	if (eStageTemp != g_eStage)
 	{
@@ -678,6 +684,7 @@ void Draw(void)
 			DrawMeshcloud();		// 雲海
 			DrawShadow();			// 影
 			DrawModel();			// モデル
+			DrawPlayer();			// プレイヤー
 			DrawResult();			// リザルト
 			DrawRanking();			// ランキング
 			DrawReticle();			// レティクル

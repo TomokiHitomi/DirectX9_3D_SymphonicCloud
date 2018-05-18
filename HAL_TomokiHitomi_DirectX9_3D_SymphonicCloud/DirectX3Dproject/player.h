@@ -36,7 +36,7 @@
 #define PLAYER_CENTER					(30)
 
 #define PLAYER_HEIGHT_EYE				(45.0f)
-#define PLAYER_HEIGHT_WEAPON				(42.0f)
+#define PLAYER_HEIGHT_WEAPON			(35.0f)
 #define PLAYER_H_ANGLE					(D3DX_PI * 1.5f)
 
 #define PLAYER_MOVE_SPEED				(5)
@@ -106,15 +106,17 @@
 #define PLAYER_TILT_MARGIN_BOOST_SIDE	(0.2f)		// 側面移動限界傾斜
 
 
-#define SKIN_ANIME_SPEED_PLAYER_NORMAL	(60.0f / 1200.0f)
-#define SKIN_ANIME_SPEED_PLAYER_DASH	(60.0f / 900.0f)
-#define SKIN_ANIME_SPEED_PLAYER_JUMP	(60.0f / 3600.0f)
-#define SKIN_ANIME_SPEED_PLAYER_ATTACK	(60.0f / 2000.0f)
-#define SKIN_ANIME_SPEED_PLAYER_ANIME	(60.0f / 4800.0f)
+#define SKIN_ANIME_SPEED_PLAYER_NORMAL_SHOT	(60.0f / 1500.0f)
+#define SKIN_ANIME_SPEED_PLAYER_DASH_SHOT	(60.0f / 900.0f)
+#define SKIN_ANIME_SPEED_PLAYER_NORMAL		(60.0f / 3600.0f)
+#define SKIN_ANIME_SPEED_PLAYER_DASH		(60.0f / 2400.0f)
+#define SKIN_ANIME_SPEED_PLAYER_JUMP		(60.0f / 3600.0f)
+#define SKIN_ANIME_SPEED_PLAYER_ATTACK		(60.0f / 2000.0f)
+#define SKIN_ANIME_SPEED_PLAYER_ANIME		(60.0f / 4800.0f)
 
 #define PLAYER_JUMP_TIME_START			(30)
-#define PLAYER_JUMP_TIME_END			(27)
-#define PLAYER_RECOIL_TIME				(25)
+#define PLAYER_JUMP_TIME_END			(25)
+#define PLAYER_RECOIL_TIME				(30)
 
 //*****************************************************************************
 // 構造体定義
@@ -143,7 +145,9 @@ typedef struct
 	int				nJumpFlag;
 
 	int				nRecoilCount;
+	bool			bOverdraw;
 	bool			bRecoilFlag;
+	bool			bShot;
 
 	// シャドウ用
 	int				nIdxShadow;
@@ -161,6 +165,7 @@ typedef struct
 // 追記は逆順（新しいものから格納される）
 enum PLAYER_ANIME
 {
+	PLAYER_ANIME_RUN,
 	PLAYER_ANIME_DANCE_SPIN,
 	PLAYER_ANIME_DANCE_YMCA,
 

@@ -27,8 +27,8 @@
 
 #define RANK_S						(230)		// Sランク表示値
 #define RANK_A						(300)		// Aランク表示値
-#define RANK_B						(330)		// Bランク表示値
-#define RANK_C						(400)		// Cランク表示値
+#define RANK_B						(400)		// Bランク表示値
+#define RANK_C						(500)		// Cランク表示値
 
 #define TEXTURE_RANK_CHANGE_COLLAR		(0.01f)
 

@@ -10,6 +10,7 @@
 #include "sound.h"
 #include "fade.h"
 #include "pausemenu.h"
+#include "player.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -91,11 +92,14 @@ void UpdatePause(void)
 {
 	PAUSE *pause = &pauseWk[0];
 	PAUSEMENU *pausemenu = GetPausemenu(0);
+	PLAYER *player = GetPlayer(0);
 
 	for (int i = 0; i < PAUSE_MAX; i++, pause++)
 	{
 		if (pause->bUse)
 		{
+			SetPlayerAnime(0, PLAYER_ANIME_DANCE_SPIN);
+			player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ANIME);
 			SetSoundBgm(SOUND_BGM_GAME_PAUSE);
 			// アニメーション
 			pause->nCountAnim++;

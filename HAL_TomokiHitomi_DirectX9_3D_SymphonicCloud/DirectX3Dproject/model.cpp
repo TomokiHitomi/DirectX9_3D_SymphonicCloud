@@ -37,6 +37,7 @@
 void MoveModel(int nModel, int CameraMode, int CameraGameMode);
 void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode);
 void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode);
+void MoveAngleModel(int nModel, float fAngle);
 void JumpModel(int nModel);
 void TiltModel(int nModel);
 void FloatModel(int nModel);
@@ -88,12 +89,16 @@ HRESULT InitModel(int nType)
 		model->nAttackEarthCount = 0;
 
 		model->nInvisibleCount = 0;
+		model->nAttackSpCount = 0;
 
 		model->bUse = true;
 		model->bLockOn = false;
 		model->bParameter = false;
 		model->bJump = false;
 		model->bStatusMPLimiter = false;
+		model->bDash = false;
+		model->bAttack = false;
+		model->bAttackSp = false;
 
 		model->bActiveFire = false;
 		model->bActiveThunder = false;
@@ -575,7 +580,6 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 		}
 
 		// カメラの角度を取得
-
 		int nAngelTemp = camera->fHAngle * 100;
 		model->fHAngle = (nAngelTemp % 628) * 0.01f;
 
@@ -584,21 +588,24 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 		{
 			if (GetKeyboardPress(DIK_W) || IsButtonPressed(0, BUTTON_UP) || IsButtonPressed(0, LSTICK_UP))
 			{// 左前移動
-				model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.25f) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.25f) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle + D3DX_PI * 0.25f);
+				//model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.25f) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.25f) * model->fMoveSpeed;
 			}
 			else if (GetKeyboardPress(DIK_S) || IsButtonPressed(0, BUTTON_DOWN) || IsButtonPressed(0, LSTICK_DOWN))
 			{// 左後移動
-				model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.75f) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.75f) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle + D3DX_PI * 0.75f);
+				//model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.75f) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.75f) * model->fMoveSpeed;
 			}
 			else if (GetKeyboardPress(DIK_D) || IsButtonPressed(0, BUTTON_RIGHT) || IsButtonPressed(0, LSTICK_RIGHT))
 			{// 左右同時押しは処理なし
 			}
 			else
 			{// 左移動
-				model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle + D3DX_PI * 0.50f);
+				//model->moveModel.x = cosf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle + D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
 			//SetPlayerAnime(0, ANIME05);
 		}
@@ -606,18 +613,21 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 		{
 			if (GetKeyboardPress(DIK_W) || IsButtonPressed(0, BUTTON_LEFT) || IsButtonPressed(0, LSTICK_UP))
 			{// 右前移動
-				model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.25f) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.25f) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle - D3DX_PI * 0.25f);
+				//model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.25f) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.25f) * model->fMoveSpeed;
 			}
 			else if (GetKeyboardPress(DIK_S) || IsButtonPressed(0, BUTTON_DOWN) || IsButtonPressed(0, LSTICK_DOWN))
 			{// 右後移動
-				model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.75f) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.75f) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle - D3DX_PI * 0.75f);
+				//model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.75f) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.75f) * model->fMoveSpeed;
 			}
 			else
 			{// 右移動
-				model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle - D3DX_PI * 0.50f);
+				//model->moveModel.x = cosf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle - D3DX_PI * 0.50f) * model->fMoveSpeed;
 			}
 			//SetPlayerAnime(0, ANIME06);
 		}
@@ -628,15 +638,17 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 			}
 			else
 			{
-				model->moveModel.x = cosf(model->fHAngle) * model->fMoveSpeed;
-				model->moveModel.z = sinf(model->fHAngle) * model->fMoveSpeed;
+				MoveAngleModel(nModel, model->fHAngle);
+				//model->moveModel.x = cosf(model->fHAngle) * model->fMoveSpeed;
+				//model->moveModel.z = sinf(model->fHAngle) * model->fMoveSpeed;
 				//SetPlayerAnime(0, ANIME04);
 			}
 		}
 		else if (GetKeyboardPress(DIK_S) || IsButtonPressed(0, BUTTON_DOWN) || IsButtonPressed(0, LSTICK_DOWN))
 		{// 後移動
-			model->moveModel.x = cosf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
-			model->moveModel.z = sinf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
+			MoveAngleModel(nModel, model->fHAngle + D3DX_PI);
+			//model->moveModel.x = cosf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
+			//model->moveModel.z = sinf(model->fHAngle + D3DX_PI) * model->fMoveSpeed;
 			//SetPlayerAnime(0, ANIME07);
 		}
 		else
@@ -678,6 +690,24 @@ void MoveModel(int nModel ,int CameraMode, int CameraGameMode)
 	}
 	PrintDebugProc("\n");
 #endif
+}
+
+//=============================================================================
+// 移動処理関数
+//=============================================================================
+void MoveAngleModel(int nModel, float fAngle)
+{
+	MODEL *model = GetModel(nModel);
+	model->moveModel.x = cosf(fAngle) * model->fMoveSpeed;
+	model->moveModel.z = sinf(fAngle) * model->fMoveSpeed;
+
+	if (model->bAttack || model->bAttackSp)
+	{
+	}
+	else
+	{
+		model->fHAngle = fAngle;
+	}
 }
 
 //=============================================================================
@@ -845,6 +875,7 @@ void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode)
 	{	// ノーマルバレット発射
 		if (model->nAttackNormalCount <= 0 && model->fStatusNormal > MODEL_STATUS_NORMAL_SUB)
 		{	// ノーマルバレットのクールダウン確認
+			model->bAttack = true;
 			// 視点→注視点のベクトルに交わるベクトルをセット
 			D3DXVECTOR3 vecTag = camera->posCameraAt - camera->posCameraEye;
 			D3DXVec3Normalize(&vecTag, &vecTag);
@@ -857,6 +888,10 @@ void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode)
 			model->nAttackNormalCount = MODEL_ATTACK_NORMAL;
 			model->fStatusNormal -= MODEL_STATUS_NORMAL_SUB;
 		}
+	}
+	else
+	{
+		model->bAttack = false;
 	}
 }
 
@@ -885,6 +920,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 	{	// マジックサークルチャージ
 		if (model->nChargeCount % MODEL_STATUS_CHARGE_SPEED == 0 || model->nChargeCount == 0)
 		{
+			model->bAttackSp = true;
 			for (int j = 0; j < MAGICCIRCLE_MAX; j++)
 			{
 				if (!model->magicCircle[j].bUse)
@@ -899,6 +935,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 	}
 	else if (GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R))
 	{
+		model->bAttackSp = true;
 		//SetPlayerAnime(0, ANIME08);
 
 		// マジックバレット発射
@@ -1110,6 +1147,15 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 		model->nCharge = 0;
 		// マジックSE
 		SetSe(SE_EXPL045, E_DS8_FLAG_NONE, CONTINUITY_ON);
+	}
+	else
+	{
+		model->nAttackSpCount++;
+		if (model->nAttackSpCount > PLAYER_RECOIL_TIME)
+		{
+			model->bAttackSp = false;
+			model->nAttackSpCount = 0;
+		}
 	}
 }
 

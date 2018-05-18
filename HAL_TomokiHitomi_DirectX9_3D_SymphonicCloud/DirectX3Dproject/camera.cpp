@@ -13,6 +13,7 @@
 #include "reticle.h"
 #include "enemy.h"
 #include "pause.h"
+#include "player.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -54,8 +55,8 @@ void InitCamera(void)
 			SetCameraAngle(GetStage());
 
 			camera->fHAngleMargin = 0.0f;
-			camera->fLengthTemp = 0;
 			camera->bCameraReverse = false;
+
 			break;
 		case CAMERA_VIEW:
 			camera->posCameraEye = D3DXVECTOR3(POS_X_CAM, POS_Y_CAM, POS_Z_CAM);
@@ -72,6 +73,7 @@ void InitCamera(void)
 		camera->fMoveSpeed = CAMERA_MOVE_SPEED;
 		camera->nSetCount = 0;
 		g_nCameraMode++;
+		camera->nMode = CAMERA_NORMAL;
 	}
 
 	g_nCameraMode = CAMERA_GAME;
@@ -92,6 +94,7 @@ void UpdateCamera(void)
 	CAMERA	*camera = &cameraWk[g_nCameraMode];
 	MODEL	*model = GetModel(0);
 	RETICLE *reticle = GetReticle(0);
+	PLAYER *player = GetPlayer(0);
 	ENEMY *enemy;
 
 	// カメラ上下反転用
@@ -249,22 +252,14 @@ void UpdateCamera(void)
 				//{
 				//	SetCameraGameMode(CAMERA_NORMAL);
 				//}
-				//// 右クリック時の距離を記憶
-				//if (IsMobUseRightTriggered())
-				//{
-				//	camera->fLengthTemp = camera->fLength;
-				//}
 
-
-				// 視点距離まで移動
-				if (camera->fLength > CAMERA_LENGTH_GAME)
+				if (player->bShot)
 				{
-					camera->fLength -= CAMERA_LENGTH_AUTO_SPEED;
-					// 視点距離を越えた場合は指定距離に固定
-					if (camera->fLength < CAMERA_LENGTH_GAME)
-					{
-						camera->fLength = CAMERA_LENGTH_GAME;
-					}
+					SetCameraModeLength(CAMERA_TPS);
+				}
+				else
+				{
+					SetCameraModeLength(CAMERA_NORMAL);
 				}
 
 
@@ -767,7 +762,8 @@ void SetCameraAngle(E_STAGE eStage)
 		camera->fHAngle = CAMERA_H_ANGLE + D3DX_PI;
 		camera->fVAngleDiff = CAMERA_V_ANGLE_GAME;
 		camera->fHAngleDiff = CAMERA_H_ANGLE + D3DX_PI;
-		camera->fLength = CAMERA_LENGTH_GAME;
+		camera->fLength = CAMERA_LENGTH_GAME_NORMAL;
+		camera->fLengthTemp = CAMERA_LENGTH_GAME_NORMAL;
 		break;
 	case STAGE_RESULT:			camera->posCameraEye = D3DXVECTOR3(POS_X_CAM, POS_Y_CAM, POS_Z_CAM);
 		camera->posCameraAt = D3DXVECTOR3(0.0f, CAMERA_GAME_HEIGHT, 0.0f);
@@ -906,6 +902,47 @@ void SetCameraAtMove(int nCamera)
 		else if (camera->vecCameraAtPos.x <= 0.0f && camera->vecCameraAtPos.x > -CAMERA_GAME_MOVE_MARGIN_SIDE_STAY)
 		{	// 原点より左方、かつステイポイントより右方にいる場合はステイポイントまでオートスピードで移動
 			camera->vecCameraAtPos.x -= CAMERA_GAME_MOVE_SPEED_AUTO;
+		}
+	}
+}
+
+//=============================================================================
+// カメラモード変更関数
+//=============================================================================
+void SetCameraModeLength(int nCamera)
+{
+	CAMERA *camera = GetCamera(0);
+	if (camera->nMode != nCamera)
+	{
+		camera->nMode = nCamera;
+		switch (nCamera)
+		{
+		case CAMERA_NORMAL:
+			camera->fLengthTemp = CAMERA_LENGTH_GAME_NORMAL;
+			break;
+		case CAMERA_TPS:
+			camera->fLengthTemp = CAMERA_LENGTH_GAME_TPS;
+			break;
+		}
+	}
+
+	// 視点距離まで移動
+	if (camera->fLength > camera->fLengthTemp)
+	{
+		camera->fLength -= CAMERA_LENGTH_GAME_SPEED;
+		// 視点距離を越えた場合は指定距離に固定
+		if (camera->fLength < camera->fLengthTemp)
+		{
+			camera->fLength = camera->fLengthTemp;
+		}
+	}
+	else if (camera->fLength < camera->fLengthTemp)
+	{
+		camera->fLength += CAMERA_LENGTH_GAME_SPEED;
+		// 視点距離を越えた場合は指定距離に固定
+		if (camera->fLength > camera->fLengthTemp)
+		{
+			camera->fLength = camera->fLengthTemp;
 		}
 	}
 }

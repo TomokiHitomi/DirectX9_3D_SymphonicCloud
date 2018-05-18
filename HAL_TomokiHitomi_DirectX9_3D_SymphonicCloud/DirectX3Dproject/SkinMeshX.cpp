@@ -717,26 +717,26 @@ VOID CSkinMesh::Update(D3DXMATRIX _World) {
 	//押しっぱなしによる連続切り替え防止
 	static bool PushFlg = false; //ここでは仮でフラグを使用するが、本来はメンバ変数などにする
 								 //アニメーション変更チェック
-	//if ((GetAsyncKeyState(VK_LEFT) & 0x8000) || (GetAsyncKeyState(VK_RIGHT) & 0x8000)) {
-	//	if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
-	//		if (PushFlg == false) {
-	//			int Num = GetAnimTrack() - 1;
-	//			if (Num < 0)Num = 0;
-	//			ChangeAnim(Num);
-	//		}
-	//	}
-	//	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
-	//		if (PushFlg == false) {
-	//			int Num = GetAnimTrack() + 1;
-	//			if ((DWORD)Num > m_pAnimController->GetNumAnimationSets())Num = m_pAnimController->GetNumAnimationSets();
-	//			ChangeAnim(Num);
-	//		}
-	//	}
-	//	PushFlg = true;
-	//}
-	//else {
-	//	PushFlg = false;
-	//}
+	if ((GetAsyncKeyState(VK_LEFT) & 0x8000) || (GetAsyncKeyState(VK_RIGHT) & 0x8000)) {
+		if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+			if (PushFlg == false) {
+				int Num = GetAnimTrack() - 1;
+				if (Num < 0)Num = 0;
+				ChangeAnim(Num);
+			}
+		}
+		if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+			if (PushFlg == false) {
+				int Num = GetAnimTrack() + 1;
+				if ((DWORD)Num > m_pAnimController->GetNumAnimationSets())Num = m_pAnimController->GetNumAnimationSets();
+				ChangeAnim(Num);
+			}
+		}
+		PushFlg = true;
+	}
+	else {
+		PushFlg = false;
+	}
 	//マトリックス行列反映
 	m_World = _World;
 	//アニメーション時間を更新

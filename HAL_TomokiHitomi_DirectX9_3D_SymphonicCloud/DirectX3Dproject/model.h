@@ -35,7 +35,7 @@
 #define MODEL_CENTER					(30)
 
 #define MODEL_HEIGHT_EYE				(45.0f)
-#define MODEL_HEIGHT_WEAPON				(42.0f)
+#define MODEL_HEIGHT_WEAPON				(35.0f)
 #define MODEL_H_ANGLE					(D3DX_PI * 1.5f)
 
 #define MODEL_MOVE_SPEED				(5)
@@ -53,7 +53,7 @@
 #define MODEL_JUMP_POWER				(8.0f)		// ジャンプパワー
 #define MODEL_JUMP_POWER_DOWN			(0.07f)		// ジャンプパワー
 
-#define MODEL_STATUS_HP					(40.0f)	// HP
+#define MODEL_STATUS_HP					(5.0f)	// HP
 #define MODEL_STATUS_MP					(1000.0f)	// MP
 #define MODEL_STATUS_MP_SUB				(10.0f)		// MPの減算数
 #define MODEL_STATUS_MP_LIMITER			(100.0f)	// MPの連続使用制限
@@ -151,6 +151,7 @@ typedef struct
 	int				nAttackEarthCount;
 
 	int				nInvisibleCount;
+	int				nAttackSpCount;
 
 	float			fStatusHP;
 	float			fStatusMP;
@@ -177,6 +178,8 @@ typedef struct
 	bool			bJump;
 	bool			bStatusMPLimiter;
 	bool			bDash;
+	bool			bAttack;
+	bool			bAttackSp;
 
 	bool			bActiveFire;
 	bool			bActiveThunder;

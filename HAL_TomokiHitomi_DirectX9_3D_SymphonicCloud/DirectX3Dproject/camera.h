@@ -51,9 +51,11 @@
 #define CAMERA_GAME_LENGTH						(30.0f)
 #define CAMERA_GAME_HEIGHT						(35.0f)
 
-#define CAMERA_LENGTH_GAME						(150.0f)
+#define CAMERA_LENGTH_GAME_NORMAL				(200.0f)
+#define CAMERA_LENGTH_GAME_TPS					(150.0f)
 #define CAMERA_LENGTH_GAME_MIN					(50.0f)
 #define CAMERA_LENGTH_GAME_MAX					(500.0f)
+#define CAMERA_LENGTH_GAME_SPEED				(2.0f)
 #define CAMERA_V_ANGLE_GAME						(4.71f)
 #define CAMERA_V_ANGLE_GAME_MAX					(6.28f)
 #define CAMERA_V_ANGLE_GAME_MIN					(3.16f)
@@ -75,16 +77,16 @@
 /************************* TITLE *************************/
 #define CAMERA_TITLE_HEIGHT			(40.0f)
 #define CAMERA_TITLE_V_ANGLE		(-D3DX_PI*1.5f)
-#define CAMERA_TITLE_H_ANGLE		(0.0f)
-#define CAMERA_TITLE_LENGTH			(30.0f)
+#define CAMERA_TITLE_H_ANGLE		(D3DX_PI*0.5f)
+#define CAMERA_TITLE_LENGTH			(40.0f)
 #define CAMERA_TITLE_LENGTH_SIDE	(9.0f)
 
 /************************* RESULT *************************/
 #define CAMERA_RESULT_HEIGHT		(40.0f)
 #define CAMERA_RESULT_V_ANGLE		(-D3DX_PI*1.5f)
 #define CAMERA_RESULT_H_ANGLE		(D3DX_PI)
-#define CAMERA_RESULT_LENGTH		(30.0f)
-#define CAMERA_RESULT_LENGTH_SIDE	(11.0f)
+#define CAMERA_RESULT_LENGTH		(35.0f)
+#define CAMERA_RESULT_LENGTH_SIDE	(9.0f)
 
 /************************* VIEW *************************/
 #define CAMERA_LENGTH_VIEW		(15.0f)
@@ -123,6 +125,7 @@ typedef struct
 
 	int					nCameraMode;
 	int					nSetCount;
+	int					nMode;
 
 	bool				bCameraReverse;
 }CAMERA;
@@ -156,5 +159,5 @@ int *GetCameraMode(void);
 void SetCameraGameMode(int no);
 int *GetCameraGameMode(void);
 void SetCameraTag(int no);
-
+void SetCameraModeLength(int nCamera);
 #endif

@@ -10,6 +10,7 @@
 #include "input.h"
 #include "magic.h"
 #include "cloud.h"
+#include "camera.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -47,7 +48,9 @@ HRESULT InitPlayer(int nType)
 	player->nJumpCount = 0;
 	player->nJumpFlag = 0;
 	player->nRecoilCount = 0;
+	player->bOverdraw = false;
 	player->bRecoilFlag = false;
+	player->bShot = false;
 	D3DXMatrixIdentity(&g_mtxWorldPlayer);
 
 	if (nType == 0)
@@ -57,7 +60,6 @@ HRESULT InitPlayer(int nType)
 
 	//player->m_CSkinMesh.ChangeAnim((DWORD)ANIME01);
 
-	SetPlayerAnime(0, PLAYER_ANIME_HAND);
 	player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ANIME);
 
 	return S_OK;
@@ -83,6 +85,7 @@ void UpdatePlayer(void)
 	PrintDebugProc("【 PLAYER 】\n");
 #endif
 	MODEL *model = GetModel(0);
+	E_STAGE eStage = GetStage();
 
 	switch (GetStage())
 	{
@@ -95,7 +98,6 @@ void UpdatePlayer(void)
 	player->prs.rot = model->rotModel;
 
 	player->m_CSkinMesh.Update(g_mtxWorldPlayer);
-
 
 #ifdef _DEBUG
 	PrintDebugProc("Pos[X:%f Y:%f Z:%f]\n", player->prs.pos.x, player->prs.pos.y, player->prs.pos.z);
@@ -189,11 +191,13 @@ void CheckActionPlayer(void)
 	{	// マジックサークルチャージ
 		player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ATTACK);
 		SetPlayerAnime(0, PLAYER_ANIME_OVERDRAW);
+		player->bOverdraw = true;
 	}
-	else if (GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R))
+	else if ((GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R)) && player->bOverdraw)
 	{
 		SetPlayerAnime(0, PLAYER_ANIME_RECOIL);
 		player->bRecoilFlag = true;
+		player->bOverdraw = false;
 	}
 	else if (model->bJump && player->nJumpFlag == PLAYER_JUMP_START)
 	{
@@ -230,42 +234,39 @@ void CheckActionPlayer(void)
 			player->nJumpCount = 0;
 		}
 	}
-
 	else
 	{	
-		bool bShot = false;
+		player->bShot = false;
 		if (IsMobUseLeftPressed() || GetKeyboardPress(DIK_B) || IsButtonPressed(0, R_BUTTON_ZR))
 		{	// ノーマルバレット発射
-			bShot = true;
+			player->bShot = true;
 		}
 		// 移動処理
 		if (GetKeyboardPress(DIK_A) || IsButtonPressed(0, BUTTON_LEFT) || IsButtonPressed(0, LSTICK_LEFT))
 		{// 左移動
-			if	(bShot)	{SetPlayerAnime(0, PLAYER_ANIME_AIM_LEFT);}
-			else		{SetPlayerAnime(0, PLAYER_ANIME_LEFT);}
+			if	(player->bShot)	{SetPlayerAnime(0, PLAYER_ANIME_AIM_LEFT);}
+			else		{SetPlayerAnime(0, PLAYER_ANIME_RUN);}
 		}
 		else if (GetKeyboardPress(DIK_D) || IsButtonPressed(0, BUTTON_RIGHT) || IsButtonPressed(0, LSTICK_RIGHT))
 		{// 右移動
-			if (bShot) { SetPlayerAnime(0, PLAYER_ANIME_AIM_RIGHT); }
-			else { SetPlayerAnime(0, PLAYER_ANIME_RIGHT); }
+			if (player->bShot)	{ SetPlayerAnime(0, PLAYER_ANIME_AIM_RIGHT); }
+			else		{ SetPlayerAnime(0, PLAYER_ANIME_RUN); }
 		}
 		else if (GetKeyboardPress(DIK_W) || IsButtonPressed(0, BUTTON_UP) || IsButtonPressed(0, LSTICK_UP))
 		{// 前移動
-			if (bShot) { SetPlayerAnime(0, PLAYER_ANIME_AIM_FORWARD); }
-			else { SetPlayerAnime(0, PLAYER_ANIME_FORWARD); }
+			if (player->bShot)	{ SetPlayerAnime(0, PLAYER_ANIME_AIM_FORWARD); }
+			else		{ SetPlayerAnime(0, PLAYER_ANIME_RUN); }
 		}
 		else if (GetKeyboardPress(DIK_S) || IsButtonPressed(0, BUTTON_DOWN) || IsButtonPressed(0, LSTICK_DOWN))
 		{// 後移動
-			if (bShot) { SetPlayerAnime(0, PLAYER_ANIME_AIM_BACK); }
-			else { SetPlayerAnime(0, PLAYER_ANIME_BACK); }
+			if (player->bShot)	{ SetPlayerAnime(0, PLAYER_ANIME_AIM_BACK); }
+			else		{ SetPlayerAnime(0, PLAYER_ANIME_RUN); }
 		}
 		else
 		{// 移動なし
-			if (bShot) { SetPlayerAnime(0, PLAYER_ANIME_AIM_IDLE); }
-			else { SetPlayerAnime(0, PLAYER_ANIME_IDLE); }
+			if (player->bShot)	{ SetPlayerAnime(0, PLAYER_ANIME_AIM_IDLE); }
+			else		{ SetPlayerAnime(0, PLAYER_ANIME_IDLE); }
 		}
-
-
 
 
 		if (GetKeyboardPress(DIK_W) || GetKeyboardPress(DIK_A)
@@ -278,13 +279,30 @@ void CheckActionPlayer(void)
 			// 移動中は雲を足元に
 			SetCloud(model->posModel);
 		}
-		if (model->bDash)
+
+		if (player->bShot)
 		{
-			player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_DASH);
+			if (model->bDash)
+			{
+				player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_DASH_SHOT);
+			}
+			else
+			{
+				player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_NORMAL_SHOT);
+			}
+			SetCameraModeLength(CAMERA_TPS);
 		}
 		else
 		{
-			player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_NORMAL);
+			if (model->bDash)
+			{
+				player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_DASH);
+			}
+			else
+			{
+				player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_NORMAL);
+			}
+			SetCameraModeLength(CAMERA_NORMAL);
 		}
 	}
 

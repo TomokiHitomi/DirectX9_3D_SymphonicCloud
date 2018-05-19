@@ -70,7 +70,7 @@ void ChackHit(void)
 			// 使用しているモデルがあるかを確認
 			if (model->bUse)
 			{
-				//CheckHitModelToCloudfield(model);
+				CheckHitModelToCloudfield(model);
 				if (model->nInvisibleCount <= 0)
 				{
 					enemybullet = GetEnemybullet(0);
@@ -96,8 +96,8 @@ void ChackHit(void)
 									model->bUse = false;
 									ReleaseShadow(model->nIdxShadow);
 									SetClearFlag(false);
-									SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
-									SetFade(FADE_OUT, STAGE_RESULT);
+									//SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
+									//SetFade(FADE_OUT, STAGE_RESULT);
 								}
 								// シャドウの無効化
 								ReleaseShadow(enemybullet->nIdxShadow);
@@ -141,7 +141,7 @@ void ChackHit(void)
 					// 使用しているエネミーがあるかを確認
 					if (enemy->bUse)
 					{
-						//CheckHitEnemyToCloudfield(enemy);
+						CheckHitEnemyToCloudfield(enemy);
 						if (model->nInvisibleCount <= 0)
 						{
 							// BCの確認
@@ -157,9 +157,9 @@ void ChackHit(void)
 								{
 									model->bUse = false;
 									ReleaseShadow(model->nIdxShadow);
-									SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
+									//SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
 									SetClearFlag(false);
-									SetFade(FADE_OUT, STAGE_RESULT);
+									//SetFade(FADE_OUT, STAGE_RESULT);
 								}
 							}
 						}

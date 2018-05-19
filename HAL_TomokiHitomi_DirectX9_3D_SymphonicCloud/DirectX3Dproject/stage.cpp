@@ -41,6 +41,7 @@ HRESULT InitStage(void)
 	stageSys->nTime = 0;
 	stageSys->bClearFlag = false;
 	stageSys->bEndFlag = false;
+	stageSys->nEndCount = 0;
 	return S_OK;
 }
 

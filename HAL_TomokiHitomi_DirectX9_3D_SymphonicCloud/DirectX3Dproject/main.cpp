@@ -102,7 +102,7 @@ E_STAGE				g_eStage = START_STAGE;	// ステージ
 int					g_nTotalCount = 0;		// トータルカウンタ
 int					g_nGameCount = 0;		// トータルカウンタ
 int					g_nCountFPS = 0;		// FPSカウンタ
-
+int					g_nGameOver = 0;
 bool				g_bEndFlag = true;		// 終了フラグ
 
 //float g_fFogDensity = 0.8f;
@@ -493,7 +493,7 @@ void Uninit(void)
 void Update(void)
 {
 	PAUSE *pause = GetPause(0);
-
+	STAGE_SYS *stageSys = GetStageSys();
 	// 入力の更新処理
 	UpdateInput();
 
@@ -520,56 +520,90 @@ void Update(void)
 		UpdateTitlemenu();		// タイトルメニュー
 		UpdateVersion();
 		UpdateCopyright();
+		UpdateCamera();		// カメラ
 		break;
 	case STAGE_TUTORIAL:				// チュートリアル
 		break;
 	case STAGE_CREDIT:					// クレジット
 		break;
 	case STAGE_GAME:					// ゲーム
-		UpdatePause();		// ポーズ
-		if (!pause->bUse)	// ポーズ有効中は括弧以下をアップデートしない
+		if (!stageSys->bEndFlag)
 		{
-			//UpdateField();		// 地面
-			//UpdateWall();			// 壁
-			UpdateShadow();			// 影
-			UpdateGame();
-			UpdateMeshcloud();		// 雲海
-			UpdateCloud();			// 雲
-			//UpdateCloudfield();		// 雲フィールド
-			UpdateEnemy();			// エネミー
-			UpdateEnemy_normal();	// エネミーノーマル
-			UpdateEnemy_boss();		// エネミーボス
-			UpdateEnemybullet();	// バレット
-			UpdateBulletQua();		// バレットクォータニオン（エネミー）
-			UpdateHiteffect();		// ヒットエフェクト
-			UpdateEffect();			// エフェクト
-			UpdateModel();			// モデル
-			UpdatePlayer();			// プレイヤー
-			UpdateBullet();			// バレット
-			UpdateLockon();			// ロックオン
-			UpdateParameter();
-			UpdateSkydome();		// スカイドーム
-			UpdateSkydomeeffect();	// スカイドームエフェクト
-			UpdateReticle();		// レティクル
-			UpdateMagic();			// 魔法陣
-			UpdateMagiccircle();	// 魔法サークル
-			UpdateMinimap();		// ミニマップ
-			UpdateGageback();		// ゲージバック
-			UpdateGage();			// ゲージ
-			UpdateGagefream();		// ゲージフレーム
-			UpdateGageselect();		// ゲージセレクト
-			UpdateMagiceffect();	// マジックエフェクト
-			UpdateTimefream();		// タイムフレーム
-			UpdateTime();			// タイム
-			UpdatePointer();		// ポイント
-			UpdateDamageeffect();	// ダメージエフェクト
-			UpdateJoyconhelp();		// Joyconヘルプ
-			ChackHit();				// 当たり判定
+			UpdatePause();		// ポーズ
+			if (!pause->bUse)	// ポーズ有効中は括弧以下をアップデートしない
+			{
+				//UpdateField();		// 地面
+				//UpdateWall();			// 壁
+				UpdateShadow();			// 影
+				UpdateGame();
+				UpdateMeshcloud();		// 雲海
+				UpdateCloud();			// 雲
+				UpdateCloudfield();		// 雲フィールド
+				UpdateEnemy();			// エネミー
+				UpdateEnemy_normal();	// エネミーノーマル
+				UpdateEnemy_boss();		// エネミーボス
+				UpdateEnemybullet();	// バレット
+				UpdateBulletQua();		// バレットクォータニオン（エネミー）
+				UpdateHiteffect();		// ヒットエフェクト
+				UpdateEffect();			// エフェクト
+				UpdateModel();			// モデル
+				UpdatePlayer();			// プレイヤー
+				UpdateBullet();			// バレット
+				UpdateLockon();			// ロックオン
+				UpdateParameter();
+				UpdateSkydome();		// スカイドーム
+				UpdateSkydomeeffect();	// スカイドームエフェクト
+				UpdateReticle();		// レティクル
+				UpdateMagic();			// 魔法陣
+				UpdateMagiccircle();	// 魔法サークル
+				UpdateMinimap();		// ミニマップ
+				UpdateGageback();		// ゲージバック
+				UpdateGage();			// ゲージ
+				UpdateGagefream();		// ゲージフレーム
+				UpdateGageselect();		// ゲージセレクト
+				UpdateMagiceffect();	// マジックエフェクト
+				UpdateTimefream();		// タイムフレーム
+				UpdateTime();			// タイム
+				UpdatePointer();		// ポイント
+				UpdateDamageeffect();	// ダメージエフェクト
+				UpdateJoyconhelp();		// Joyconヘルプ
+				ChackHit();				// 当たり判定
+			}
+			UpdatePausemenu();	// ポーズメニュー
+			UpdateCamera();		// カメラ
 		}
-		UpdatePausemenu();	// ポーズメニュー
+		else
+		{
+			if (stageSys->nEndCount == 0)
+			{
+				if (stageSys->bClearFlag)
+				{
+					stageSys->bEndFlag = false;
+				}
+				else
+				{
+					SetPlayerAnime(0, PLAYER_ANIME_DEATH);
+				}
+			}
+			if (stageSys->nEndCount == STAGE_END_VOICE)
+			{
+				if (!stageSys->bClearFlag)
+				{
+					SetVoice(VOICE_GAMEOVER, E_DS8_FLAG_NONE, CONTINUITY_ON);
+				}
+			}
+			if (stageSys->nEndCount == STAGE_END)
+			{
+				if (!stageSys->bClearFlag)
+				{
+					SetFade(FADE_OUT, STAGE_RESULT);
+				}
+			}
+			UpdateGage();			// ゲージ
+			stageSys->nEndCount++;
+		}
 		break;
 	case STAGE_RESULT:					// リザルト
-		SetPlayerAnime(0, PLAYER_ANIME_DANCE_YMCA);
 		UpdateMeshcloud();		// 雲海
 		UpdateShadow();			// 影
 		UpdateModel();			// モデル
@@ -583,10 +617,10 @@ void Update(void)
 		UpdateTimeranking();	// タイムランキング
 		UpdateTime();			// タイム
 		UpdateResult();			// リザルト
+		UpdateCamera();		// カメラ
 		break;
 	}
 
-	UpdateCamera();		// カメラ
 	UpdateSound();
 	if (GetFade() != FADE_NONE)
 	{
@@ -644,7 +678,7 @@ void Draw(void)
 			DrawSkydome();			// スカイドーム
 			DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
-			//DrawCloudfield();		// 雲フィールド
+			DrawCloudfield();		// 雲フィールド
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, FALSE);					// フォグブレンディング有効
 			DrawShadow();			// 影
 			DrawEnemy();			// エネミー
@@ -740,11 +774,10 @@ void InitSystem(int nType)
 	//{
 	//	InitShadow(nType);		// 影
 	//}
-	switch (g_eStage)
+
+	if (g_eStage == STAGE_TITLE)
 	{
-	case STAGE_TITLE:
 		InitStage();
-		break;
 	}
 
 

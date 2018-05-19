@@ -11,6 +11,7 @@
 #include "result.h"
 #include "stage.h"
 #include "calculate.h"
+#include "player.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -103,26 +104,31 @@ void UpdateRank(void)
 			// ゲームクリア時のみトータルスコアボーナス
 			if (time <= RANK_S && GetClearFlag())
 			{
+				SetPlayerAnime(0, PLAYER_ANIME_DANCE_YMCA);
 				// Sランク表示
 				rank->nPatternAnim = 0;
 			}
 			else if (time <= RANK_A && GetClearFlag())
 			{
+				SetPlayerAnime(0, PLAYER_ANIME_DANCE_YMCA);
 				// Aランク表示
 				rank->nPatternAnim = 1;
 			}
 			else if (time <= RANK_B && GetClearFlag())
 			{
+				SetPlayerAnime(0, PLAYER_ANIME_DANCE_YMCA);
 				// Bランク表示
 				rank->nPatternAnim = 2;
 			}
 			else if (time <= RANK_C && GetClearFlag())
 			{
+				SetPlayerAnime(0, PLAYER_ANIME_DANCE_YMCA);
 				// Cランク表示
 				rank->nPatternAnim = 3;
 			}
 			else
 			{
+				SetPlayerAnime(0, PLAYER_ANIME_DRUNK);
 				// Dランク表示
 				rank->nPatternAnim = 4;
 			}

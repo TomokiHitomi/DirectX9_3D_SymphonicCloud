@@ -1,52 +1,17 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
+# 特定の拡張子を無視する場合はどこにも/を付けない
+*.opendb
+*.sdf
+*.bin
+*.suo
 *.obj
-*.elf
+*.db
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# 特定のファイルを無視する場合は先頭に/を付ける
+/Thumbs.db
+/.DS_Store
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# 特定のディレクトリを無視する場合は先頭と末尾に/を付ける
+/Debug/
+/Release/
+/20180420_Bouldering/Debug/
+/20180420_Bouldering/Release/

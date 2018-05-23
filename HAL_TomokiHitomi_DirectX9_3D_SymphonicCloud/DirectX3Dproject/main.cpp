@@ -538,7 +538,7 @@ void Update(void)
 				UpdateGame();
 				UpdateMeshcloud();		// 雲海
 				UpdateCloud();			// 雲
-				UpdateCloudfield();		// 雲フィールド
+				//UpdateCloudfield();		// 雲フィールド
 				UpdateEnemy();			// エネミー
 				UpdateEnemy_normal();	// エネミーノーマル
 				UpdateEnemy_boss();		// エネミーボス
@@ -678,7 +678,7 @@ void Draw(void)
 			DrawSkydome();			// スカイドーム
 			DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
-			DrawCloudfield();		// 雲フィールド
+			//DrawCloudfield();		// 雲フィールド
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, FALSE);					// フォグブレンディング有効
 			DrawShadow();			// 影
 			DrawEnemy();			// エネミー

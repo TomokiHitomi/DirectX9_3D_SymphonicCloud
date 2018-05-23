@@ -70,7 +70,7 @@ void ChackHit(void)
 			// 使用しているモデルがあるかを確認
 			if (model->bUse)
 			{
-				CheckHitModelToCloudfield(model);
+				//CheckHitModelToCloudfield(model);
 				if (model->nInvisibleCount <= 0)
 				{
 					enemybullet = GetEnemybullet(0);
@@ -141,7 +141,7 @@ void ChackHit(void)
 					// 使用しているエネミーがあるかを確認
 					if (enemy->bUse)
 					{
-						CheckHitEnemyToCloudfield(enemy);
+						//CheckHitEnemyToCloudfield(enemy);
 						if (model->nInvisibleCount <= 0)
 						{
 							// BCの確認

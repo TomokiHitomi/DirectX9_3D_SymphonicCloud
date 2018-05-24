@@ -6,6 +6,10 @@
 //=============================================================================
 #include "light.h"
 
+// デバッグ用
+#ifdef _DEBUG
+#include "debugproc.h"
+#endif
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -85,22 +89,22 @@ void InitLight(void)
 	pDevice->LightEnable(1, TRUE);
 
 
-	/********** ライト2 **********/
+	///********** ライト2 **********/
 
 	// D3DLIGHT9構造体を0でクリアする
 	ZeroMemory(&g_aLight[2], sizeof(D3DLIGHT9));
 
 	// ライト2のタイプの設定
-	g_aLight[2].Type = D3DLIGHT_DIRECTIONAL;
+	g_aLight[2].Type = D3DLIGHT_SPOT;
 
 	// ライト2の拡散光の設定
 	g_aLight[2].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト2の鏡面反射光の設定
-	g_aLight[2].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト2の鏡面反射光の設定
+	//g_aLight[2].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	 //ライト2の環境光の設定
-	g_aLight[2].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	// //ライト2の環境光の設定
+	//g_aLight[2].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// ライト2の方向の設定
 	vecDir = D3DXVECTOR3(0.0f, -1.0f, 0.0f);
@@ -113,60 +117,60 @@ void InitLight(void)
 	pDevice->LightEnable(2, FALSE);
 
 
-	///********** ライト3 **********/
+	/////********** ライト3 **********/
 
-	// D3DLIGHT9構造体を0でクリアする
-	ZeroMemory(&g_aLight[3], sizeof(D3DLIGHT9));
+	//// D3DLIGHT9構造体を0でクリアする
+	//ZeroMemory(&g_aLight[3], sizeof(D3DLIGHT9));
 
-	// ライト3のタイプの設定
-	g_aLight[3].Type = D3DLIGHT_DIRECTIONAL;
+	//// ライト3のタイプの設定
+	//g_aLight[3].Type = D3DLIGHT_DIRECTIONAL;
 
-	// ライト3の拡散光の設定
-	g_aLight[3].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト3の拡散光の設定
+	//g_aLight[3].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト3の鏡面反射光の設定
-	//	g_aLight[3].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト3の鏡面反射光の設定
+	////	g_aLight[3].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト3の環境光の設定
-	//	g_aLight[3].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト3の環境光の設定
+	////	g_aLight[3].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト3の方向の設定
-	vecDir = D3DXVECTOR3(-0.01f, -0.54f, -0.842f);
-	D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[3].Direction, &vecDir);
+	//// ライト3の方向の設定
+	//vecDir = D3DXVECTOR3(-0.01f, -0.54f, -0.842f);
+	//D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[3].Direction, &vecDir);
 
-	// ライト3をレンダリングパイプラインに設定
-	pDevice->SetLight(3, &g_aLight[3]);
+	//// ライト3をレンダリングパイプラインに設定
+	//pDevice->SetLight(3, &g_aLight[3]);
 
-	// ライト3を使用状態に
-	pDevice->LightEnable(3, TRUE);
+	//// ライト3を使用状態に
+	//pDevice->LightEnable(3, TRUE);
 
 
-	///********** ライト4 **********/
+	/////********** ライト4 **********/
 
-	// D3DLIGHT9構造体を0でクリアする
-	ZeroMemory(&g_aLight[4], sizeof(D3DLIGHT9));
+	//// D3DLIGHT9構造体を0でクリアする
+	//ZeroMemory(&g_aLight[4], sizeof(D3DLIGHT9));
 
-	// ライト4のタイプの設定
-	g_aLight[4].Type = D3DLIGHT_DIRECTIONAL;
+	//// ライト4のタイプの設定
+	//g_aLight[4].Type = D3DLIGHT_DIRECTIONAL;
 
-	// ライト4の拡散光の設定
-	g_aLight[4].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト4の拡散光の設定
+	//g_aLight[4].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト4の鏡面反射光の設定
-	//	g_aLight[4].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト4の鏡面反射光の設定
+	////	g_aLight[4].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト4の環境光の設定
-	//	g_aLight[4].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	//// ライト4の環境光の設定
+	////	g_aLight[4].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// ライト4の方向の設定
-	vecDir = D3DXVECTOR3(-0.01f, -0.54f, -0.842f);
-	D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[4].Direction, &vecDir);
+	//// ライト4の方向の設定
+	//vecDir = D3DXVECTOR3(-0.01f, -0.54f, -0.842f);
+	//D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[4].Direction, &vecDir);
 
-	// ライト4をレンダリングパイプラインに設定
-	pDevice->SetLight(4, &g_aLight[4]);
+	//// ライト4をレンダリングパイプラインに設定
+	//pDevice->SetLight(4, &g_aLight[4]);
 
-	// ライト4を使用状態に
-	pDevice->LightEnable(4, TRUE);
+	//// ライト4を使用状態に
+	//pDevice->LightEnable(4, TRUE);
 
 
 	///********** ライト5 **********/
@@ -209,3 +213,102 @@ void SetLight(int nLight, bool bFlag)
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	pDevice->LightEnable(nLight, bFlag);
 }
+
+//=============================================================================
+// ポイントライト設定処理
+//=============================================================================
+void SetLightPoint(int nLight, D3DXCOLOR xColor, D3DXVECTOR3 pos,FLOAT fRange,FLOAT Attenuation)
+{
+	LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	D3DXVECTOR3 vecDir;
+
+	g_aLight[nLight].Type = D3DLIGHT_POINT;							// タイプ
+	g_aLight[nLight].Diffuse = xColor;								// 拡散光
+	//g_aLight[nLight].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);// 鏡面反射光
+	//g_aLight[nLight].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 環境光
+	g_aLight[nLight].Position = pos;								// 光源位置
+	//vecDir = D3DXVECTOR3(0.0f, -1.0f, 0.0f);						// 光源方向
+	//D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[nLight].Direction, &vecDir);
+	g_aLight[nLight].Range = 1.0f;									// 光源有効距離
+	//g_aLight[nLight].Falloff = 1.0f;								// 輝度減衰（スポット）
+	g_aLight[nLight].Attenuation0 = 1.0f;							// 輝度減衰
+	//g_aLight[nLight].Attenuation1 = 1.0f;
+	//g_aLight[nLight].Attenuation2 = 1.0f;
+	//g_aLight[nLight].Theta = 1.0f;									// 内部角度（スポット）
+	//g_aLight[nLight].Phi = 1.0f;									// 外部エッジ（スポット）
+		
+	pDevice->SetLight(nLight, &g_aLight[nLight]);	// レンダリングパイプラインに設定
+}
+
+//=============================================================================
+// スポットライト設定処理
+//=============================================================================
+void SetLightSpot(int nLight)
+{
+	LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	D3DXVECTOR3 vecDir;
+
+	g_aLight[nLight].Type = D3DLIGHT_SPOT;							// タイプ
+	g_aLight[nLight].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 拡散光
+	g_aLight[nLight].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 鏡面反射光
+	g_aLight[nLight].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 環境光
+	g_aLight[nLight].Position = D3DXVECTOR3(1.0f, 1.0f, 1.0f);		// 光源位置
+	vecDir = D3DXVECTOR3(0.0f, -1.0f, 0.0f);						// 光源方向
+	D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[nLight].Direction, &vecDir);
+	g_aLight[nLight].Range = 1.0f;									// 光源有効距離
+	g_aLight[nLight].Falloff = 1.0f;								// 輝度減衰（スポット）
+	g_aLight[nLight].Attenuation0 = 1.0f;							// 輝度減衰
+	g_aLight[nLight].Attenuation1 = 1.0f;
+	g_aLight[nLight].Attenuation2 = 1.0f;
+	g_aLight[nLight].Theta = 1.0f;									// 内部角度（スポット）
+	g_aLight[nLight].Phi = 1.0f;									// 外部エッジ（スポット）
+
+	pDevice->SetLight(nLight, &g_aLight[nLight]);					// レンダリングパイプラインに設定
+}
+
+//=============================================================================
+// ライト設定処理
+//=============================================================================
+void SetLightDirectional(int nLight)
+{
+	LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	D3DXVECTOR3 vecDir;
+
+	g_aLight[nLight].Type = D3DLIGHT_DIRECTIONAL;					// タイプ
+	g_aLight[nLight].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 拡散光
+	g_aLight[nLight].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 鏡面反射光
+	g_aLight[nLight].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 環境光
+	g_aLight[nLight].Position = D3DXVECTOR3(1.0f, 1.0f, 1.0f);		// 光源位置
+	vecDir = D3DXVECTOR3(0.0f, -1.0f, 0.0f);						// 光源方向
+	D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[nLight].Direction, &vecDir);
+	g_aLight[nLight].Range = 1.0f;									// 光源有効距離
+	g_aLight[nLight].Falloff = 1.0f;								// 輝度減衰（スポット）
+	g_aLight[nLight].Attenuation0 = 1.0f;							// 輝度減衰
+	g_aLight[nLight].Attenuation1 = 1.0f;
+	g_aLight[nLight].Attenuation2 = 1.0f;
+	g_aLight[nLight].Theta = 1.0f;									// 内部角度（スポット）
+	g_aLight[nLight].Phi = 1.0f;									// 外部エッジ（スポット）
+
+	pDevice->SetLight(nLight, &g_aLight[nLight]);					// レンダリングパイプラインに設定
+}
+
+#ifdef _DEBUG
+//=============================================================================
+// ライト状態処理（デバッグ）
+//=============================================================================
+void UpdateDebugLight(void)
+{
+	PrintDebugProc("【 LIGHT 】\n");
+	for (int i = 0; i < LIGHT_MAX; i++)
+	{
+		PrintDebugProc("Ligth[%d] Type[%d]\n", i, g_aLight[i].Type);
+		PrintDebugProc("Diffuse  [R:%f,G:%f,B:%f,A:%f]\n",
+			g_aLight[i].Diffuse.r, g_aLight[i].Diffuse.g, g_aLight[i].Diffuse.b, g_aLight[i].Diffuse.a);
+		PrintDebugProc("Specular [R:%f,G:%f,B:%f,A:%f]\n",
+			g_aLight[i].Specular.r, g_aLight[i].Specular.g, g_aLight[i].Specular.b, g_aLight[i].Specular.a);
+		PrintDebugProc("Ambient  [R:%f,G:%f,B:%f,A:%f]\n",
+			g_aLight[i].Ambient.r, g_aLight[i].Ambient.g, g_aLight[i].Ambient.b, g_aLight[i].Ambient.a);
+	}
+	PrintDebugProc("\n");
+}
+#endif

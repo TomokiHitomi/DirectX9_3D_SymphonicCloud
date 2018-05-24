@@ -12,7 +12,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	LIGHT_MAX				(5)						// ライトの数
+#define	LIGHT_MAX				(2)						// ライトの数
 
 #define LIGHT_DIFFUSE_1			(0.2f)
 #define LIGHT_DIFFUSE_2			(0.1f)
@@ -39,5 +39,8 @@ enum
 //*****************************************************************************
 void InitLight(void);
 void SetLight(int nLight, bool bFlag);
+#ifdef _DEBUG
+void UpdateDebugLight(void);
+#endif
 
 #endif

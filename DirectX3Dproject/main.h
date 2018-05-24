@@ -48,6 +48,8 @@
 #define DEBUG_RECT		(50)	// デバッグ
 
 #define MOUSE_MARGIN	(10)
+#define STR(var) #var					// 引数にした変数を変数名を示す文字列リテラルとして返すマクロ関数
+
 
 // ３Ｄポリゴン頂点フォーマット
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)

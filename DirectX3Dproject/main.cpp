@@ -503,6 +503,7 @@ void Update(void)
 		g_bDispDebug = g_bDispDebug ? false : true;
 	}
 	UpdateDebugProc();
+	UpdateDebugLight();	// ライト（デバッグ）
 #endif
 
 	E_STAGE eStageTemp = g_eStage;

@@ -113,15 +113,15 @@ void DrawPlayer(void)
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	PLAYER *player = GetPlayer(0);
 
-	SetLight(LIGHT2, TRUE);
-	// ラインティングを無効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//SetLight(LIGHT2, TRUE);
+	//// ラインティングを無効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	player->m_CSkinMesh.Draw(pDevice, player->prs);
 
-	// ラインティングを有効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
-	SetLight(LIGHT2, FALSE);
+	//// ラインティングを有効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	//SetLight(LIGHT2, FALSE);
 }
 
 //=============================================================================

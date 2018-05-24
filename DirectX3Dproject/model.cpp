@@ -21,6 +21,7 @@
 #include "lockon.h"
 #include "sound.h"
 #include "player.h"
+#include "Light.h"
 
 // デバッグ用
 #ifdef _DEBUG
@@ -80,6 +81,9 @@ HRESULT InitModel(int nType)
 
 		model->nCharge = 0;
 		model->nChargeCount = 0;
+
+		model->nChangeLightSpot = 0;
+		model->nChangeLightPoint = 0;
 
 		model->nAttackFireCount = 0;
 		model->nAttackThunderCount = 0;
@@ -873,6 +877,11 @@ void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode)
 
 	if (IsMobUseLeftPressed() || GetKeyboardPress(DIK_B) || IsButtonPressed(0, R_BUTTON_ZR))
 	{	// ノーマルバレット発射
+		model->nChangeLightPoint = 0;
+		SetLight(LIGHT_POINT, TRUE);
+		SetLightPoint(LIGHT_POINT, SetColorPallet(COLOR_PALLET_MAGENTA),
+			model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
+			20.0f, 1.0f);
 		if (model->nAttackNormalCount <= 0 && model->fStatusNormal > MODEL_STATUS_NORMAL_SUB)
 		{	// ノーマルバレットのクールダウン確認
 			model->bAttack = true;
@@ -891,6 +900,16 @@ void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode)
 	}
 	else
 	{
+		if (model->nChangeLightPoint < MODEL_LIGHT_POINT)
+		{
+			model->nChangeLightPoint++;
+			SetLightPoint(LIGHT_POINT, SetColorPallet(COLOR_PALLET_MAGENTA) / (float)model->nChangeLightPoint,
+				model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f), 50.0f, 1.0f);
+		}
+		else
+		{
+			SetLight(LIGHT_SPOT, FALSE);
+		}
 		model->bAttack = false;
 	}
 }
@@ -932,9 +951,23 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 			}
 		}
 		model->nChargeCount++;
+		model->nChangeLightSpot = 0;
+		SetLight(LIGHT_SPOT, TRUE);
+		SetLightSpot(LIGHT_SPOT, GetMagicColor(), model->posModel,
+			D3DXVECTOR3(0.0f, 1.0f, 0.0f), 500.0f, 1.0f, 2.0f, 3.0f);
 	}
 	else if (GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R))
 	{
+		if (model->nChangeLightSpot < MODEL_LIGHT_SPOT)
+		{
+			model->nChangeLightSpot++;
+			SetLightSpot(LIGHT_SPOT, GetMagicColor() / (float)model->nChangeLightSpot,
+				model->posModel, D3DXVECTOR3(0.0f, 1.0f, 0.0f), 500.0f, 1.0f, 2.0f, 3.0f);
+		}
+		else
+		{
+			SetLight(LIGHT_SPOT, FALSE);
+		}
 		model->bAttackSp = true;
 		//SetPlayerAnime(0, ANIME08);
 

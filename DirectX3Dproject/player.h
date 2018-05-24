@@ -61,7 +61,7 @@
 #define PLAYER_STATUS_MP_RECOVER			(5.0f)		// MPの回復速度
 
 // マジックステータス
-#define PLAYER_STATUS_NORMAL				(100.0f)	// ノーマル
+#define PLAYER_STATUS_NORMAL			(100.0f)	// ノーマル
 #define PLAYER_STATUS_FIRE				(100.0f)	// ファイア
 #define PLAYER_STATUS_THUNDER			(100.0f)	// サンダー
 #define PLAYER_STATUS_ICE				(100.0f)	// アイス

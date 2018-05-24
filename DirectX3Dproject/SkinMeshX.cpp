@@ -191,11 +191,10 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.b = 1.0f;
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse.a = 1.0f;
 
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.r = 0.1f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.g = 0.1f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.b = 0.1f;
-				pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.a = 1.0f;
-
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.r = 0.1f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.g = 0.1f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.b = 0.1f;
+				//pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive.a = 1.0f;
 
 				////スペキュラも0.5に設定(上で設定したマテリアルカラーの0.5の設定をコピー)
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Specular = pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse;

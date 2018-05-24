@@ -147,7 +147,7 @@ void DrawCloudfield(void)
 	//// グーロー・シェーディング
 	//pDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
 
-	SetLight(LIGHT2, TRUE);
+	//SetLight(LIGHT2, TRUE);
 
 	/******************** ワールド変換 ********************/
 	// ワールドマトリクスの初期化
@@ -198,7 +198,7 @@ void DrawCloudfield(void)
 	//// フラット・シェーディング
 	//pDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_FLAT);
 
-	SetLight(LIGHT2, FALSE);
+	//SetLight(LIGHT2, FALSE);
 }
 
 //=============================================================================

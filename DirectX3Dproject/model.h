@@ -53,7 +53,7 @@
 #define MODEL_JUMP_POWER				(8.0f)		// ジャンプパワー
 #define MODEL_JUMP_POWER_DOWN			(0.07f)		// ジャンプパワー
 
-#define MODEL_STATUS_HP					(5.0f)	// HP
+#define MODEL_STATUS_HP					(50.0f)		// HP
 #define MODEL_STATUS_MP					(1000.0f)	// MP
 #define MODEL_STATUS_MP_SUB				(10.0f)		// MPの減算数
 #define MODEL_STATUS_MP_LIMITER			(100.0f)	// MPの連続使用制限
@@ -104,6 +104,9 @@
 #define MODEL_TILT_MARGIN_BOOST_LEAR	(0.2f)		// 後方移動限界傾斜
 #define MODEL_TILT_MARGIN_BOOST_SIDE	(0.2f)		// 側面移動限界傾斜
 
+/* ライト */
+#define MODEL_LIGHT_SPOT				(20)		// スポットライト有効時間
+#define MODEL_LIGHT_POINT				(20)		// ポイントライト有効時間
 
 //*****************************************************************************
 // 構造体定義
@@ -141,6 +144,9 @@ typedef struct
 
 	int				nCharge;
 	int				nChargeCount;
+
+	int				nChangeLightSpot;
+	int				nChangeLightPoint;
 
 	int				nAttackNormalCount;
 	int				nAttackFireCount;

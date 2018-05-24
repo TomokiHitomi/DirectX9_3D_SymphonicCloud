@@ -12,7 +12,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	LIGHT_MAX				(2)						// ライトの数
+#define	LIGHT_MAX				(4)						// ライトの数
 
 #define LIGHT_DIFFUSE_1			(0.2f)
 #define LIGHT_DIFFUSE_2			(0.1f)
@@ -28,10 +28,10 @@
 //*****************************************************************************
 enum
 {
-	LIGHT0,
-	LIGHT1,
-	LIGHT2,
-	LIGHT3
+	LIGHT_MAIN,
+	LIGHT_SUB,
+	LIGHT_POINT,
+	LIGHT_SPOT
 };
 
 //*****************************************************************************
@@ -39,6 +39,12 @@ enum
 //*****************************************************************************
 void InitLight(void);
 void SetLight(int nLight, bool bFlag);
+void SetLightPoint(int nLight, D3DXCOLOR xColor, D3DXVECTOR3 pos,
+	FLOAT fRange, FLOAT fAttenuation);
+void SetLightSpot(int nLight, D3DXCOLOR xColor, D3DXVECTOR3 pos, D3DXVECTOR3 vecDir,
+	FLOAT fRange, FLOAT fAttenuation, FLOAT fTheta, FLOAT fPhi);
+void SetLightDirectional(int nLight, D3DXCOLOR xColor, D3DXVECTOR3 vecDir);
+
 #ifdef _DEBUG
 void UpdateDebugLight(void);
 #endif

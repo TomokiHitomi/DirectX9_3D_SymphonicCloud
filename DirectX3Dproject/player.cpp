@@ -181,29 +181,33 @@ void CheckActionPlayer(void)
 	if (player->bRecoilFlag)
 	{
 		player->nRecoilCount++;
+		player->nJumpCount++;
 		if (player->nRecoilCount > PLAYER_RECOIL_TIME)
 		{
 			player->bRecoilFlag = false;
 			player->nRecoilCount = 0;
 		}
 	}
-	else if ((GetKeyboardPress(DIK_V) || IsMobUseRightPressed() || IsButtonPressed(0, R_BUTTON_R)) && CheckMagicModel(0, GetTypeMagic()))
-	{	// マジックサークルチャージ
-		player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ATTACK);
-		SetPlayerAnime(0, PLAYER_ANIME_OVERDRAW, SKIN_ANIME_WEIGHT_PLAYER_FAST);
-		player->bOverdraw = true;
-	}
-	else if ((GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R)) && player->bOverdraw)
+	//else if ((GetKeyboardPress(DIK_V) || IsMobUseRightPressed() || IsButtonPressed(0, R_BUTTON_R)) && CheckMagicModel(0, GetTypeMagic()))
+	//{	// マジックサークルチャージ
+	//	//player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ATTACK);
+	//	//SetPlayerAnime(0, PLAYER_ANIME_OVERDRAW, SKIN_ANIME_WEIGHT_PLAYER_FAST);
+	//	player->bOverdraw = true;
+	//}
+	//else if ((GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R)) && player->bOverdraw)
+	else if ((GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R)) && CheckMagicModel(0, GetTypeMagic()))
 	{
+		player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_ATTACK);
 		SetPlayerAnime(0, PLAYER_ANIME_RECOIL, SKIN_ANIME_WEIGHT_PLAYER_NORMAL);
 		player->bRecoilFlag = true;
-		player->bOverdraw = false;
+		//player->bOverdraw = false;
 	}
 	else if (model->bJump && player->nJumpFlag == PLAYER_JUMP_START)
 	{
 		player->m_CSkinMesh.SetAnimSpeed(SKIN_ANIME_SPEED_PLAYER_JUMP);
 		SetPlayerAnime(0, PLAYER_ANIME_JUMP_START, SKIN_ANIME_WEIGHT_PLAYER_FAST);
 		player->nJumpFlag = PLAYER_JUMP_LOOP;
+		player->nJumpCount = 0;
 	}
 	else if (player->nJumpFlag == PLAYER_JUMP_LOOP)
 	{
@@ -212,7 +216,7 @@ void CheckActionPlayer(void)
 		{
 			SetPlayerAnime(0, PLAYER_ANIME_JUMP_LOOP, SKIN_ANIME_WEIGHT_PLAYER_SLOW);
 			player->nJumpFlag = PLAYER_JUMP_END;
-			player->nJumpCount = 0;
+			//player->nJumpCount = 0;
 		}
 	}
 	else if (player->nJumpFlag == PLAYER_JUMP_END)
@@ -221,6 +225,10 @@ void CheckActionPlayer(void)
 		{
 			SetPlayerAnime(0, PLAYER_ANIME_JUMP_END, SKIN_ANIME_WEIGHT_PLAYER_FAST);
 			player->nJumpFlag = PLAYER_JUMP_LAST;
+		}
+		else
+		{
+			SetPlayerAnime(0, PLAYER_ANIME_JUMP_LOOP, SKIN_ANIME_WEIGHT_PLAYER_SLOW);
 		}
 	}
 	else if (player->nJumpFlag == PLAYER_JUMP_LAST)

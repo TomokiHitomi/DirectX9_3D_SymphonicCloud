@@ -874,23 +874,24 @@ void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode)
 {
 	MODEL *model = &modelWk[nModel];
 	CAMERA *camera = GetCamera(CameraMode);
+	D3DXVECTOR3 vecTemp = model->posModel + D3DXVECTOR3(cosf(model->fHAngle + D3DX_PI)*MODEL_LENGTH_WEAPON, MODEL_HEIGHT_WEAPON, sinf(model->fHAngle + D3DX_PI)*MODEL_LENGTH_WEAPON);
 
 	if (IsMobUseLeftPressed() || GetKeyboardPress(DIK_B) || IsButtonPressed(0, R_BUTTON_ZR))
 	{	// ノーマルバレット発射
-		model->nChangeLightPoint = 0;
-		SetLight(LIGHT_POINT, TRUE);
-		SetLightPoint(LIGHT_POINT, SetColorPallet(COLOR_PALLET_MAGENTA),
-			model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
-			20.0f, 1.0f);
 		if (model->nAttackNormalCount <= 0 && model->fStatusNormal > MODEL_STATUS_NORMAL_SUB)
 		{	// ノーマルバレットのクールダウン確認
+			model->nChangeLightPoint = 0;
+			SetLight(LIGHT_POINT, TRUE);
+			SetLightPoint(LIGHT_POINT, SetColorPallet(COLOR_PALLET_MAGENTA),
+				vecTemp,
+				30.0f, 0.03f);
 			model->bAttack = true;
 			// 視点→注視点のベクトルに交わるベクトルをセット
 			D3DXVECTOR3 vecTag = camera->posCameraAt - camera->posCameraEye;
 			D3DXVec3Normalize(&vecTag, &vecTag);
 			SetBullet(
 				camera->posCameraAt + vecTag * BULLET_TAG_VECTOR,
-				model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
+				vecTemp,
 				SetColorPallet(COLOR_PALLET_MAGENTA),
 				1.0f,
 				BULLET_NORMAL);
@@ -900,17 +901,19 @@ void AttackNormalModel(int nModel, int CameraMode, int CameraGameMode)
 	}
 	else
 	{
-		if (model->nChangeLightPoint < MODEL_LIGHT_POINT)
-		{
-			model->nChangeLightPoint++;
-			SetLightPoint(LIGHT_POINT, SetColorPallet(COLOR_PALLET_MAGENTA) / (float)model->nChangeLightPoint,
-				model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f), 50.0f, 1.0f);
-		}
-		else
-		{
-			SetLight(LIGHT_SPOT, FALSE);
-		}
 		model->bAttack = false;
+	}
+
+	if (model->nChangeLightPoint < MODEL_LIGHT_POINT)
+	{
+		model->nChangeLightPoint++;
+		//SetLightPoint(LIGHT_POINT, SetColorPallet(COLOR_PALLET_MAGENTA) / (float)model->nChangeLightPoint,
+		//	vecTemp,
+		//	40.0f, 0.03f);
+	}
+	else
+	{
+		SetLight(LIGHT_POINT, FALSE);
 	}
 }
 
@@ -934,12 +937,19 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 	if (!CheckMagicModel(0, GetTypeMagic()))
 	{
 		// MPがない場合はノンチャージ
+		model->nAttackSpCount++;
+		if (model->nAttackSpCount > PLAYER_RECOIL_TIME)
+		{
+			model->bAttackSp = false;
+			model->nAttackSpCount = 0;
+		}
 	}
 	else if (GetKeyboardPress(DIK_V) || IsMobUseRightPressed() || IsButtonPressed(0, R_BUTTON_R))
 	{	// マジックサークルチャージ
 		if (model->nChargeCount % MODEL_STATUS_CHARGE_SPEED == 0 || model->nChargeCount == 0)
 		{
-			model->bAttackSp = true;
+			model->bAttackSp = false;
+			//model->bAttackSp = true;
 			for (int j = 0; j < MAGICCIRCLE_MAX; j++)
 			{
 				if (!model->magicCircle[j].bUse)
@@ -953,22 +963,25 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 		model->nChargeCount++;
 		model->nChangeLightSpot = 0;
 		SetLight(LIGHT_SPOT, TRUE);
-		SetLightSpot(LIGHT_SPOT, GetMagicColor(), model->posModel,
-			D3DXVECTOR3(0.0f, 1.0f, 0.0f), 500.0f, 1.0f, 2.0f, 3.0f);
+		SetLightSpot(LIGHT_SPOT, GetMagicColor() * ((float)model->nCharge / (float)MAGICCIRCLE_MAX),
+			model->posModel + D3DXVECTOR3(0.0f, 100.0f,0.0f),
+			D3DXVECTOR3(0.0f, -1.0f, 0.0f), 300.0f, 0.02f, 0.5f, 0.5f);
 	}
 	else if (GetKeyboardRelease(DIK_V) || IsMobUseRightReleased() || IsButtonReleased(0, R_BUTTON_R))
 	{
-		if (model->nChangeLightSpot < MODEL_LIGHT_SPOT)
-		{
-			model->nChangeLightSpot++;
-			SetLightSpot(LIGHT_SPOT, GetMagicColor() / (float)model->nChangeLightSpot,
-				model->posModel, D3DXVECTOR3(0.0f, 1.0f, 0.0f), 500.0f, 1.0f, 2.0f, 3.0f);
-		}
-		else
-		{
+		//if (model->nChangeLightSpot < MODEL_LIGHT_SPOT)
+		//{
+		//	model->nChangeLightSpot++;
+		//	SetLightSpot(LIGHT_SPOT, GetMagicColor() / (float)model->nChangeLightSpot,
+		//		model->posModel + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
+		//		D3DXVECTOR3(0.0f, -1.0f, 0.0f), 300.0f, 0.02f, 0.5f, 0.5f);
+		//}
+		//else
+		//{
 			SetLight(LIGHT_SPOT, FALSE);
-		}
+		//}
 		model->bAttackSp = true;
+		model->nAttackSpCount = 0;
 		//SetPlayerAnime(0, ANIME08);
 
 		// マジックバレット発射
@@ -1040,7 +1053,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 						SetSpecialBulletIce(
 							model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
 							lockon->posLockon,
-							D3DXVECTOR3(cosf(model->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(model->fHAngle + D3DX_PI * 0.5f)),
+							D3DXVECTOR3(cosf(camera->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(camera->fHAngle + D3DX_PI * 0.5f)),
 							i,
 							model->nCharge);
 						nLockonCount++;
@@ -1054,7 +1067,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 					SetSpecialBulletIce(
 						model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
 						camera->posCameraAt + vecTemp * BULLET_TAG_VECTOR,
-						D3DXVECTOR3(cosf(model->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(model->fHAngle + D3DX_PI * 0.5f)),
+						D3DXVECTOR3(cosf(camera->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(camera->fHAngle + D3DX_PI * 0.5f)),
 						-1,
 						model->nCharge);
 				}
@@ -1111,7 +1124,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 						SetSpecialBulletWater(
 							model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
 							lockon->posLockon,
-							D3DXVECTOR3(cosf(model->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(model->fHAngle + D3DX_PI * 0.5f)),
+							D3DXVECTOR3(cosf(camera->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(camera->fHAngle + D3DX_PI * 0.5f)),
 							i,
 							model->nCharge);
 						nLockonCount++;
@@ -1125,7 +1138,7 @@ void AttackMagicModel(int nModel, int CameraMode, int CameraGameMode)
 					SetSpecialBulletWater(
 						model->posModel + D3DXVECTOR3(0.0f, MODEL_HEIGHT_WEAPON, 0.0f),
 						camera->posCameraAt + vecTemp * BULLET_TAG_VECTOR,
-						D3DXVECTOR3(cosf(model->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(model->fHAngle + D3DX_PI * 0.5f)),
+						D3DXVECTOR3(cosf(camera->fHAngle + D3DX_PI * 0.5f), 0.0f, sinf(camera->fHAngle + D3DX_PI * 0.5f)),
 						-1,
 						model->nCharge);
 				}

@@ -129,7 +129,7 @@ HRESULT InitMeshcloud(D3DXVECTOR3 pos, D3DXVECTOR3 rot,
 				meshcloud->vertexWK[nCntVtxZ * (g_nNumBlockXCloud + 1) + nCntVtxX].nor = D3DXVECTOR3(0.0f, 1.0, 0.0f);
 
 				// 反射光の設定
-				meshcloud->vertexWK[nCntVtxZ * (g_nNumBlockXCloud + 1) + nCntVtxX].diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, MESHCLOUD_ALPHA);
+				meshcloud->vertexWK[nCntVtxZ * (g_nNumBlockXCloud + 1) + nCntVtxX].diffuse = D3DXCOLOR(MESHCLOUD_DIFFUSE_R, MESHCLOUD_DIFFUSE_G, MESHCLOUD_DIFFUSE_B, MESHCLOUD_DIFFUSE_A);
 
 				// テクスチャ座標の設定
 				meshcloud->vertexWK[nCntVtxZ * (g_nNumBlockXCloud + 1) + nCntVtxX].tex.x = texSizeX * nCntVtxX / 5;
@@ -271,8 +271,8 @@ void DrawMeshcloud(void)
 	MESHCLOUD *meshcloud = &meshcloudWk[0];
 	D3DXMATRIX mtxRot, mtxTranslate;
 
-	// ラインティングを無効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//// ラインティングを無効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	for (int i = 0; i < MESHCLOUD_MAX; i++, meshcloud++)
 	{
@@ -307,7 +307,7 @@ void DrawMeshcloud(void)
 		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, g_nNumVertexCloud, 0, g_nNumPolygonCloud);
 	}
 
-	// ラインティングを有効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	//// ラインティングを有効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 

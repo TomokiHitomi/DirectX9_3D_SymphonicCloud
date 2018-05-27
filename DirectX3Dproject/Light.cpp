@@ -40,7 +40,7 @@ void InitLight(void)
 	g_aLight[0].Type = D3DLIGHT_DIRECTIONAL;
 
 	// ライト0の拡散光の設定
-	g_aLight[0].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	g_aLight[0].Diffuse = D3DXCOLOR(LIGHT_DIFFUSE_0, LIGHT_DIFFUSE_0, LIGHT_DIFFUSE_0, 1.0f);
 
 	// ライト0の鏡面反射光の設定
 	g_aLight[0].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
@@ -226,15 +226,15 @@ void SetLightPoint(int nLight, D3DXCOLOR xColor, D3DXVECTOR3 pos,
 	g_aLight[nLight].Type = D3DLIGHT_POINT;									// タイプ
 	g_aLight[nLight].Diffuse = xColor;										// 拡散光
 	//g_aLight[nLight].Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);		// 鏡面反射光
-	//g_aLight[nLight].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);			// 環境光
+	g_aLight[nLight].Ambient = xColor * LIGHT_AMBIENT_POINT;				// 環境光
 	g_aLight[nLight].Position = pos;										// 光源位置
 	//vecDir = D3DXVECTOR3(0.0f, -1.0f, 0.0f);								// 光源方向
 	//D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[nLight].Direction, &vecDir);
 	g_aLight[nLight].Range = fRange;										// 光源有効距離
 	//g_aLight[nLight].Falloff = 1.0f;										// 輝度減衰（スポット）
-	g_aLight[nLight].Attenuation0 = fAttenuation;							// 輝度減衰
-	//g_aLight[nLight].Attenuation1 = 1.0f;
-	//g_aLight[nLight].Attenuation2 = 1.0f;
+	//g_aLight[nLight].Attenuation0 = fAttenuation;							// 輝度減衰
+	g_aLight[nLight].Attenuation1 = fAttenuation;
+	//g_aLight[nLight].Attenuation2 = fAttenuation;
 	//g_aLight[nLight].Theta = 1.0f;										// 内部角度（スポット）
 	//g_aLight[nLight].Phi = 1.0f;											// 外部エッジ（スポット）
 		
@@ -252,13 +252,13 @@ void SetLightSpot(int nLight, D3DXCOLOR xColor, D3DXVECTOR3 pos, D3DXVECTOR3 vec
 	g_aLight[nLight].Type = D3DLIGHT_SPOT;									// タイプ
 	g_aLight[nLight].Diffuse = xColor;										// 拡散光
 	g_aLight[nLight].Specular = xColor;										// 鏡面反射光
-	g_aLight[nLight].Ambient = xColor/7.0f;										// 環境光
+	g_aLight[nLight].Ambient = xColor * LIGHT_AMBIENT_SPOT;					// 環境光
 	g_aLight[nLight].Position = pos;										// 光源位置
 	D3DXVec3Normalize((D3DXVECTOR3*)&g_aLight[nLight].Direction, &vecDir);	// 光源方向
 	g_aLight[nLight].Range = fRange;										// 光源有効距離
-	g_aLight[nLight].Falloff = 1.0f;										// 輝度減衰（スポット）
-	g_aLight[nLight].Attenuation0 = fAttenuation;							// 輝度減衰
-	//g_aLight[nLight].Attenuation1 = fAttenuation;
+	g_aLight[nLight].Falloff = 0.5f;										// 輝度減衰（スポット）
+	//g_aLight[nLight].Attenuation0 = fAttenuation;							// 輝度減衰
+	g_aLight[nLight].Attenuation1 = fAttenuation;
 	//g_aLight[nLight].Attenuation2 = fAttenuation;
 	g_aLight[nLight].Theta = fTheta;										// 内部角度（スポット）
 	g_aLight[nLight].Phi = fPhi;											// 外部エッジ（スポット）

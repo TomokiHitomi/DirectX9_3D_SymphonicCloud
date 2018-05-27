@@ -660,7 +660,7 @@ void Draw(void)
 		{
 		case STAGE_TITLE:					// タイトル
 			DrawSkydome();			// スカイドーム
-			DrawSkydomeeffect();	// スカイドームエフェクト
+			//DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
 			DrawShadow();			// 影
 			//DrawModel();			// モデル
@@ -685,7 +685,7 @@ void Draw(void)
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGVERTEXMODE, D3DFOG_EXP2);
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGDENSITY, g_fFogDensity);
 			DrawSkydome();			// スカイドーム
-			DrawSkydomeeffect();	// スカイドームエフェクト
+			//DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
 			//DrawCloudfield();		// 雲フィールド
 			//g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, FALSE);					// フォグブレンディング有効
@@ -723,7 +723,7 @@ void Draw(void)
 			break;
 		case STAGE_RESULT:					// リザルト
 			DrawSkydome();			// スカイドーム
-			DrawSkydomeeffect();	// スカイドームエフェクト
+			//DrawSkydomeeffect();	// スカイドームエフェクト
 			DrawMeshcloud();		// 雲海
 			DrawShadow();			// 影
 			DrawModel();			// モデル

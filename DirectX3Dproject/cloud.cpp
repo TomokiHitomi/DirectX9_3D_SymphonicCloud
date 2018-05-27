@@ -149,8 +149,8 @@ void DrawCloud(void)
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);			// αデスティネーションカラーの指定
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
-	// ラインティングを無効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//// ラインティングを無効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	for (int i = 0; i < CLOUD_MAX; i++, cloud++)
 	{
@@ -210,8 +210,8 @@ void DrawCloud(void)
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	// αデスティネーションカラーの指定
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
-	// ラインティングを有効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	//// ラインティングを有効にする
+	//pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 //=============================================================================

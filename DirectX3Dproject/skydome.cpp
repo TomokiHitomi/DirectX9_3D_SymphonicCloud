@@ -69,9 +69,12 @@ HRESULT InitSkydome(int nType)
 		}
 
 		// テクスチャの読み込み
-		D3DXCreateTextureFromFile(pDevice,				// デバイス
+		if (FAILED(D3DXCreateTextureFromFile(pDevice,				// デバイス
 			SKYDOME_TEXTURE,	// ファイル名
-			&g_pD3DTextureSkydome);		// 読み込むメモリ（複数なら配列に）
+			&g_pD3DTextureSkydome)))		// 読み込むメモリ（複数なら配列に）
+		{
+			return E_FAIL;
+		}
 	}
 
 	return S_OK;

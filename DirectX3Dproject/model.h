@@ -36,6 +36,7 @@
 
 #define MODEL_HEIGHT_EYE				(45.0f)
 #define MODEL_HEIGHT_WEAPON				(35.0f)
+#define MODEL_LENGTH_WEAPON				(25.0f)
 #define MODEL_H_ANGLE					(D3DX_PI * 1.5f)
 
 #define MODEL_MOVE_SPEED				(5)
@@ -106,7 +107,7 @@
 
 /* ライト */
 #define MODEL_LIGHT_SPOT				(20)		// スポットライト有効時間
-#define MODEL_LIGHT_POINT				(20)		// ポイントライト有効時間
+#define MODEL_LIGHT_POINT				(8)		// ポイントライト有効時間
 
 //*****************************************************************************
 // 構造体定義

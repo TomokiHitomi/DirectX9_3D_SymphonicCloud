@@ -31,7 +31,16 @@
 #define MESHCLOUD_WAVE				(5)
 #define MESHCLOUD_WAVE_SPEED		(0.02f)
 
-#define MESHCLOUD_ALPHA				(0.8f)
+//#define MESHCLOUD_DIFFUSE_R			(1.0f)
+//#define MESHCLOUD_DIFFUSE_G			(1.0f)
+//#define MESHCLOUD_DIFFUSE_B			(1.0f)
+//#define MESHCLOUD_DIFFUSE_A			(0.8f)
+
+#define MESHCLOUD_DIFFUSE_R			(1.0f)
+#define MESHCLOUD_DIFFUSE_G			(1.0f)
+#define MESHCLOUD_DIFFUSE_B			(1.0f)
+#define MESHCLOUD_DIFFUSE_A			(0.95f)
+
 
 typedef struct
 {

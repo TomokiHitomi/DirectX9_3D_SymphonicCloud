@@ -97,6 +97,25 @@ void UpdatePlayer(void)
 	player->prs.pos = model->posModel;
 	player->prs.rot = model->rotModel;
 
+
+	D3DXMATRIX mtxScl, mtxRot, mtxTranslate;
+
+	/******************** ƒ[ƒ‹ƒh•ÏŠ· ********************/
+	// ƒ[ƒ‹ƒhƒ}ƒgƒŠƒNƒX‚Ì‰Šú‰»
+	D3DXMatrixIdentity(&g_mtxWorldPlayer);
+
+	// ySzƒXƒP[ƒ‹‚ð”½‰f(Multiply‚Ís—ñŒvŽZ)
+	D3DXMatrixScaling(&mtxScl, player->prs.scl .x, player->prs.scl.y, player->prs.scl.z);
+	D3DXMatrixMultiply(&g_mtxWorldPlayer, &g_mtxWorldPlayer, &mtxScl);
+
+	// yRz‰ñ“]‚ð”½‰f(YawPitchRoll‚Íy,x,z)
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, player->prs.rot.y, player->prs.rot.x, player->prs.rot.z);
+	D3DXMatrixMultiply(&g_mtxWorldPlayer, &g_mtxWorldPlayer, &mtxRot);
+
+	// yTz•½sˆÚ“®‚ð”½‰f(ƒIƒuƒWƒFƒNƒg‚ð”z’u‚µ‚Ä‚¢‚éj
+	D3DXMatrixTranslation(&mtxTranslate, player->prs.pos.x, player->prs.pos.y, player->prs.pos.z);
+	D3DXMatrixMultiply(&g_mtxWorldPlayer, &g_mtxWorldPlayer, &mtxTranslate);
+
 	player->m_CSkinMesh.Update(g_mtxWorldPlayer);
 
 #ifdef _DEBUG

@@ -201,6 +201,7 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 				////pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive = pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse;
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Ambient = pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse;
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Power = 50.0f;
+
 				//テクスチャのファイルパス保存用変数
 				TCHAR strTexturePath[MAX_PATH];
 				//テクスチャのファイルパスを保存(再読み込み時に必要)
@@ -525,21 +526,6 @@ VOID CSkinMesh::RenderMeshContainer(LPDIRECT3DDEVICE9 pDevice, MYMESHCONTAINER* 
 					//mStackにオフセット行列*ボーン行列を格納
 					mStack = pMeshContainer->pBoneOffsetMatrices[iMatrixIndex] * (*pMeshContainer->ppBoneMatrix[iMatrixIndex]);
 					//行列スタックに格納
-
-					D3DXMATRIX mtxScl, mtxRot, mtxTranslate;
-
-					// 【S】スケールを反映(Multiplyは行列計算)
-					D3DXMatrixScaling(&mtxScl, prs.scl.x, prs.scl.y, prs.scl.z);
-					D3DXMatrixMultiply(&mStack, &mStack, &mtxScl);
-
-					// 【R】回転を反映(YawPitchRollはy,x,z)
-					D3DXMatrixRotationYawPitchRoll(&mtxRot, prs.rot.y, prs.rot.x, prs.rot.z);
-					D3DXMatrixMultiply(&mStack, &mStack, &mtxRot);
-
-					// 【T】平行移動を反映(オブジェクトを配置している）
-					D3DXMatrixTranslation(&mtxTranslate, prs.pos.x, prs.pos.y, prs.pos.z);
-					D3DXMatrixMultiply(&mStack, &mStack, &mtxTranslate);
-
 					pDevice->SetTransform(D3DTS_WORLDMATRIX(k), &mStack);
 				}
 			}

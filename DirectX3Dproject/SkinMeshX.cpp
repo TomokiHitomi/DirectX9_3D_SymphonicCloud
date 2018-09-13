@@ -526,21 +526,6 @@ VOID CSkinMesh::RenderMeshContainer(LPDIRECT3DDEVICE9 pDevice, MYMESHCONTAINER* 
 					//mStack‚ÉƒIƒtƒZƒbƒgs—ñ*ƒ{[ƒ“s—ñ‚ðŠi”[
 					mStack = pMeshContainer->pBoneOffsetMatrices[iMatrixIndex] * (*pMeshContainer->ppBoneMatrix[iMatrixIndex]);
 					//s—ñƒXƒ^ƒbƒN‚ÉŠi”[
-
-					D3DXMATRIX mtxScl, mtxRot, mtxTranslate;
-
-					// ySzƒXƒP[ƒ‹‚ð”½‰f(Multiply‚Ís—ñŒvŽZ)
-					D3DXMatrixScaling(&mtxScl, prs.scl.x, prs.scl.y, prs.scl.z);
-					D3DXMatrixMultiply(&mStack, &mStack, &mtxScl);
-
-					// yRz‰ñ“]‚ð”½‰f(YawPitchRoll‚Íy,x,z)
-					D3DXMatrixRotationYawPitchRoll(&mtxRot, prs.rot.y, prs.rot.x, prs.rot.z);
-					D3DXMatrixMultiply(&mStack, &mStack, &mtxRot);
-
-					// yTz•½sˆÚ“®‚ð”½‰f(ƒIƒuƒWƒFƒNƒg‚ð”z’u‚µ‚Ä‚¢‚éj
-					D3DXMatrixTranslation(&mtxTranslate, prs.pos.x, prs.pos.y, prs.pos.z);
-					D3DXMatrixMultiply(&mStack, &mStack, &mtxTranslate);
-
 					pDevice->SetTransform(D3DTS_WORLDMATRIX(k), &mStack);
 				}
 			}

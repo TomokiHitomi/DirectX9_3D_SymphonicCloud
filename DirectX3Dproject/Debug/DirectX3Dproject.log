@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 ﻿  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
   DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\project\DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)
+=======
+﻿  player.cpp
+  SkinMeshX.cpp
+c:\users\hitomi\documents\visual studio 2015\projects\directx9_3d_symphoniccloud\directx3dproject\skinmeshx.cpp(74): warning C4101: 'hr': ローカル変数は 1 度も使われていません。
+  コードを生成中...
+cl : コマンド ライン warning D9028: 簡易リビルド時のエラーです、通常のビルドに戻します
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.exe
+  DirectX3Dproject.vcxproj -> C:\Users\Hitomi\Documents\Visual Studio 2015\Projects\DirectX9_3D_SymphonicCloud\Debug\DirectX3Dproject.pdb (Full PDB)
+>>>>>>> 7227f332ceb0066c5ae7aad3d73ef4bb2503a9ed

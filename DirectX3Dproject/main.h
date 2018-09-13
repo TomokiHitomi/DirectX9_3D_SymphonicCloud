@@ -34,7 +34,7 @@
 #define CLASS_NAME		("AppClass")						// ウインドウのクラス名
 #define WINDOW_NAME		("DirectX 3D作品「SymphonicCloud」")// ウインドウのキャプション名
 #define ICON16			("data/ICON/icon16.ico")			// アイコン用画像 16x16
-#define SCREEN_SCALE	(1.5f)
+#define SCREEN_SCALE	(2.0f)
 
 #define SCREEN_WIDTH	(1280 * SCREEN_SCALE)	// ウインドウの幅
 #define SCREEN_HEIGHT	(720 * SCREEN_SCALE)	// ウインドウの高さ

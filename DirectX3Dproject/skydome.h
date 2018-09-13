@@ -13,13 +13,13 @@
 // マクロ定義
 //*****************************************************************************
 #define	SKYDOME_MODEL		"data/MODEL/Skydome/skydome.x"	// 読み込むモデル名
-//#define	SKYDOME_TEXTURE		"data/MODEL/Skydome/incskies_014_8k.png"	// 読み込むモデル名
+#define	SKYDOME_TEXTURE		"data/MODEL/Skydome/incskies_014_8k.png"	// 読み込むモデル名
 
-#define	SKYDOME_TEXTURE		"data/MODEL/Skydome/QQ101.png"	// 読み込むモデル名
+//#define	SKYDOME_TEXTURE		"data/MODEL/Skydome/QQ101.png"	// 読み込むモデル名
 
 #define SKYDOME_MAX			(1)
-//#define SKYDOME_HEIGHT		(200.0f)
-#define SKYDOME_HEIGHT		(-200.0f)
+#define SKYDOME_HEIGHT		(200.0f)
+//#define SKYDOME_HEIGHT		(-200.0f)
 
 #define SKYDOME_SCALE		(30.0f)
 #define SKYDOME_ROT_SPEED	(0.00001f)

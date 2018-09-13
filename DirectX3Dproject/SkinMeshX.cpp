@@ -201,6 +201,7 @@ HRESULT MY_HIERARCHY::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMesh
 				////pMeshContainer->pMaterials[iMaterial].MatD3D.Emissive = pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse;
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Ambient = pMeshContainer->pMaterials[iMaterial].MatD3D.Diffuse;
 				pMeshContainer->pMaterials[iMaterial].MatD3D.Power = 50.0f;
+
 				//テクスチャのファイルパス保存用変数
 				TCHAR strTexturePath[MAX_PATH];
 				//テクスチャのファイルパスを保存(再読み込み時に必要)

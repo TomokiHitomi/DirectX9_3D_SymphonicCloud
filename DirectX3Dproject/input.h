@@ -26,9 +26,9 @@
 #define RANGE_MAX		1000			// 有効範囲の最大値
 #define RANGE_MIN		-1000			// 有効範囲の最小値
 
-#define DEADZONE_GYRO	(100)			// 各軸の25%を無効ゾーンとする
-#define RANGE_MAX_GYRO	(10000)			// 有効範囲の最大値
-#define RANGE_MIN_GYRO	(-10000)		// 有効範囲の最小値
+#define DEADZONE_GYRO	(0)			// 各軸の25%を無効ゾーンとする
+#define RANGE_MAX_GYRO	(32767)			// 有効範囲の最大値
+#define RANGE_MIN_GYRO	(-32768)		// 有効範囲の最小値
 
 /* game pad情報 */
 #define BUTTON_UP		0x00000001l	// 方向キー上(.rgdwPOV == 0)

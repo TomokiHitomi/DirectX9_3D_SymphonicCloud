@@ -72,6 +72,11 @@ LPDIRECTINPUTEFFECT	g_lpDIEffect = NULL;
 DWORD				g_dwNumForceFeedbackAxis;
 BOOL				g_effectExist = FALSE;
 
+// ジャイロテスト用
+LONG			lGyroX = 0, lGyroY = 0, lGyroZ = 0;
+float			fGyroX = 0.0f, fGyroY = 0.0f, fGyroZ = 0.0f;
+float			fPreX = 0.0f, fPreY = 0.0f, fPreZ = 0.0f;
+
 int				g_nJoyconSlider;
 
 //=============================================================================
@@ -569,17 +574,17 @@ HRESULT InitializePad(HWND hWnd)			// パッド初期化
 		dipdw.diph.dwObj = DIJOFS_RY;
 		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
 
-		// GYRO用のRANGEを設定
-		dipdw.dwData = DEADZONE_GYRO;
-		// RZ軸の無効ゾーンを設定（Z回転）
-		dipdw.diph.dwObj = DIJOFS_RZ;
-		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
-		// SLIDER(0)の無効ゾーンを設定
-		dipdw.diph.dwObj = DIJOFS_SLIDER(0);
-		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
-		// SLIDER(1)の無効ゾーンを設定
-		dipdw.diph.dwObj = DIJOFS_SLIDER(1);
-		pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
+		//// GYRO用のRANGEを設定
+		//dipdw.dwData = DEADZONE_GYRO;
+		//// RZ軸の無効ゾーンを設定（Z回転）
+		//dipdw.diph.dwObj = DIJOFS_RZ;
+		//pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
+		//// SLIDER(0)の無効ゾーンを設定
+		//dipdw.diph.dwObj = DIJOFS_SLIDER(0);
+		//pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
+		//// SLIDER(1)の無効ゾーンを設定
+		//dipdw.diph.dwObj = DIJOFS_SLIDER(1);
+		//pGamePad[i]->SetProperty(DIPROP_DEADZONE, &dipdw.diph);
 
 		g_diDevCaps.dwSize = sizeof(DIDEVCAPS);
 		pGamePad[i]->GetCapabilities(&g_diDevCaps);
@@ -785,6 +790,45 @@ void UpdatePad(void)
 			PrintDebugProc("rglASlider[0:%l  1:%l]  rglFSlider[0:%l  1:%l]\n",
 				dijs.rglASlider[0], dijs.rglASlider[1], dijs.rglFSlider[0], dijs.rglFSlider[1]);
 			PrintDebugProc("rgbButtons\n");
+
+			if (GetKeyboardTrigger(DIK_R))
+			{
+				lGyroX = 0;
+				lGyroY = 0;
+				lGyroZ = 0;
+				fGyroX = 0.0f;
+				fGyroY = 0.0f;
+				fGyroZ = 0.0f;
+			}
+			lGyroX += dijs.lRz;
+			lGyroY += dijs.rglSlider[0];
+			lGyroZ += dijs.rglSlider[1];
+
+			float fDegree;
+
+			fDegree = (fPreX + dijs.lRz) * 15 / 2;
+			fGyroX += fDegree * 0.0174533f;
+
+			fDegree = (fPreY + dijs.rglSlider[0]) * 15 / 2;
+			fGyroY += fDegree * 0.0174533f;
+
+			fDegree = (fPreZ + dijs.rglSlider[1]) * 15 / 2;
+			fGyroZ += fDegree * 0.0174533f;
+
+
+			fPreX = dijs.lRz;
+			fPreY = dijs.rglSlider[0];
+			fPreZ = dijs.rglSlider[1];
+
+
+			PrintDebugProc("lGyro[X:%l  Y:%l  Z:%l]\n",
+				lGyroX, lGyroY, lGyroZ);
+
+			PrintDebugProc("fGyro[X:%f  Y:%f  Z:%f]\n",
+				fGyroX, fGyroY, fGyroZ);
+
+
+
 			for (int i = 0; i < 128; i++)
 			{
 				PrintDebugProc("%d", dijs.rgbButtons[i]);
